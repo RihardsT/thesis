@@ -1,0 +1,137 @@
+%Nepieciešamās pakotnes---------------------------------------------------------------------------------------------
+\usepackage{polyglossia} 	%Valodu atbalsts
+\usepackage{indentfirst} 	%Atkāpes pirmajām rindiņām
+\usepackage{titlesec} 	%Virsrakstu noformējumam
+\usepackage{graphicx}	%Attēlu importēšanai
+\graphicspath{{./Atteli/}}	%Apakšmape bildēm
+\usepackage{setspace}	%1.5Rindu atstarpem
+\usepackage{layouts}		%textwidth
+\usepackage{tabularx}	%Vajadzēs saliktus attēlus
+\usepackage{subcaption}	%formulas tekstā
+\usepackage{amsmath}
+\usepackage{amsfonts}	%\usepackage{amsmath,tabu}
+\usepackage[a4paper, lmargin=3.5cm,rmargin=2cm,tmargin=2cm, bmargin=2cm]{geometry}	%Nodefinē attālumus no malām
+\usepackage{algorithm}	%Pseidokoda rakstīšanai
+\usepackage{algorithmic}
+\usepackage{xcolor,colortbl}	%Tabulu šūnu iekrāsošanai
+\usepackage{longtable}	%Apjomīgām tabulām
+\usepackage{enumitem}	%numeracijai
+\usepackage{nomencl}	%Nomenklatūra
+\setlist[itemize]{noitemsep, topsep=0pt}
+\usepackage{fancyhdr}	%Numerācijai lappuses labajā pusē
+\usepackage{natbib}		%Literatūras saraksta veidošanai
+\usepackage{hyperref} 	%Garas formulas
+\usepackage{amsmath}	%Lai varetu ievietot lapu landscape
+\usepackage{lscape}
+%Noformējuma parametri---------------------------------------------------------------------------------------------
+\setdefaultlanguage{latvian}		%Nodefinējam valodas
+\setotherlanguages{english,russian}
+%\usepackage[none]{hyphenat}	%vārdu dališanai
+\usepackage[title,toc]{appendix}		%Bibliografija
+\bibliographystyle{unsrt}
+\renewcommand{\setthesubsection}{\arabic{subsection}}
+\usepackage{url}	%literatūras saraksta linkiem
+%\newcommand{\abstitlestyle}[1]{% Abstract title style
+%	\noindent \begin{center}
+%		\textbf{\Large #1}
+%	\end{center}}
+%\usepackage{lmodern}
+
+\newfontfamily{\cyrillicfont}{Times New Roman}
+%\setmainfont{Times New Roman}	%Fonts un atstarpe starp rindām
+%\newfontfamily\russianfont{Times New Roman}
+\fontsize{12pt}{1.5}
+\setstretch{1.5}	%Rindiņas pirmā atkāpe
+\setlength{\parindent}{1.27cm}
+\setlist{leftmargin=2cm}
+
+%Krāsa dažādiem ieēnojumiem
+%\definecolor{shadecolor}{rgb}{0.75, 0.85, 0.38}
+%Virsrakstu formatējums
+%\newfontfamily\sffamily{Times New Roman}
+%\newfontfamily\russianfont{Times New Roman}
+%\titleformat{\chapter}{\large\centering\sffamily\bfseries}{\thechapter}{0pc}{}
+%{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+%\newfontfamily\russianfont{Linux Libertine}	% Unicode Computer modern font
+%\titleformat{\chapter}{\large\centering\sffamily\bfseries}{\thechapter}{0pc}{}
+
+%\titleformat{\chapter}{\centering\fontsize{16}{16}\bfseries}{\thechapter}{5pt}{}
+%\titleformat{\section}{\sffamily\fontsize{14}{14}\bfseries}{\thesection}{5pt}{}
+%\titleformat{\subsection}{\sffamily\fontsize{12}{12}\bfseries}{\thesubsection}{5pt}{}
+
+\titleformat{\chapter}{\centering\fontsize{16}{16}\bfseries}{\thechapter}{5pt}{}
+\titleformat{\section}{\fontsize{14}{14}\bfseries}{\thesection}{5pt}{}
+\titleformat{\subsection}{\fontsize{12}{12}\bfseries}{\thesubsection}{5pt}{}
+
+\titlespacing*{\chapter}{0pt}{10pt}{5pt}
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{5pt}
+
+%Nodefinējam objektu numerācijas noteikumus
+%\def\thechapter{\arabic{chapter}.}
+%\def\thesection{\ifx\chapter\undefined{\arabic{section}.}\else  {\thechapter\arabic{section}.}\fi}
+%\def\thesubsection{\thesection\arabic{subsection}.}
+%\def\thesubsubsection{\thesubsection\arabic{subsubsection}.}
+%
+%
+%\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}.}
+%\renewcommand{\theequation}{\thechapter \arabic{equation}.}
+%\renewcommand{\thetable}{\thechapter \arabic{table}.}
+%%Attelu un tabulu nosaukumi
+%\captionsetup[figure] {labelformat=default,labelsep=space}
+%\captionsetup[table] {labelformat=simple,labelsep=space}
+%\renewcommand{\figurename}{att.}
+
+%atstarpe starp formulam un textu
+%\setlength{\belowdisplayskip}{0pt}
+%\setlength{\belowdisplayshortskip}{0pt}
+%\setlength{\abovedisplayskip}{0pt}
+%\setlength{\abovedisplayshortskip}{0pt}
+%\renewcommand{\thefigure} {\arabic{\figure}}
+%\renewcommand{\fnum@figure}{\thefigure ~S \figurename}
+%\renewcommand{\tablename}{tabula}
+%\makeatletter
+%\renewcommand{\fnum@figure}{}
+%\makeatother
+%Teksta nodaļu fiksētie nosaukumi
+
+\addto\captionslatvian{
+\renewcommand\bibname{Izmantotās literatūras un avotu saraksts}
+\renewcommand{\contentsname}{Saturs}
+\renewcommand{\nomname}{Saīsinājumu un nosacīto apzīmējumu saraksts}
+\renewcommand{\appendixtocname}{Pielikumi}%
+\renewcommand{\appendixpagename}{Pielikumi}%
+}
+\renewcommand{\ref}{\nref}
+%Nodefine krasu
+\definecolor{Gray}{gray}{0.85}
+\definecolor{Green}{rgb}{0,1,0}
+%Numeracija
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[R]{\thepage}
+\fancypagestyle{plain}{%
+  %\fancyhf{}%
+  \fancyfoot[R]{\thepage}%
+}
+%Pārnesumiem - ļauj tiasīt lielākas starpas
+\hyphenpenalty=5000
+%% Atraitņrindiņas un bāreņrindiņas ( widow orphan) vadība
+\clubpenalty10000
+\widowpenalty10000
+% Apakšsvītrām
+\usepackage{underscore}
+\usepackage{fixlatvian}
+
+\usepackage{caption}
+\DeclareCaptionFormat{hfillstart}{\hfill#1#2#3\par}
+\captionsetup[table]{format=hfillstart,labelsep=newline,justification=centering, textfont=bf}
+\captionsetup[subtable]{position=top, textfont=normalfont, singlelinecheck=off, justification=centering}
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
