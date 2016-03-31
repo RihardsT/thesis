@@ -12,7 +12,7 @@ Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkop
 % Kaut kādi piemēri un gadi, attēls
 
 \subsection{Centralizētas VCS}
-Lokālas VCS ir lieliskas, lai atvieglotu viena izstrādātāja darbu, bet ar lokālām VCS ir grūti vairākiem cilvēkiem sadarboties. Lai to atrisinātu tika radītas centralizētas VCS jeb CVCS\nomenclature{CVCS}{Centralizēta versiju vadības sistēma (angl. \textit{Centralized Version Control System})}. Šādām sistēmām, piemēram CVS, Subversion un Perforce, ir viens serveris uz kura atrodas visas datnes un no kura vairāki klienti tās paņem. Salīdzinot ar lokālām VCS, šādi būtiski uzlabojas spēja sadarboties. Tomēr CVCS sistēmām ir arī būtiskas problēmas. Visas datņu versijas atrodas tikai un vienīgi uz servera, bet klientam ir tikai tā versija, kuru tas paņēmis. Tāpēc, ja centrālais serveris atsakās darboties, izstrādātāju darbs praktiski tiek paralizēts, jo nav iespējams paņemt vai iesūtīt savas izmaiņas. Ja uz centrālā servera rodas datu bojājumi, ir iespējams pazaudēt visu projekta vēsturi, ja nav veikta VCS datubāzes dublēšana.
+Lokālas VCS ir lieliskas, lai atvieglotu viena izstrādātāja darbu, bet ar lokālām VCS ir grūti vairākiem cilvēkiem sadarboties. Lai to atrisinātu tika radītas centralizētas VCS jeb CVCS\nomenclature{CVCS}{Centralizēta versiju vadības sistēma (angl. \textit{Centralized Version Control System})}. Šādām sistēmām, piemēram CVS, Subversion un Perforce, ir viens serveris uz kura atrodas visas datnes un no kura vairāki klienti tās paņem. Salīdzinot ar lokālām VCS, šādi būtiski uzlabojas spēja sadarboties. Tomēr CVCS sistēmām ir arī būtiskas problēmas. Visas datņu versijas atrodas tikai un vienīgi uz servera, bet klientam ir tikai tā versija, kuru tas paņēmis. Tāpēc, ja centrālais serveris atsakās darboties, izstrādātāju darbs praktiski tiek paralizēts, jo nav iespējams paņemt vai iesūtīt (angl. \textit{commit}) savas izmaiņas. Ja uz centrālā servera rodas datu bojājumi, ir iespējams pazaudēt visu projekta vēsturi, ja nav veikta VCS datubāzes dublēšana.
 CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta vēstures zaudēšanu, jo klientam ir tikai tā versija, ko tas paņēmis no centrālā servera.
 
 \subsection{Dalītas VCS}
@@ -38,7 +38,29 @@ Trīs stāvokļi
 Staging - Ļauj sagatavot savu ``Commit''. Iespējams iekļaut tikai daļu no savām izmaiņām.
 
 \subsection{Zarošanās}
+Zarošanās (angl. \textit{Branching})
+Git zarošanās ir ļoti spējīgs mehānisms, kas ļauj veikt eksperimentus it nemaz netraucējot jau uzrakstītajam kodam.
 \subsubsection{Izvēlētā zarošanās stratēģija}
 % http://nvie.com/posts/a-successful-git-branching-model/
 % https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
-Darbā izvēlēts izmantot Gitflow darbplūsmu.
+Darbā izvēlēts izmantot Gitflow darbplūsmu, kas ir īpaši lietderīga lieliem projektiem, jo Gitflow darbplūsma skaidri nosaka repozitorija zaru funkcijas. Gitflow pamatā galvenie ir divi zari: pamatzars (angl. \textit{master}) un izstrādes zars(angl. \textit{develop}). Pamatzars atspoguļo relīžu vēsturi un koda iesūtījumi ir atzīmēti ar versiju numuriem. Ikreizi, kad pamatzarā tiek veikta kāda izmaiņa, to jāatzīmē ar jaunu versijas numuru. Izstrādes zars kalpo pievienotās funkcionalitātes integrācijai. Tomēr, katrai pievienotajai iespējai vajadzētu atrasties savā funkcionalitātes (angl. \textit{feature}) zarā. Citās darbplūsmās parasti atzarojas no pamatzara, bet Gitflow darbplūsmā atzarošanās tiek veikta no izstrādes zara. Katra jaunā iespēja atzarojas no izstrādes zara un kad tā ir pabeigta, tā tiek sapludināta (angl. \textit{merge}) ar izstrādes zaru.
+Kad pienāk laiks jaunai relīzei, no izstrādes zara atzarojas relīzes zars. Relīžu zaros nekad netiek pievienota jauna funkcionalitāte. Relīzes zari tiek tikai izmantoti tālākai koda sagatavošanai nākamajai versijai, tajā veic tikai labojumus. Tajā nepievieno papildus funkcionalitāti. Kad relīze ir gatava, to sapludina ar pamatzaru, atzīmē ar jaunu versijas numuru un sapludina arī ar izstrādes zaru.
+Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu labojumus relīzēm. Apkopes zars atzarojas no pamatzara un tiklīdz labojums ir pabeigts, tas tiek sapludināts ar pamatzaru un izstrādes zaru, vai vēl neizlaistu relīzes zaru.
+Šāda vairākzaru darbplūsma ļauj izstrādei neapstāties pie viena uzdevuma, piemēram, nespiež strādāt tikai pie relīzes vai papildu funkcionalitātes izstrādes. Tā kā ir vairāki zari gan relīzēm, gan funkctionalitātei, komandas var strādāt paralēli, katra pie sava uzdevuma nebojājot repozitoriju citām komandām.
+\begin{figure}[H]%!ht
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width=1\textwidth]{gitflow-workflow.png}
+	\caption{Gitflow zarošanās stratēģijas attēlojums}
+	\label{fig:gitflow-workflow}
+\end{figure}
+% Attēls, jākonvertē svg
+Master zars atspoguļo to mājaslapas kodu, kas strādās uz RaspberryPi servera. Tiklīdz kā tikt atjaunināts master zars, serveris to lejuplādēs un sāks izmantot jaunāko koda relīzi.
+Develop zars izmantots izmaiņu integrēšanai.
+Galvenais darbs notiks uz feature zariem, kuros fokusēti tiks nodalīta laika gaitā pievienotā funkcionalitāte.
+
+
+
+Darba praktiskā daļa ir sadalīta divos repozitorijos. Viens repozitorijs - piekļuves sistēmas administrēšanas mājaslapai, otrs - infrastruktūras uzstādīšanai izmantojot Chef.
+
+\section{Infrastruktūra kā kods}
