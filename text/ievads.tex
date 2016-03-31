@@ -3,35 +3,19 @@
 
 % Cilvēki izsenis ir centušies pasargāt savas telpas no svešu cilvēku piekļuves.
 
-Ventspils Augstskolā atrodas studentu telpa, kurā elektronikas studenti var iet un izstrādāt savus projektus. Studentu telpā atrodas dažāda elektronikas aparatūra (elektrobarošanas avoti, lodāmuri, u.t.t.). Tā kā telpā atrodas koplietojama aparatūra, ir nepieciešams, vajadzības gadījumā, saukt studentus pie atbildības, ja viņu radošajā procesā izdodas kādu ierīci saplēst.
-% Radošajā procesā lietas tiek saplēstas.
-Studentiem nepieciešams iekļūt studentu telpā jebkurā laikā, ko pašreizējā sistēma praktiski nepieļauj.
-% Formāli var, praktiski sarežģīti.
-% Pašreizējā sistēma.
-Lai iekļūtu studentu telpā, studentam ir jādodas pie augstskolas dežurantes un jālūdz atslēgas. Dežurante pieraksta studenta datus kladē. Tā kā atslēga, ko izsniedz studentiem, ir tikai viena, rodas gadījumi, ka uz studentu telpu aiziet vairāki studenti vienlaikus un pēc darba to nodod kāds cits, nevis atslēgas saņēmējs. Tādejādi sarežģījot saukšanu pie atbildības, jo, tiklīdz viens students ir studentu telpā, citi elektroniķi tajā var uzturēties patvaļīgi.
-% citiem nav atbildības, tam kam atslēga
-% Piemēram studenti grib pa nakti tikt iekšā un nevar
-% Esoša ir neatbilstoša vajadzībām
-% Izej ārā pačurāt, ctis ieiet un saplēš visu...
-Kā arī šāda arhaiska sistēma pēc būtības ir nedroša, jo cilvēki ir viegli manipulējami un bieži arī neuzmanīgi. Kāds to varētu izmantot, lai nesankcionēti piekļūtu telpai. Dežurantu neuzmanības dēļ, atslēga varētu tikt iedota arī studentam, kuram piekļuve telpai nepienākas (nav dota) vai būtu jāatņem.
-Automatizēta sistēma ļautu atrisināt šos drošības caurumus un neērtības.
+Ventspils Augstskolā atrodas studentu telpa, kurā elektronikas studenti var iet un izstrādāt savus projektus un kurā atrodas dažāda, koplietojama elektronikas aparatūra (elektrobarošanas avoti, lodāmuri, u.t.t.). Lai iegūtu piekļuvi studentu telpai, studentam ir jāiziet sarežģīts birokrātisks process - jāiesniedz iesniegums Augstskolas vadībā, kur to apstiprina. Šis process ir lēns un var aizņemt pat nedēļu, kā arī parakstītais iesniegums ir jānodod Augstskolas dežurantēm, kuras studentam tad var izsniegt studentu telpas atslēgu.
+Kad students vēlas iet strādāt studentu telpā, viņam ir jādodas pie dežurantes, jālūdz atslēgas un tad dežurante pieraksta studenta datus kladē. Tā kā atslēga, ko izsniedz studentiem, ir tikai viena, rodas gadījumi, ka uz studentu telpu aiziet vairāki studenti vienlaikus un pēc darba to nodod kāds cits, nevis atslēgas saņēmējs. Tiklīdz viens students ir studentu telpā, citi elektroniķi tajā var uzturēties patvaļīgi, kas būtiski apgrūtina saukšanu pie atbildības, ja viņu radošajā procesā izdodas sabojāt kādu no telpas koplietojamajām ierīcēm. Atbildību nes tas, kas saņēmis telpas atslēgu, bet atslēgas saņēmējs ne vienmēr atrodas telpā, kas apgrūtina saukšanu pie atbildības īsto vaininieku.
+Pašreizējā sistēma ir neatbilstoša studentu vajadzībām, jo studentiem nepieciešama piekļuve telpai jebkurā laikā, ko pašreizējā sistēma formāli pieļauj, bet ko praktiski ir sarežģīti izpildīt. Kā arī šāda arhaiska sistēma pēc būtības ir nedroša, jo cilvēki ir viegli manipulējami un bieži arī neuzmanīgi. Kāds to varētu izmantot, lai nesankcionēti piekļūtu telpai. Dežurantu neuzmanības dēļ, atslēga varētu tikt iedota arī studentam, kuram piekļuve telpai nav dota vai būtu jāatņem.
 
-Šajā darbā tiks radīta jauna automatizēta sistēma kas veiks telpā esošo personu identificēšanu un žurnalēšanu.
-Piekļuves menedžēšana. Birokrātija - iesniegumi, u.t.t.
-% Kaut gan eksistē daudzi komerciāli risinājumi, ne visi no tiem ir droši.
-
-Darba mērķis ir izveidot pilnībā funkcionējošu telpu piekļuves sistēmu, kas ļautu automatizēti žurnalēt un kontrolēt piekļuvi telpai.
+Šajā darbā tiks radīta jauna automatizēta sistēma, kas veiks telpā esošo personu identificēšanu un žurnalēšanu, kā arī atrisinātu vairākus drošības caurumus un neērtības. Izstrādātā sistēma ļaus arī daudz labāk menedžēt piekļuvi telpai un būs iespējams arī ierobežot piekļuves laikus individuāliem studentiem.
 % Ko vēl automatizēt...
-
 % Drošība!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Galvenie darba uzdevumi:
 \begin{itemize}
-  \item Izveidot mājaslapu telpas piekļuves administrēšanai
-  % Izvērst teikumos un paskaidrot
-  \item Uzstādīt mājaslapu uz RaspberryPi
-  % Lēts risinājums serverim
-  \item Uzstādīt RFID karšu lasītāju un savienot to ar serveri
+  \item Izveidot mājaslapu telpas piekļuves administrēšanai, kas ļautu administratoram autorizēt un pārvaldīt studentu piekļuvi telpai. Studenti varētu sekot līdzi savai piekļuves vēsturei un kartes nozaudēšanas gadījumā atsaukt savu piekļuvi telpai.
+  \item Uzstādīt mājaslapu uz RaspberryPi, kas ir ērts un galvenokārt lēts risinājums serverim.
+  \item Uzstādīt RFID karšu lasītāju un savienot to ar serveri, kurš nolasītu studentiem izdalītās RFID kartes un atļautu vai liegtu studentiem piekļuvi telpai.
   % Kartes izdalīs studentiem, karšu tiesības
 \end{itemize}
 
@@ -39,5 +23,7 @@ Darbā tiks izmantoti un aprakstīti populāri izstrādes rīki un paņēmieni, 
 Versiju kontrole, testēšana, infrastruktūra kā kods, koda kvalitāte.
 % Rīki kas ļauj abstrahēt ...
 
+
+% Kaut gan eksistē daudzi komerciāli risinājumi, ne visi no tiem ir droši.
 
 % Ievadam un anotācijām jabūt labai, struktūrai, secinājumiem

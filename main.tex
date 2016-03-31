@@ -1,18 +1,18 @@
 \documentclass[12pt,a4paper]{report}
-\input {text/preambula.tex}
+\input{text/preambula}
 \begin{document}
-	\input {text/titullapa.tex}
+	\input{text/titullapa}
 	\setcounter{page}{2}
 %--------------------------------------------------------------------
-	\input {text/anotacijalv}
-	\input {text/anotacijaen}
+	\input{text/anotacijalv}
+	\input{text/anotacijaen}
 %--------------------------------------------------------------------
 	\tableofcontents
 %--------------------------------------------------------------------
-	\input {apzimejumi}
-	\input {text/ievads.tex}
+	\clearpage\input{text/apzimejumi}
+	\input{text/ievads}
 %--------------------------------------------------------------------
-	\input {text/1.nodala.tex}
+	\input{text/1.nodala}
 \end{document}
 % xelatex main.tex
 % makeindex main.nlo -s nomencl.ist -o main.nls
