@@ -5,6 +5,7 @@
 Šajā darba nodaļā apskatīta versiju vadības sistēmu jeb VCS\nomenclature{VCS}{versiju vadības sistēma (angl. \textit{Version control system})} vēsture un pielietojums. VCS galvenais uzdevums ir saglabāt laika gaitā veiktās izmaiņas, kas veiktas ar datnēm. VCS ļauj arī atmest laika gaitā veiktās izmaiņas, atgriezties iepriekšējā stāvoklī, salīdzināt izmaiņas, redzēt kurš un kad ir veicis izmaiņas, kas atvieglo kļūdu atrašanu un to izlabošanu. Izmantojot VCS ir daudz grūtāk veikt neatgriezeniskas izmaiņas, piemēram, kļūdas pēc izdzēstu datni ir iespējams viegli atgūt.
 
 \section{Versiju vadības sistēmu vēsture}
+\cite[chapter, p.~27]{chacon2014progit}
 % No ProGit book
 % Kad, kāpēc, kā strādā?
 \subsection{Lokālas versiju vadības sistēmas}
@@ -83,4 +84,12 @@ Galvenais darbs notiks uz feature zariem, kuros fokusēti tiks nodalīta laika g
 
 Darba praktiskā daļa ir sadalīta divos repozitorijos. Viens repozitorijs - piekļuves sistēmas administrēšanas mājaslapai, otrs - infrastruktūras uzstādīšanai izmantojot Chef.
 
+\chapter{Konfigurācijas pārvaldība}
+Šajā nodaļā apskatīta konfigurācijas pārvaldības nozīmība un īstenošana izmantojot konfigurācijas pārvaldības rīkju Chef, kas ļauj aprakstīt infrastruktūru kodā.
+Konfigurācijas pārvaldība nodrošina vispārēju sistēmas vadību un satur datus no pārvaldāmajiem objektiem. Sākot no 1960' gadiem, konfigurācijas datus saglabāja datu bāzē, ko konfigurācijas pārvaldnieks var izmantot iekārtu - darbstaciju, serveru, maršrutētāju, u.c. - konfigurēšanai.
+Konfigurācijas pārvaldība palīdz nodrošināt komponenšu un sistēmas kvalitāti, to atbilstību noteiktajajām tehniskajām prasībām, kā arī palīdz veikt sistēmu auditēšanu.
+
 \section{Infrastruktūra kā kods}
+Sistēmas administratori jau izsenis centušies automatizēt sistēmu uzstādīšanu un konfigurēšanu. Ierasts izmantot \textit{bash} skriptus, kuros secīgi sarakstītas izpildāmās komandas, konfigurācijas veikšanai. Laika gaitā tika radīta specializēta programmatūra, kas ļauj infrastruktūru aprakstīt kodā, automatizēt sistēmu uzstādīšanu un konfigurēšanu. Pašlaik populārākie rīki ir 2005. gadā radītais Puppet, 2009. gadā - Chef, 2012. gadā - Ansible. Šie rīki ļauj visu infrasturktūru aprakstīt kodā - sistēmu konfigurāciju, ieskaitot lietotāju pārvaldību. Darbā izmantots konfigurācijas pārvaldības rīks Chef, kas radīts 2009. gadā un ir uzrakstīts izmantojot Ruby un Erlang programmēšanas valodas.
+Chef ir spēcīga automatizēšanas platforma, kas apraksta sarežģītu infrastruktūru kodā, neatkarīgi no tā, vai resursi atrodas mākonī\nomenclature{Mākonis}{Mākoņdatošana (angl. \textit{Cloud computing})}, uz lokāliem serveriem vai to kombinācijā. Chef spēj automatizēt kā aplikācijas ir konfigurētas, izvietotas, pārvaldītas, neatkarīgi no uzstādītās infrastruktūras izmēra. \cite{website:chef-docs}
+\subsection{Chef komponentes}
