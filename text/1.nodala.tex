@@ -9,34 +9,34 @@
 % No ProGit book
 % Kad, kāpēc, kā strādā?
 \subsection{Lokālas versiju vadības sistēmas}
-Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkopēšana no vienas mapes citā, vai arī arhīvu veidošana. Šāds variants ir diezgan nedrošs, jo pieļauj cilvēcīgas kļūdas, piemēram, nepareizas datnes izmainīšanu. Tāpēc programmētāji radīja lokālu VCS, kas vienkāršā datubāzē saglabāja veiktās izmaiņas.
+Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkopēšana no vienas mapes citā, vai arī arhīvu veidošana. Šāds variants ir diezgan nedrošs, jo pieļauj cilvēcīgas kļūdas, piemēram, nepareizas datnes izmainīšanu. Tāpēc programmētāji radīja lokālu VCS, kas vienkāršā datubāzē saglabāja veiktās izmaiņas. Populārs lokālas VCS piemērs ir \textit{GNU Revision Control System}. \textit{RCS} darbības princips attēlā \ref{fig:VersionControlLocal}.
 % Kaut kādi piemēri un gadi, attēls
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{VersionControlLocal.png}
-	\caption{Lokālas VCS}
+	\includegraphics[width=0.5\textwidth]{VersionControlLocal.png}
+	\caption{Lokālas VCS struktūras princips\ref{appfig:VersionControlLocal}}
 	\label{fig:VersionControlLocal}
 \end{figure}
 
 \subsection{Centralizētas VCS}
 Lokālas VCS ir lieliskas, lai atvieglotu viena izstrādātāja darbu, bet ar lokālām VCS ir grūti vairākiem cilvēkiem sadarboties. Lai to atrisinātu tika radītas centralizētas VCS jeb CVCS\nomenclature{CVCS}{Centralizēta versiju vadības sistēma (angl. \textit{Centralized Version Control System})}. Šādām sistēmām, piemēram CVS, Subversion un Perforce, ir viens serveris uz kura atrodas visas datnes un no kura vairāki klienti tās paņem. Salīdzinot ar lokālām VCS, šādi būtiski uzlabojas spēja sadarboties. Tomēr CVCS sistēmām ir arī būtiskas problēmas. Visas datņu versijas atrodas tikai un vienīgi uz servera, bet klientam ir tikai tā versija, kuru tas paņēmis. Tāpēc, ja centrālais serveris atsakās darboties, izstrādātāju darbs praktiski tiek paralizēts, jo nav iespējams paņemt vai iesūtīt (angl. \textit{commit}) savas izmaiņas. Ja uz centrālā servera rodas datu bojājumi, ir iespējams pazaudēt visu projekta vēsturi, ja nav veikta VCS datubāzes dublēšana.
-CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta vēstures zaudēšanu, jo klientam ir tikai tā versija, ko tas paņēmis no centrālā servera.
+CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta vēstures zaudēšanu, jo klientam ir tikai tā versija, ko tas paņēmis no centrālā servera. CVCS struktūra attēlā \ref{fig:VersionControlCentralized}.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{VersionControlCentralized.png}
-	\caption{Centralizētas VCS}
+	\includegraphics[width=0.5\textwidth]{VersionControlCentralized.png}
+	\caption{Centralizētas VCS \ref{appfig:VersionControlCentralized}}
 	\label{fig:VersionControlCentralized}
 \end{figure}
 
 \subsection{Dalītas VCS}
-CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versiju vadības sistēma (angl. \textit{Distributed Version Control System})}. DCVS sistēmās, kā Git, Mercurial, Bazaar, Darcs joprojām izmanto centralizētu serveri, uz kura klienti iesūta savas izmaiņagrāmatass, bet atšķirībā no CVCS, klienti nepaņem tikai datņu pēdējās versijas, bet pilnībā visu projekta vēsturi. Tādejādi, galvenajam serverim atsaktoties darboties, projekta vēsturi ir iespējams atjaunot no jebkura klienta.
+CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versiju vadības sistēma (angl. \textit{Distributed Version Control System})}. DCVS sistēmās, kā Git, Mercurial, Bazaar, Darcs joprojām izmanto centralizētu serveri, uz kura klienti iesūta savas izmaiņagrāmatass, bet atšķirībā no CVCS, klienti nepaņem tikai datņu pēdējās versijas, bet pilnībā visu projekta vēsturi. Tādejādi, galvenajam serverim atsaktoties darboties, projekta vēsturi ir iespējams atjaunot no jebkura klienta. DVCS struktūra attēlā \ref{fig:VersionControlDistributed}.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{VersionControlDistributed.png}
-	\caption{Dalītas VCS}
+	\includegraphics[width=0.5\textwidth]{VersionControlDistributed.png}
+	\caption{Dalītas VCS \ref{appfig:VersionControlDistributed}}
 	\label{fig:VersionControlDistributed}
 \end{figure}
 
@@ -69,11 +69,12 @@ Darbā izvēlēts izmantot Gitflow darbplūsmu, kas ir īpaši lietderīga lieli
 Kad pienāk laiks jaunai relīzei, no izstrādes zara atzarojas relīzes zars. Relīžu zaros nekad netiek pievienota jauna funkcionalitāte. Relīzes zari tiek tikai izmantoti tālākai koda sagatavošanai nākamajai versijai, tajā veic tikai labojumus. Tajā nepievieno papildus funkcionalitāti. Kad relīze ir gatava, to sapludina ar pamatzaru, atzīmē ar jaunu versijas numuru un sapludina arī ar izstrādes zaru.
 Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu labojumus relīzēm. Apkopes zars atzarojas no pamatzara un tiklīdz labojums ir pabeigts, tas tiek sapludināts ar pamatzaru un izstrādes zaru, vai vēl neizlaistu relīzes zaru.
 Šāda vairākzaru darbplūsma ļauj izstrādei neapstāties pie viena uzdevuma, piemēram, nespiež strādāt tikai pie relīzes vai papildu funkcionalitātes izstrādes. Tā kā ir vairāki zari gan relīzēm, gan funkctionalitātei, komandas var strādāt paralēli, katra pie sava uzdevuma nebojājot repozitoriju citām komandām.
+Gitflow darbplūsma attēlota \ref{fig:WorkflowGitflow}. Citas darbplūsmas atrodamas \cite{workflow-comparison}.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{WorkflowGitflow.png}
-	\caption{Gitflow zarošanās stratēģijas attēlojums}
+	\includegraphics[width=0.5\textwidth]{WorkflowGitflow.png}
+	\caption{Gitflow zarošanās stratēģijas attēlojums \ref{appfig:WorkflowGitflow}}
 	\label{fig:WorkflowGitflow}
 \end{figure}
 Master zars atspoguļo to mājaslapas kodu, kas strādās uz RaspberryPi servera. Tiklīdz kā tikt atjaunināts master zars, serveris to lejuplādēs un sāks izmantot jaunāko koda relīzi.
@@ -95,12 +96,12 @@ Chef ir spēcīga automatizēšanas platforma, kas apraksta sarežģītu infrast
 Chef pamatā ir vienkārša koncepcija: vēlamā stāvokļa sasniegšana, centralizētas IT infrastruktūras modelēšana un resursu primitīvi, kas kalpo kā pamatelementi. Šī koncepcija ļauj efektīvi pārvaldīt pat ļoti sarežģītas infrastruktūras.
 \subsection{Chef komponentes}
 Konfigurācijas orķestrēšanai Chef strādā pēc vedējsekotājsistēmas (angl. \textit{Master-slave system}) principa. Galvenais ir Chef serveris, kurš pārvalda infrastruktūru.
-Diagrammā redzams Chef komponenšu attiecības starp Chef serveri, mezgliem (angl. \textit{nodes}) un izstrādātāja darbstaciju.
+Diagrammā \ref{fig:ChefOverview} redzams Chef komponenšu attiecības starp Chef serveri, mezgliem (angl. \textit{nodes}) un izstrādātāja darbstaciju.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{ChefOverview.png}
-	\caption{Chef komponentes}
+	\includegraphics[width=0.5\textwidth]{ChefOverview.png}
+	\caption{Chef komponentes \ref{appfig:ChefOverview}}
 	\label{fig:ChefOverview}
 \end{figure}
 Galvenās Chef komponentes:
