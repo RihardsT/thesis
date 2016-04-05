@@ -14,9 +14,9 @@ Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkop
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{local_version_control.png}
+	\includegraphics[width=1\textwidth]{VersionControlLocal.png}
 	\caption{Lokālas VCS}
-	\label{fig:local_version_control}
+	\label{fig:VersionControlLocal}
 \end{figure}
 
 \subsection{Centralizētas VCS}
@@ -25,9 +25,9 @@ CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta v�
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{centralized_version_control.png}
+	\includegraphics[width=1\textwidth]{VersionControlCentralized.png}
 	\caption{Centralizētas VCS}
-	\label{fig:centralized_version_control}
+	\label{fig:VersionControlCentralized}
 \end{figure}
 
 \subsection{Dalītas VCS}
@@ -35,9 +35,9 @@ CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versij
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{distributed_version_control.png}
+	\includegraphics[width=1\textwidth]{VersionControlDistributed.png}
 	\caption{Dalītas VCS}
-	\label{fig:distributed_version_control}
+	\label{fig:VersionControlDistributed}
 \end{figure}
 
 \section{Versiju vadības sistēma Git}
@@ -72,9 +72,9 @@ Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu laboj
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{gitflow_workflow.png}
+	\includegraphics[width=1\textwidth]{WorkflowGitflow.png}
 	\caption{Gitflow zarošanās stratēģijas attēlojums}
-	\label{fig:gitflow_workflow}
+	\label{fig:WorkflowGitflow}
 \end{figure}
 Master zars atspoguļo to mājaslapas kodu, kas strādās uz RaspberryPi servera. Tiklīdz kā tikt atjaunināts master zars, serveris to lejuplādēs un sāks izmantot jaunāko koda relīzi.
 Develop zars izmantots izmaiņu integrēšanai.
@@ -99,9 +99,9 @@ Diagrammā redzams Chef komponenšu attiecības starp Chef serveri, mezgliem (an
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
-	\includegraphics[width=1\textwidth]{chef_overview.png}
+	\includegraphics[width=1\textwidth]{ChefOverview.png}
 	\caption{Chef komponentes}
-	\label{fig:chef_overview}
+	\label{fig:ChefOverview}
 \end{figure}
 Galvenās Chef komponentes:
 \begin{itemize}
@@ -110,7 +110,7 @@ Galvenās Chef komponentes:
 	\item Mezgli - jebkuras sistēmas (fiziskas, virtuālas, mākonis, u.t.t.), ko pārvalda Chef. Chef klients (angl. \textit{chef-client}) ir izpildāma programma, kas uzstādīta uz katra mezgla un tā izpilda visus konfigurācijas uzdevumus.
 	\item Chef serveris - kalpo kā centrmezgls. Konfigurācija tiek augšupielādēta uz Chef servera no darbstacijām. Chef klients savienojas ar Chef serveri un saņem tā konfigurācijas datus.
 	Chef pārvaldības konsole ir Chef servera lietotāja saskarne, ko lieto, lai pārvaldītu data bags (!!!!!!!!!!!!!!!!!!), rekvizītus, run-lists, lomas, vidi, recepšu grāmatas.
-	\item Chef analīze 
+	\item Chef analīze
 \end{itemize}
 
 
