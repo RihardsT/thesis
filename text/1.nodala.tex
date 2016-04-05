@@ -15,8 +15,8 @@ Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkop
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=1\textwidth]{local_version_control.png}
-	\caption{Gitflow zarošanās stratēģijas attēlojums}
-	\label{fig:gitflow-workflow}
+	\caption{Lokālas VCS}
+	\label{fig:local_version_control}
 \end{figure}
 
 \subsection{Centralizētas VCS}
@@ -26,18 +26,18 @@ CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta v�
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=1\textwidth]{centralized_version_control.png}
-	\caption{Gitflow zarošanās stratēģijas attēlojums}
-	\label{fig:gitflow-workflow}
+	\caption{Centralizētas VCS}
+	\label{fig:centralized_version_control}
 \end{figure}
 
 \subsection{Dalītas VCS}
-CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versiju vadības sistēma (angl. \textit{Distributed Version Control System})}. DCVS sistēmās, kā Git, Mercurial, Bazaar, Darcs joprojām izmanto centralizētu serveri, uz kura klienti iesūta savas izmaiņas, bet atšķirībā no CVCS, klienti nepaņem tikai datņu pēdējās versijas, bet pilnībā visu projekta vēsturi. Tādejādi, galvenajam serverim atsaktoties darboties, projekta vēsturi ir iespējams atjaunot no jebkura klienta.
+CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versiju vadības sistēma (angl. \textit{Distributed Version Control System})}. DCVS sistēmās, kā Git, Mercurial, Bazaar, Darcs joprojām izmanto centralizētu serveri, uz kura klienti iesūta savas izmaiņagrāmatass, bet atšķirībā no CVCS, klienti nepaņem tikai datņu pēdējās versijas, bet pilnībā visu projekta vēsturi. Tādejādi, galvenajam serverim atsaktoties darboties, projekta vēsturi ir iespējams atjaunot no jebkura klienta.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
 	\includegraphics[width=1\textwidth]{distributed_version_control.png}
-	\caption{Gitflow zarošanās stratēģijas attēlojums}
-	\label{fig:gitflow-workflow}
+	\caption{Dalītas VCS}
+	\label{fig:distributed_version_control}
 \end{figure}
 
 \section{Versiju vadības sistēma Git}
@@ -74,7 +74,7 @@ Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu laboj
 	\captionsetup{justification=centering}
 	\includegraphics[width=1\textwidth]{gitflow_workflow.png}
 	\caption{Gitflow zarošanās stratēģijas attēlojums}
-	\label{fig:gitflow-workflow}
+	\label{fig:gitflow_workflow}
 \end{figure}
 Master zars atspoguļo to mājaslapas kodu, kas strādās uz RaspberryPi servera. Tiklīdz kā tikt atjaunināts master zars, serveris to lejuplādēs un sāks izmantot jaunāko koda relīzi.
 Develop zars izmantots izmaiņu integrēšanai.
@@ -91,5 +91,75 @@ Konfigurācijas pārvaldība palīdz nodrošināt komponenšu un sistēmas kvali
 
 \section{Infrastruktūra kā kods}
 Sistēmas administratori jau izsenis centušies automatizēt sistēmu uzstādīšanu un konfigurēšanu. Ierasts izmantot \textit{bash} skriptus, kuros secīgi sarakstītas izpildāmās komandas, konfigurācijas veikšanai. Laika gaitā tika radīta specializēta programmatūra, kas ļauj infrastruktūru aprakstīt kodā, automatizēt sistēmu uzstādīšanu un konfigurēšanu. Pašlaik populārākie rīki ir 2005. gadā radītais Puppet, 2009. gadā - Chef, 2012. gadā - Ansible. Šie rīki ļauj visu infrasturktūru aprakstīt kodā - sistēmu konfigurāciju, ieskaitot lietotāju pārvaldību. Darbā izmantots konfigurācijas pārvaldības rīks Chef, kas radīts 2009. gadā un ir uzrakstīts izmantojot Ruby un Erlang programmēšanas valodas.
-Chef ir spēcīga automatizēšanas platforma, kas apraksta sarežģītu infrastruktūru kodā, neatkarīgi no tā, vai resursi atrodas mākonī\nomenclature{Mākonis}{Mākoņdatošana (angl. \textit{Cloud computing})}, uz lokāliem serveriem vai to kombinācijā. Chef spēj automatizēt kā aplikācijas ir konfigurētas, izvietotas, pārvaldītas, neatkarīgi no uzstādītās infrastruktūras izmēra. \cite{website:chef-docs}
+Chef ir spēcīga automatizēšanas platforma, kas apraksta sarežģītu infrastruktūru kodā, neatkarīgi no tā, vai resursi atrodas mākonī\nomenclature{Mākonis}{Mākoņdatošana (angl. \textit{Cloud computing})}, uz lokāliem serveriem vai to kombinācijā. Chef spēj automatizēt kā lietotnes ir konfigurētas, izvietotas, pārvaldītas, neatkarīgi no uzstādītās infrastruktūras izmēra. \cite{chef-docs}
+Chef pamatā ir vienkārša koncepcija: vēlamā stāvokļa sasniegšana, centralizētas IT infrastruktūras modelēšana un resursu primitīvi, kas kalpo kā pamatelementi. Šī koncepcija ļauj efektīvi pārvaldīt pat ļoti sarežģītas infrastruktūras.
 \subsection{Chef komponentes}
+Konfigurācijas orķestrēšanai Chef strādā pēc vedējsekotājsistēmas (angl. \textit{Master-slave system}) principa. Galvenais ir Chef serveris, kurš pārvalda infrastruktūru.
+Diagrammā redzams Chef komponenšu attiecības starp Chef serveri, mezgliem (angl. \textit{nodes}) un izstrādātāja darbstaciju.
+\begin{figure}[H]%!ht
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width=1\textwidth]{chef_overview.png}
+	\caption{Chef komponentes}
+	\label{fig:chef_overview}
+\end{figure}
+Galvenās Chef komponentes:
+\begin{itemize}
+	\item Izstrādātāja darbstacija, kas ir konfigurēta darbam ar Chef. Minimums, lai sāktu izstrādi ar Chef, ir uzinstalēta Ruby programmēšanas valoda, bet ieteicams izmantot Chef izstrādes rīkkopu (angl. \textit{Chef development kit}), kas satur vēl citas izvēles pakotnes, ieskaitot Chef komandrindas rīku, Kitchen, ChefSpec, Berkshelf, u.c. rīkus.
+	\item Chef izmanto domēnam specifisku valodu, lai aprakstītu lielu daļu konfigurācijas, kas balstīta uz Ruby programmēšanas valodu un izmanto tās sintaksi. Chef ir ļoti pielāgojams, jo ļauj pilnībā izmantot Ruby dotās iespējas.
+	\item Mezgli - jebkuras sistēmas (fiziskas, virtuālas, mākonis, u.t.t.), ko pārvalda Chef. Chef klients (angl. \textit{chef-client}) ir izpildāma programma, kas uzstādīta uz katra mezgla un tā izpilda visus konfigurācijas uzdevumus.
+	\item Chef serveris - kalpo kā centrmezgls. Konfigurācija tiek augšupielādēta uz Chef servera no darbstacijām. Chef klients savienojas ar Chef serveri un saņem tā konfigurācijas datus.
+	Chef pārvaldības konsole ir Chef servera lietotāja saskarne, ko lieto, lai pārvaldītu data bags (!!!!!!!!!!!!!!!!!!), rekvizītus, run-lists, lomas, vidi, recepšu grāmatas.
+	\item Chef analīze 
+\end{itemize}
+
+
+
+% Chef pamatā galvenais ir Chef repozitorijs, kurā glabājas viss konfigurācijas kods. Izstrādātājs lejuplādē repozitoriju uz savas darbstacijas un uz tās veic arī turpmāko izstrādi. Repozitorijā atrodas recepšu grāmatas (angl. \textit{cookbooks}), kurās atrodas receptes (angl. \textit{recipes}).
+% Ir galvenais Chef serveris uz kura glabājas vairākas komponentes:
+% \begin{itemize}
+% 	\item recepšu grāmatas (angl. \textit{cookbooks}) - kurās atrodas receptes ()
+% \end{itemize}
+% Chef struktūra
+% Chef repozitorijs - nosaka konfigurācijas pārvaldības struktūru. Repozitorijs satur:
+% 	Repešu grāmatas\nomenclature{Cookbooks}{Recepšu grāmatas (angl. \textit{cookbooks}) - satur receptes}
+% 		Recipes\nomenclature{Recipes}{Receptes (angl. \textit{recipes}) - tajās konfigurācija tiek aprakstīta kodā.}
+% 		Attributes\nomenclature{Attributes}{Rekvizīti (angl. \textit{attributes}) - tie var tikt definēti recepšu grāmatā vai receptē un tos var izmantot, lai pārlabotu noklusējuma iestatījumas uz mezgla}
+% 	Data_bags
+% 	Environments
+% 	Roles
+%
+% Chef serveris
+% 	Nodes
+% 		Chef-client
+% 		Run-list
+% 			Cookbooks
+% 		Attributes
+% 		Environment
+
+% Chef struktūra
+% \begin{itemize}
+% 	\item Chef repozitorijs
+% 	\begin{itemize}
+% 		\item Cookbooks
+% 		\begin{itemize}
+% 			\item Recipes
+% 			\item Attributes
+% 		\end{itemize}
+% 		\item Data_bags
+% 		\item Environments
+% 		\item Roles
+% 	\end{itemize}
+% 	\item Chef-server
+% 	\begin{itemize}
+% 		\item Chef repozitorijs
+% 		\item Nodes
+% 		\begin{itemize}
+% 			\item Chef-client
+% 			\item Run-list
+% 			\item Cookbooks
+% 			\item Attributes
+% 			\item Environment
+% 		\end{itemize}
+% 	\end{itemize}
+% \end{itemize}
