@@ -1,0 +1,36 @@
+\chapter{Praktiskais}
+\section{Praktiski ar Chef}
+Chef strādā pēc vedējsekotājsistēmas principa, tas nozīmē, ka vienmēr ir Chef serveris, kas kalpo kā centrmezgls un pārvalda visus uzstādītos mezglus. Atkarībā no uzņēmuma vajadzībām, Chef serveri ir iespējams uzstādīt vairākos veidos. Chef piedāvā Chef serveri kā pakalpojumu (\textit{Hosted Chef}), kuru ir iespējams izmantot par brīvu līdz 5 mezgliem. Šis ir vienkāršākais un ātrākais veids, kā praktiski sākt strādāt ar Chef, tomēr uzņēmumiem tas varētu būt neatbilstošs, jo nav pilnīga kontrole pār serveri. Ir iespējams Chef serveri uzstādīt \textit{mākonī}. Ir pieejami jau gatavi instanču attēli \textit{Amazon Webservices} un \textit{Microsoft Azure} \textit{mākoņos}, kas būtiski paātrina Chef servera uzstādīšanas laiku. Kā arī ir iespējams Chef serveri uzstādīt uz jebkura servera, uz kura uzstādīta \textit{Red Hat Enterprise Linux} vai \textit{CentOS} 5., 6. vai 7. versija, vai Ubuntu 10.04, 12.04 vai 14.04 versija.
+Tā kā darbā uzstādīta tikai viena servera instance izmantojot Chef, darbā izmantots \textit{Hosted Chef} serviss. Tā arī ir paredzēts un ieteicams izmantot Chef.
+Apskatīts arī, kā izmantot Chef piedāvātās automatizācijas iespējas bez Chef servera instances, tomēr nevar teikt, ka tas ir ieteicams variants.
+
+
+
+\subsection{Darbs ar Chef bez Chef servera}
+Ir vairāki varianti, kā piemērot Chef receptes nekontaktējoties ar Chef serveri. Iespējams izmantot chef-zero vai chef-solo.
+Izmantojot \textit{chef-zero}, ir iespējams simulēt pagaidu Chef serveri datora atmiņā. Šo vēl vairāk atvieglo Knife-zero spraudnis (angl. \textit{plugin} \url{https://knife-zero.github.io/}), ar kura palīdzību var izdarīt tās pašas darbības, kā tad, ja ir uzstādīts Chef serveris.
+
+Uzstāda chefDK
+chef gem install knife-zero
+chef generate repo test-repo
+cd test-repo
+chef generate cookbook cookbooks/testbook -b
+cd cookbooks/test-book
+berks vendor ../
+"-b"  karogs norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
+Izmantojot \textit{berkshelf vendor} komandu, berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
+knife bootstrap 192.168.1.12 --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --node-name chefnode --run-list 'recipe[testbook]'
+
+Lietojot Chef-solo.
+Chef-solo spēj piemērot receptes, kuras atrodas uz iekārtas.
+Uz izstrādātāja darbstacijas lejuplādē visas recepšu grāmatas izmantojot berks vendor
+Uzstāda chef-client uz mezgla
+Nokopē uzstādāmās recepšu grāmatas uz /var/chef/cookbooks
+Palaiž chef-solo -o RUNLIST
+'-o' --override-runlist	- nodefinē izpildāmās receptes
+
+Tomēr strādāt bez Chef servera nav tik viegli. Ar abiem variantiem ir problēmas, kuras var rasties un var nebūt nemaz tik viegli atrisināmas.
+
+Tāpēc darba izstrādes laikā izmantots \textit{Hosted Chef}, kas ir vienkāršākais veids, kā sākt strādāt ar Chef.
+Izveidojot kontu \url{https://manage.chef.io/}, ir iespējams ielogoties grafiskā Chef pārvaldības konsolē.
+Pirmais, ko tajā nepieciešams izdarīt ir izveidot jaunu organizāciju. Tad ir iespējams lejuplādēt sākuma paku (angl. \textit{starter kit}), kas ir sagatavots Chef repozitorijs ar nepieciešamo Chef konfigurāciju. Chef servera organizācijās ir arī vairākas noklusējuma grupas (administratori, klienti, lietotāji), kuras tiek izmantotas, lai pārvaldītu izstrādātāju piekļuvi. Kā arī organizācijas satur uzstādītos Chef mezglus. Chef repozitorijā ir slēptā \textit{.chef} mape, kura satur \textit{knife.rb} datni, kurā ir norādīta Chef servera organizācijas adrese.
