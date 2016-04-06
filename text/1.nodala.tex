@@ -69,7 +69,7 @@ Darbā izvēlēts izmantot Gitflow darbplūsmu, kas ir īpaši lietderīga lieli
 Kad pienāk laiks jaunai relīzei, no izstrādes zara atzarojas relīzes zars. Relīžu zaros nekad netiek pievienota jauna funkcionalitāte. Relīzes zari tiek tikai izmantoti tālākai koda sagatavošanai nākamajai versijai, tajā veic tikai labojumus. Tajā nepievieno papildus funkcionalitāti. Kad relīze ir gatava, to sapludina ar pamatzaru, atzīmē ar jaunu versijas numuru un sapludina arī ar izstrādes zaru.
 Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu labojumus relīzēm. Apkopes zars atzarojas no pamatzara un tiklīdz labojums ir pabeigts, tas tiek sapludināts ar pamatzaru un izstrādes zaru, vai vēl neizlaistu relīzes zaru.
 Šāda vairākzaru darbplūsma ļauj izstrādei neapstāties pie viena uzdevuma, piemēram, nespiež strādāt tikai pie relīzes vai papildu funkcionalitātes izstrādes. Tā kā ir vairāki zari gan relīzēm, gan funkctionalitātei, komandas var strādāt paralēli, katra pie sava uzdevuma nebojājot repozitoriju citām komandām.
-Gitflow darbplūsma attēlota \ref{fig:WorkflowGitflow}. Citas darbplūsmas atrodamas \cite{workflow-comparison}.
+Gitflow darbplūsma attēlota \ref{fig:WorkflowGitflow}. Šīs un citu darbplūsmu piemēri atrodami \cite{workflow-comparison}.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
@@ -94,6 +94,7 @@ Konfigurācijas pārvaldība palīdz nodrošināt komponenšu un sistēmas kvali
 Sistēmas administratori jau izsenis centušies automatizēt sistēmu uzstādīšanu un konfigurēšanu. Ierasts izmantot \textit{bash} skriptus, kuros secīgi sarakstītas izpildāmās komandas, konfigurācijas veikšanai. Laika gaitā tika radīta specializēta programmatūra, kas ļauj infrastruktūru aprakstīt kodā, automatizēt sistēmu uzstādīšanu un konfigurēšanu. Pašlaik populārākie rīki ir 2005. gadā radītais Puppet, 2009. gadā - Chef, 2012. gadā - Ansible. Šie rīki ļauj visu infrasturktūru aprakstīt kodā - sistēmu konfigurāciju, ieskaitot lietotāju pārvaldību. Darbā izmantots konfigurācijas pārvaldības rīks Chef, kas radīts 2009. gadā un ir uzrakstīts izmantojot Ruby un Erlang programmēšanas valodas.
 Chef ir spēcīga automatizēšanas platforma, kas apraksta sarežģītu infrastruktūru kodā, neatkarīgi no tā, vai resursi atrodas mākonī\nomenclature{Mākonis}{Mākoņdatošana (angl. \textit{Cloud computing})}, uz lokāliem serveriem vai to kombinācijā. Chef spēj automatizēt kā lietotnes ir konfigurētas, izvietotas, pārvaldītas, neatkarīgi no uzstādītās infrastruktūras izmēra. \cite{chef-docs}
 Chef pamatā ir vienkārša koncepcija: vēlamā stāvokļa sasniegšana, centralizētas IT infrastruktūras modelēšana un resursu primitīvi, kas kalpo kā pamatelementi. Šī koncepcija ļauj efektīvi pārvaldīt pat ļoti sarežģītas infrastruktūras.
+% Automatizēta, abstahēta, vienkāršota
 \subsection{Chef komponentes}
 Konfigurācijas orķestrēšanai Chef strādā pēc vedējsekotājsistēmas (angl. \textit{Master-slave system}) principa. Galvenais ir Chef serveris, kurš pārvalda infrastruktūru.
 Diagrammā \ref{fig:ChefOverview} redzams Chef komponenšu attiecības starp Chef serveri, mezgliem (angl. \textit{nodes}) un izstrādātāja darbstaciju.
@@ -112,23 +113,28 @@ Galvenās Chef komponentes:
 	\item Chef serveris - kalpo kā centrmezgls. Konfigurācija tiek augšupielādēta uz Chef servera no darbstacijām. Chef klients savienojas ar Chef serveri un saņem tā konfigurācijas datus.
 	Chef pārvaldības konsole ir Chef servera lietotāja saskarne, ko lieto, lai pārvaldītu data bags (!!!!!!!!!!!!!!!!!!), rekvizītus, run-lists, lomas, vidi, recepšu grāmatas.
 	\item Chef analīze
+	\item Chef lielveikals (angl. \textit{Chef Supermarket}) - šeit atrodas brīvi izmantojamas Chef kopienas recepšu grāmatas. Tajā jau ir gandrīz trīs tūkstoši sagatavotu recepšu grāmata, kuras spēj viekt lielāko daļu konfigurācijas daudziem rīkiem.
 \end{itemize}
 
 
 
-% Chef pamatā galvenais ir Chef repozitorijs, kurā glabājas viss konfigurācijas kods. Izstrādātājs lejuplādē repozitoriju uz savas darbstacijas un uz tās veic arī turpmāko izstrādi. Repozitorijā atrodas recepšu grāmatas (angl. \textit{cookbooks}), kurās atrodas receptes (angl. \textit{recipes}).
+Chef pamatā galvenais ir Chef repozitorijs, kurā glabājas viss konfigurācijas kods. Izstrādātājs lejuplādē repozitoriju uz lokālās darbstacijas un uz tās veic arī turpmāko izstrādi. Repozitorijā atrodas recepšu grāmatas (angl. \textit{cookbooks}), kurās atrodas receptes (angl. \textit{recipes}).
+Izmantojot Chef izstrādes rīkkopu, izstrādātājs uz savas darbstacijas var rakstīt konfigurāciju.
+Uzrakstīto kodu ir iespējams arī testēt. Ir iespējams pārbaudīt uzģenerēto datņu, izpildīto komandu atbilstību vēlamajam ar vienību testiem (angl. \textit{unit test}) izmantojot ChefSpec, kā arī testēt ar integrācijas testiem (angl. \textit{integration test}), izmantojot testu virtuvi (angl. \textit{Test Kitchen} \url{http://kitchen.ci/}). Integrācijas testi ļauj pārbaudīt kā viss strādā kopā, jo testu virtuve izveido jaunu sistēmas eksemplāru mākonī vai uz lokālas darbstacijas, izmantojot Vagrant virtuālās mašīnas vai Docker konteinerus. Ir izveidotas arī koda kvalitātes un stila pārbaudes, ko iesaka izmantot vismaz kopienas \textit{cookbooks}, tādejādi cenšoties kopienas \textit{cookbooks} padarīt konsistentākas.
+Izmantojot Chef izstrādes rīkkopas rīku \textit{knife}, izstrādātājs lielāko daļu darba var veikt no lokālās darbstacijas. \textit{Knife} ļauj augšuplādēt recepšu grāmatas uz Chef servera, pārvaldīt uzstādītos mezglus, kā arī pievienot jaunus mezglus Chef serverim.
+
 % Ir galvenais Chef serveris uz kura glabājas vairākas komponentes:
 % \begin{itemize}
-% 	\item recepšu grāmatas (angl. \textit{cookbooks}) - kurās atrodas receptes ()
+% 	\item recepšu grāmatas (angl. \textit{cookbooks}) - kurās atrodas receptes (angl. \textit{recipes}).
 % \end{itemize}
 % Chef struktūra
 % Chef repozitorijs - nosaka konfigurācijas pārvaldības struktūru. Repozitorijs satur:
-% 	Repešu grāmatas\nomenclature{Cookbooks}{Recepšu grāmatas (angl. \textit{cookbooks}) - satur receptes}
-% 		Recipes\nomenclature{Recipes}{Receptes (angl. \textit{recipes}) - tajās konfigurācija tiek aprakstīta kodā.}
-% 		Attributes\nomenclature{Attributes}{Rekvizīti (angl. \textit{attributes}) - tie var tikt definēti recepšu grāmatā vai receptē un tos var izmantot, lai pārlabotu noklusējuma iestatījumas uz mezgla}
-% 	Data_bags
-% 	Environments
-% 	Roles
+% 	Recepšu grāmatas\nomenclature{Cookbooks}{Recepšu grāmatas (angl. \textit{cookbooks}) - satur receptes}
+% 		Receptes\nomenclature{Recipes}{Receptes (angl. \textit{recipes}) - tajās konfigurācija tiek aprakstīta kodā.}
+% 		Rekvizīti\nomenclature{Attributes}{Rekvizīti (angl. \textit{attributes}) - tie var tikt definēti recepšu grāmatā vai receptē un tos var izmantot, lai pārlabotu noklusējuma iestatījumas uz mezgla.}
+% 	Datu somas\nomenclature{Data bags}{Datu somas (angl. \textit{data bags}) - līdzīgi rekvizītiem, tās izmanto noklusēto iestatījumu pārlabošanai. Atšķirībā no rekvizītiem, datu somas ir iespējams šifrēt.}
+% 	Vide\nomenclature{Environment}{Vide (angl. \textit{environment}) - katram mezglam ir noteikta vide, ar kuru iespējams noteikt izmantoto recepšu versijas.}
+% 	Lomas\nomenclature{Roles}{Lomas (angl. \textit{roles}) }
 %
 % Chef serveris
 % 	Nodes
