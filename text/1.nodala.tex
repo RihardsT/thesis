@@ -5,12 +5,15 @@
 Šajā darba nodaļā apskatīta versiju vadības sistēmu jeb VCS\nomenclature{VCS}{versiju vadības sistēma (angl. \textit{Version control system})} vēsture un pielietojums. VCS galvenais uzdevums ir saglabāt laika gaitā veiktās izmaiņas, kas veiktas ar datnēm. VCS ļauj arī atmest laika gaitā veiktās izmaiņas, atgriezties iepriekšējā stāvoklī, salīdzināt izmaiņas, redzēt kurš un kad ir veicis izmaiņas, kas atvieglo kļūdu atrašanu un to izlabošanu. Izmantojot VCS ir daudz grūtāk veikt neatgriezeniskas izmaiņas, piemēram, kļūdas pēc izdzēstu datni ir iespējams viegli atgūt.
 
 \section{Versiju vadības sistēmu vēsture}
-\cite[chapter, p.~27]{chacon2014progit}
+VCS iedalās trīs paudzēs. Pirmās paudzes VCS bija datņu orientētas un lokālas. Lielākā daļa no tām strādāja sprostojot (angl. \textit{locking}) datnes, tā liedzot laiksakritīgu (angl. \textit{concurrent}) darbu.
+Otrās paudzes VCS ir centralizētas un tās strādā uz sapludināšanas (angl. \textit{merging}) principa.
+Trešās paudzes
+\cite[history]{raymondVCS}
+% \cite[chapter, p.~27]{chacon2014progit}
 % No ProGit book
 % Kad, kāpēc, kā strādā?
 \subsection{Lokālas versiju vadības sistēmas}
-Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkopēšana no vienas mapes citā, vai arī arhīvu veidošana. Šāds variants ir diezgan nedrošs, jo pieļauj cilvēcīgas kļūdas, piemēram, nepareizas datnes izmainīšanu. Tāpēc programmētāji radīja lokālu VCS, kas vienkāršā datubāzē saglabāja veiktās izmaiņas. Populārs lokālas VCS piemērs ir \textit{GNU Revision Control System}. \textit{RCS} darbības princips attēlā \ref{fig:VersionControlLocal}.
-% Kaut kādi piemēri un gadi, attēls
+Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkopēšana no vienas mapes citā, vai arī arhīvu veidošana. Šāds variants ir diezgan nedrošs, jo pieļauj cilvēcīgas kļūdas, piemēram, nepareizas datnes izmainīšanu. Tāpēc programmētāji radīja lokālu VCS, kas vienkāršā datubāzē saglabāja veiktās izmaiņas. Lokālu VCS darbības princips attēlā \ref{fig:VersionControlLocal}.
 \begin{figure}[H]%!ht
 	\centering
 	\captionsetup{justification=centering}
@@ -18,6 +21,8 @@ Visvienkāršākā VCS, ko cilvēki mēdz izmantot ir vienkārša datņu pārkop
 	\caption{Lokālas VCS struktūras princips\ref{appfig:VersionControlLocal}}
 	\label{fig:VersionControlLocal}
 \end{figure}
+Pirmā VCS bija \textit{Source Code Control System} (\textit{SCCS}), ko 1972. gadā uzrakstīja \textit{Marc Rochkind}, viens no Bell Labs izstrādātājiem. Tā tika radīta priekš IBM lieldatoriem (angl. \textit{mainframe}) un bija speciāli paredzēta programmatūrai un skaidri definēja versiju vēsturi. \textit{SCCS} ieviesa galvenās (angl. \textit{major} un papildversijas (angl. \textit{minor}) numurēšanu.
+Otrā VCS, kas tika radīta ir \textit{GNU Revision Control System} (\textit{RCS}) un tiek vēl izmantota mūsdienās. Tā tika radīta 1980' gadu sākumā un darbojas pēc līdzīga principa kā SCCS. \texit{RCS} ir viegla un ar mazu virstēriņu (angl. \textit{low-overhead}), salīdzinot ar vēlākām un spējīgākām VCS.
 
 \subsection{Centralizētas VCS}
 Lokālas VCS ir lieliskas, lai atvieglotu viena izstrādātāja darbu, bet ar lokālām VCS ir grūti vairākiem cilvēkiem sadarboties. Lai to atrisinātu tika radītas centralizētas VCS jeb CVCS\nomenclature{CVCS}{Centralizēta versiju vadības sistēma (angl. \textit{Centralized Version Control System})}. Šādām sistēmām, piemēram CVS, Subversion un Perforce, ir viens serveris uz kura atrodas visas datnes un no kura vairāki klienti tās paņem. Salīdzinot ar lokālām VCS, šādi būtiski uzlabojas spēja sadarboties. Tomēr CVCS sistēmām ir arī būtiskas problēmas. Visas datņu versijas atrodas tikai un vienīgi uz servera, bet klientam ir tikai tā versija, kuru tas paņēmis. Tāpēc, ja centrālais serveris atsakās darboties, izstrādātāju darbs praktiski tiek paralizēts, jo nav iespējams paņemt vai iesūtīt (angl. \textit{commit}) savas izmaiņas. Ja uz centrālā servera rodas datu bojājumi, ir iespējams pazaudēt visu projekta vēsturi, ja nav veikta VCS datubāzes dublēšana.
@@ -29,6 +34,8 @@ CVCS atvieglo sadarbību, bet tās centralizētais raksturs pieļauj projekta v�
 	\caption{Centralizētas VCS \ref{appfig:VersionControlCentralized}}
 	\label{fig:VersionControlCentralized}
 \end{figure}
+Pirmais CVCS piemērs ir \textit{Concurrent Version System} (\textit{CVS}). Tā guva popularitāti ap 1990. gadu. Datu saglabāšanai tā izmanto \textit{RCS}, bet \textit{CVS} ieviesa jaunas idejas, lai izstrādātāji varētu sadarboties. Tikai ieviests sapludināšanas princips, kā arī centralizēts serveris, uz kura glabājas repozitorijs.
+Populārākā un labākā CVCS ir \textit{Apache Subversion} (\textit{SVN}). Tās pirmā stabilā versija tika izdota 2004. gadā. SVN izmanto līdzīgu, tīrāku terminoloģiju nekā CVS un ir daudz stabilāka, kā arī spējīgāka par to.
 
 \subsection{Dalītas VCS}
 CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versiju vadības sistēma (angl. \textit{Distributed Version Control System})}. DCVS sistēmās, kā Git, Mercurial, Bazaar, Darcs joprojām izmanto centralizētu serveri, uz kura klienti iesūta savas izmaiņagrāmatass, bet atšķirībā no CVCS, klienti nepaņem tikai datņu pēdējās versijas, bet pilnībā visu projekta vēsturi. Tādejādi, galvenajam serverim atsaktoties darboties, projekta vēsturi ir iespējams atjaunot no jebkura klienta. DVCS struktūra attēlā \ref{fig:VersionControlDistributed}.
@@ -65,7 +72,7 @@ Git zarošanās ir ļoti spējīgs mehānisms, kas ļauj veikt eksperimentus it 
 \subsubsection{Izvēlētā zarošanās stratēģija}
 % http://nvie.com/posts/a-successful-git-branching-model/
 % https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
-Darbā izvēlēts izmantot Gitflow darbplūsmu, kas ir īpaši lietderīga lieliem projektiem, jo Gitflow darbplūsma skaidri nosaka repozitorija zaru funkcijas. Gitflow pamatā galvenie ir divi zari: pamatzars (angl. \textit{master}) un izstrādes zars(angl. \textit{develop}). Pamatzars atspoguļo relīžu vēsturi un koda iesūtījumi ir atzīmēti ar versiju numuriem. Ikreizi, kad pamatzarā tiek veikta kāda izmaiņa, to jāatzīmē ar jaunu versijas numuru. Izstrādes zars kalpo pievienotās funkcionalitātes integrācijai. Tomēr, katrai pievienotajai iespējai vajadzētu atrasties savā funkcionalitātes (angl. \textit{feature}) zarā. Citās darbplūsmās parasti atzarojas no pamatzara, bet Gitflow darbplūsmā atzarošanās tiek veikta no izstrādes zara. Katra jaunā iespēja atzarojas no izstrādes zara un kad tā ir pabeigta, tā tiek sapludināta (angl. \textit{merge}) ar izstrādes zaru.
+Darbā izvēlēts izmantot Gitflow darbplūsmu, kas ir īpaši lietderīga lieliem projektiem, jo Gitflow darbplūsma skaidri nosaka repozitorija zaru funkcijas. Gitflow pamatā galvenie ir divi zari: pamatzars (angl. \textit{master}) un izstrādes zars(angl. \textit{develop}). Pamatzars atspoguļo relīžu vēsturi un koda iesūtījumi ir atzīmēti ar versiju numuriem. Ikreizi, kad pamatzarā tiek veikta kāda izmaiņa, to jāatzīmē ar jaunu versijas numuru. Izstrādes zars kalpo pievienotās funkcionalitātes integrācijai. Tomēr, katrai pievienotajai iespējai vajadzētu atrasties savā funkcionalitātes (angl. \textit{feature}) zarā. Citās darbplūsmās parasti atzarojas no pamatzara, bet Gitflow darbplūsmā atzarošanās tiek veikta no izstrādes zara. Katra jaunā iespēja atzarojas no izstrādes zara un kad tā ir pabeigta, tā tiek sapludināta ar izstrādes zaru.
 Kad pienāk laiks jaunai relīzei, no izstrādes zara atzarojas relīzes zars. Relīžu zaros nekad netiek pievienota jauna funkcionalitāte. Relīzes zari tiek tikai izmantoti tālākai koda sagatavošanai nākamajai versijai, tajā veic tikai labojumus. Tajā nepievieno papildus funkcionalitāti. Kad relīze ir gatava, to sapludina ar pamatzaru, atzīmē ar jaunu versijas numuru un sapludina arī ar izstrādes zaru.
 Apkopes (angl. \textit{maintenance}) zari tiek izmantoti, lai ātri veiktu labojumus relīzēm. Apkopes zars atzarojas no pamatzara un tiklīdz labojums ir pabeigts, tas tiek sapludināts ar pamatzaru un izstrādes zaru, vai vēl neizlaistu relīzes zaru.
 Šāda vairākzaru darbplūsma ļauj izstrādei neapstāties pie viena uzdevuma, piemēram, nespiež strādāt tikai pie relīzes vai papildu funkcionalitātes izstrādes. Tā kā ir vairāki zari gan relīzēm, gan funkctionalitātei, komandas var strādāt paralēli, katra pie sava uzdevuma nebojājot repozitoriju citām komandām.
