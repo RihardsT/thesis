@@ -7,7 +7,7 @@
 \section{Versiju vadības sistēmu vēsture}
 VCS iedalās trīs paudzēs. Pirmās paudzes VCS bija datņu orientētas un lokālas. Lielākā daļa no tām strādāja sprostojot (angl. \textit{locking}) datnes, tā liedzot laiksakritīgu (angl. \textit{concurrent}) darbu.
 Otrās paudzes VCS ir centralizētas un tās strādā uz sapludināšanas (angl. \textit{merging}) principa.
-Trešās paudzes
+Trešās paudzes VCS ir veidotas decentralizētas, tās arī strādā pēc sapludināšanas principa.
 \cite[history]{raymondVCS}
 % \cite[chapter, p.~27]{chacon2014progit}
 % No ProGit book
@@ -46,6 +46,7 @@ CVCS problēmas atrisina dalītas VCS jeb DVCS\nomenclature{DVCS}{dalīta versij
 	\caption{Dalītas VCS \ref{appfig:VersionControlDistributed}}
 	\label{fig:VersionControlDistributed}
 \end{figure}
+Trešās paudzes VCS piemēri ir \textit{GNU Arch}, \textit{Bazaar}, \textit{Monotone}, \textit{BitKeeper} un \textit{Git}.
 
 \section{Versiju vadības sistēma Git}
 % Kas ir repo?
@@ -177,3 +178,16 @@ Izmantojot Chef izstrādes rīkkopas rīku \textit{knife}, izstrādātājs liel�
 % 		\end{itemize}
 % 	\end{itemize}
 % \end{itemize}
+
+\chapter{Ruby on Rails}
+Darbā tika radīta mājaslapa telpas piekļuves administrēšanai izmantojot Ruby on Rails satvaru. Ruby on Rails ir tīmekļa lietojumprogrammu satvars (angl. \textit{web application framework}), kas sevī ietver visu nepieciešamo, lai radītu ar datubāzi nodrošinātu lietojumprogrammu, kas balstīta uz Modeļa-Skata-Kontroliera \nomenclature{MVC}{Modelis-Skats-Kontrolieris (angl. \textit{Model-View-Controller})} modeļa.
+
+% MVC struktūra ļauj sakārtot kodu un labāk saprast mājaslapas darbību.
+MVC sadala lietojumprogrammu trīs slāņos, kur katram slānim ir sava pienākums.
+Skata slānis satur šablonus, kurus izmanto, lai sagatavotu mājaslapas izskatu un attēlotu ievadītos datus. Ruby on Rails izmanto HTML šablonus ar integrētu Ruby kodu.
+Modelis attēlo domēna modeli (piemēram. Lietotāji, Produkti). Praktiski, lielākā daļā modeļu ir balstīti uz datubāzi un attēlo tās īpašības.
+Kontrolieris apstrādā ienākošos HTTP pieprasījumus un dod atbilstošu atbildi. Kontrolieris saņem lietotāja klikšķus, nosūta komandas modelim un galu galā uzģenerē skatus izmantojot iepriekš izveidotos šablonus.
+% http://api.rubyonrails.org/
+
+\subsection{Kāpēc izmantot Ruby on Rails?}
+Rails parūpējas par daudz lietām, kas mēdz radīt kļūdas, piemēram Rails veic SQL vaicājumu ģenerēšanu. Izstrādātājam nav jāuztraucas par piekļuvi datubāzei, datu ierakstīšanu un iegūšanu no datubāzes. Rails doktrīnā viens no punktiem ir "Konvencija pāri konfigurācijai" (angl. \textit{Convention over configuration}), tas nozīmē, ka Rails izstrādātājiem ir skaidra ideja, kā pareizi programmēt tīmekļa lietojumprogrammas. Tāpēc daudzas lietas ir abstrahētas, kas būtiski vienkāršo izstrādi, kā arī Rails apgūšanu.
