@@ -1,4 +1,7 @@
 \chapter{Praktiskais}
+
+\section{RaspberryPi sagatavošana}
+
 \section{Praktiski ar Chef}
 Chef strādā pēc vedējsekotājsistēmas principa, tas nozīmē, ka vienmēr ir Chef serveris, kas kalpo kā centrmezgls un pārvalda visus uzstādītos mezglus. Atkarībā no uzņēmuma vajadzībām, Chef serveri ir iespējams uzstādīt vairākos veidos. Chef piedāvā Chef serveri kā pakalpojumu (\textit{Hosted Chef}), kuru ir iespējams izmantot par brīvu līdz 5 mezgliem. Šis ir vienkāršākais un ātrākais veids, kā praktiski sākt strādāt ar Chef, tomēr uzņēmumiem tas varētu būt neatbilstošs, jo nav pilnīga kontrole pār serveri. Ir iespējams Chef serveri uzstādīt \textit{mākonī}. Ir pieejami jau gatavi instanču attēli \textit{Amazon Webservices} un \textit{Microsoft Azure} \textit{mākoņos}, kas būtiski paātrina Chef servera uzstādīšanas laiku. Kā arī ir iespējams Chef serveri uzstādīt uz jebkura servera, uz kura uzstādīta \textit{Red Hat Enterprise Linux} vai \textit{CentOS} 5., 6. vai 7. versija, vai Ubuntu 10.04, 12.04 vai 14.04 versija.
 Tā kā darbā uzstādīta tikai viena servera instance izmantojot Chef, darbā izmantots \textit{Hosted Chef} serviss. Tā arī ir paredzēts un ieteicams izmantot Chef.
@@ -19,7 +22,7 @@ cd cookbooks/test-book
 berks vendor ../
 "-b"  karogs norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
 Izmantojot \textit{berkshelf vendor} komandu, berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
-knife bootstrap 192.168.1.12 --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --node-name chefnode --run-list 'recipe[testbook]'
+% knife bootstrap 192.168.1.12 --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --node-name chefnode --run-list 'recipe[testbook]'
 
 Lietojot Chef-solo.
 Chef-solo spēj piemērot receptes, kuras atrodas uz iekārtas.
@@ -40,4 +43,7 @@ Darbā izmantots Ruby on Rails  tīmekļa lietojumprogrammu satvars.
 CSS - Bootstrap satvars
 JavaScript - jQuery
 Testēšana - RSpec, Shoulda matchers, Factory Girl, Faker
-RSpec ir uzvedības virzītas izstrādes (angl. \textit{behavior driven development}) testēšanas satvars. RSpec izmanto savu domēnam specifisku valodu, kas līdzinās dabiskas valodas specifikācijai. Lasot RSpec testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā RSpec cenšas testus padarīt lasāmus un saprotamus.
+
+
+\subsection{Lietotāji}
+\subsection{Uzbrukumi}
