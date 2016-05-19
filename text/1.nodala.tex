@@ -192,10 +192,33 @@ Kontrolieris apstrādā ienākošos HTTP pieprasījumus un dod atbilstošu atbil
 \section{Kāpēc izmantot Ruby on Rails?}
 Rails parūpējas par daudz lietām, kas mēdz radīt kļūdas, piemēram Rails veic SQL vaicājumu ģenerēšanu. Izstrādātājam nav jāuztraucas par piekļuvi datubāzei, datu ierakstīšanu un iegūšanu no datubāzes. Rails doktrīnā viens no punktiem ir "Konvencija pāri konfigurācijai" (angl. \textit{Convention over configuration}), tas nozīmē, ka Rails izstrādātājiem ir skaidra ideja, kā pareizi programmēt tīmekļa lietojumprogrammas. Tāpēc daudzas lietas ir abstrahētas, kas būtiski vienkāršo izstrādi, kā arī Rails apgūšanu.
 
-\chapter{Testēšana}
-Ir vairāki aplikāciju izsrādes paņēmieni. Viens no paņēmieniem ir testu virzīra izstrāde \nomenclature{TDD}{Testu virzīta izstrāde (angl. \textit{Test driven development})}. TDD sevī ietver testu uzrakstīšanu pirms tiek uzrakstīts aplikācijas kods. Tādejādi TDD pamatprincips ir šāds: Sākumā tiek uzrakstīts tests, kurš neizdodas un pēc tam tiek uzrakstīts tikai tik daudz koda cik nepieciešams, lai tests izpildītos veiksmīgi. Kad tests izpildas
+\chapter{Programmatūras izstrādes modeļi}
+Ir daudzi modeļi, pēc kā var vadīties izstrādājot programmatūru. Tradicionāls ir Ūdenskrituma modelis (angl. \textit{Waterfall model}) un V-modelis. 
+\section{Ūdenskrituma modelis}
+Senākais izmantotais modelis, kas aizņemts no ražošanas un būvniecības nozarēm, ir Ūdenskrituma modelis. Šajā modelī ir stingri noteiktas fāzes, kurām sekot izstrādes procesās.
+Ūdenskrituma modeļa fāzes ir sekojošas:
+\begin{itemize}
+	\item Sistēmas un programmatūras vajadzības
+	\item Analīze, rezultātā iegūstot modeļus un shēmas
+	\item Noformēšana, rezultātā iegūstot programmatūras arhitektūru
+	\item Programmēšana
+	\item Testēšana
+	\item Sistēmas uzstādīšana, uzturēšana un atbalstīšana
+\end{itemize}
+Ūdenskrituma modelī katrā fāzē veiktais darbs ir galējs - iepriekšējā fāzē izmaiņas netiek veiktas pēc tās beigām, vismaz ne bez būtiskiem laika un līdzekļu zaudējumiem.
+Tā kā ūdenskrituma modelis ir aizgūts no būvniecības, tas ir piemērots, piemēram, tiltu būvniecībā, bet tas ir nebūtisks mūsdienu programmatūras izstrādē, jo nav iteratīvs un katra fāze aizņem daudz laika.
 
-Pēc tam iespējams apskatīt, vai kodu ir iespējams vienkāršot vai uzlabot, nemainot tā funkcionalitāti.
+
+\section{Spējā programmatūras izstrāde}
+\nomenclature{Agile}{Spējā Programmatūras Izstrāde (angl. \textit{Agile software development})}
+
+\subsection{Testu virzīta izstrāde}
+Ir vairāki aplikāciju izsrādes paņēmieni. Viens no paņēmieniem ir testu virzīra izstrāde \nomenclature{TDD}{Testu virzīta izstrāde (angl. \textit{Test-Driven Development})}. TDD sevī ietver testu uzrakstīšanu pirms tiek uzrakstīts aplikācijas kods. Tādejādi TDD pamatprincips ir šāds: Sākumā tiek uzrakstīts tests, kurš neizdodas un pēc tam tiek uzrakstīts tikai tik daudz koda cik nepieciešams, lai tests izpildītos veiksmīgi. Kad tests izpildas, to var novērtēt un secināt, ka tas ir par vienkāršu, lai apmierinātu visus pienākumus, ko tam būs jāpilda. Nākamais solis ir uzrakstīt jaunu testu, kas aprakstītu nākamo koda pienākumu, nevis turpināt programmēt bez testēšanas. TDD nodrošina, ka, turpmāk uzlabojot kodu, netiks ieviestas regresijas. TDD nodrošina, ka kods tiek pastāvīgi pārskatīts un tā konstrukcija nav iepriekšnoteikta un tā laika gaitā mainās, līdz ar koda vienkāršošanu un uzlabošanu.
+Tomēr TDD pamatā tiek veikti vienību testi (angl. \textit{Unit tests}), piemēram, pārbauda vai mainīgais ir masīvs. Tādejādi, tiek pārbaudīta koda konstrukcija, nevis tā uzvedība. Tāpēc, veicot izmaiņas koda konstrukcijā, esošie testi var neizdoties, kaut gan tā uzvedība paliek nemainīga. \cite{chelimsky2010Rspec} Testēt koda konstrukciju galu galā ir neizdevīgi, jo tas aizņem daudz laika un nenodrošina, ka izmaiņas kodā, nemainot tā uzvedību, vienmēr spēs veiksmīgi izpildīt visus testus.
+
+\subsection{Uzvedības virzīta izstrāde}
+Testēt koda konstrukciju, tā struktūru nav tik svarīgi, kā testēt tā uzvedību. Tāpēc, TDD pēctecis ir Uzvedības virzīta izstrāde \nomenclature{BDD}{Uzvedības virzīta izstrāde (angl. \textit{Behaviour-Driven Development})}.
+
 \section{RSpec}
 RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
 \cite{shayRspec}
