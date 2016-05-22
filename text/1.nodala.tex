@@ -119,7 +119,7 @@ Galvenās Chef komponentes:
 	\item Chef izmanto domēnam specifisku valodu, lai aprakstītu lielu daļu konfigurācijas, kas balstīta uz Ruby programmēšanas valodu un izmanto tās sintaksi. Chef ir ļoti pielāgojams, jo ļauj pilnībā izmantot Ruby dotās iespējas.
 	\item Mezgli - jebkuras sistēmas (fiziskas, virtuālas, mākonis, u.t.t.), ko pārvalda Chef. Chef klients (angl. \textit{chef-client}) ir izpildāma programma, kas uzstādīta uz katra mezgla un tā izpilda visus konfigurācijas uzdevumus.
 	\item Chef serveris - kalpo kā centrmezgls. Konfigurācija tiek augšupielādēta uz Chef servera no darbstacijām. Chef klients savienojas ar Chef serveri un saņem tā konfigurācijas datus.
-	Chef pārvaldības konsole ir Chef servera lietotāja saskarne, ko lieto, lai pārvaldītu data bags (!!!!!!!!!!!!!!!!!!), rekvizītus, run-lists, lomas, vidi, recepšu grāmatas.
+	Chef pārvaldības konsole ir Chef servera lietotāja saskarne, ko lieto, lai pārvaldītu datu somas, rekvizītus, run-lists, lomas, vidi, recepšu grāmatas.
 	\item Chef analīze
 	\item Chef lielveikals (angl. \textit{Chef Supermarket}) - šeit atrodas brīvi izmantojamas Chef kopienas recepšu grāmatas. Tajā jau ir gandrīz trīs tūkstoši sagatavotu recepšu grāmatu, kuras spēj veikt lielāko daļu konfigurācijas daudziem rīkiem.
 \end{itemize}
@@ -193,7 +193,7 @@ Kontrolieris apstrādā ienākošos HTTP pieprasījumus un dod atbilstošu atbil
 Rails parūpējas par daudz lietām, kas mēdz radīt kļūdas, piemēram Rails veic SQL vaicājumu ģenerēšanu. Izstrādātājam nav jāuztraucas par piekļuvi datubāzei, datu ierakstīšanu un iegūšanu no datubāzes. Rails doktrīnā viens no punktiem ir "Konvencija pāri konfigurācijai" (angl. \textit{Convention over configuration}), tas nozīmē, ka Rails izstrādātājiem ir skaidra ideja, kā pareizi programmēt tīmekļa lietojumprogrammas. Tāpēc daudzas lietas ir abstrahētas, kas būtiski vienkāršo izstrādi, kā arī Rails apgūšanu.
 
 \chapter{Programmatūras izstrādes modeļi}
-Ir daudzi modeļi, pēc kā var vadīties izstrādājot programmatūru. Tradicionāls ir Ūdenskrituma modelis (angl. \textit{Waterfall model}) un V-modelis. 
+Ir daudzi modeļi, pēc kā var vadīties izstrādājot programmatūru. Tradicionāls ir Ūdenskrituma modelis (angl. \textit{Waterfall model}) un V-modelis.
 \section{Ūdenskrituma modelis}
 Senākais izmantotais modelis, kas aizņemts no ražošanas un būvniecības nozarēm, ir Ūdenskrituma modelis. Šajā modelī ir stingri noteiktas fāzes, kurām sekot izstrādes procesās.
 Ūdenskrituma modeļa fāzes ir sekojošas:
@@ -210,6 +210,7 @@ Tā kā ūdenskrituma modelis ir aizgūts no būvniecības, tas ir piemērots, p
 
 
 \section{Spējā programmatūras izstrāde}
+Spējā programmatūra izstrāde ir krasi atšķirīgi no Ūdenskrituma modeļa
 \nomenclature{Agile}{Spējā Programmatūras Izstrāde (angl. \textit{Agile software development})}
 
 \subsection{Testu virzīta izstrāde}
