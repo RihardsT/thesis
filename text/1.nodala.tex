@@ -91,7 +91,7 @@ Galvenais darbs notiks uz feature zariem, kuros fokusēti tiks nodalīta laika g
 
 
 
-Darba praktiskā daļa ir sadalīta divos repozitorijos. Viens repozitorijs - piekļuves sistēmas administrēšanas mājaslapai, otrs - infrastruktūras uzstādīšanai izmantojot Chef.
+Darba praktiskā daļa ir sadalīta divos repozitorijos. Viens repozitorijs - piekļuves sistēmas administrēšanas mājaslapai, otrs - infrastruktūras uzstādīšanai ar Chef.
 
 \chapter{Konfigurācijas pārvaldība}
 Šajā nodaļā apskatīta konfigurācijas pārvaldības nozīmība un īstenošana izmantojot konfigurācijas pārvaldības rīkju Chef, kas ļauj aprakstīt infrastruktūru kodā.
@@ -210,15 +210,49 @@ Tā kā ūdenskrituma modelis ir aizgūts no būvniecības, tas ir piemērots, p
 
 
 \section{Spējā programmatūras izstrāde}
-Spējā programmatūra izstrāde ir krasi atšķirīgi no Ūdenskrituma modeļa
-\nomenclature{Agile}{Spējā Programmatūras Izstrāde (angl. \textit{Agile software development})}
+Spējā programmatūra izstrāde jeb Agile \nomenclature{Agile}{Spējā Programmatūras Izstrāde (angl. \textit{Agile software development})} praktiski izpilda tos pašus Ūdenskrituma modeļa soļus krasi atšķirīgā veidā. Ūdenskrituma modelī praktiski nepieļauj darba sākšanu pie nākamās fāzes, kamēr iepriekšējā nav pilnībā pabeigta. Agile spēj ātri adaptēties un veikt pat vairākas iterācijas dienā. Tas nozīmē, ka Agile modelis pieļauj pat vairākas strādājošas programmatūras relīzes dienā.
+Agile manifestā ir noteiktas četras vienkāršas vērtības, pēc kurām vadoties var labāk izstrādāt programmatūru.
+\begin{itemize}
+	\item Cilvēki un mijiedarbība pāri procesiem un rīkiem
+	\item Strādājoša programmatūra pāri izsmeļošai dokumentācijai
+	\item Sadarbība ar klientu pāri līguma sarunām
+	\item Spēja reagēt izmaiņām pāri sekošanai plānam
+\end{itemize}
+Agile vairāk cenšas radīt maksimāli daudz vērtības klientiem, ieinteresētajām pusēm. To panāk veicot tikai tik daudz plānošanas, cik nepieciešams, lai sāktu darbu.
+Agile seko šādiem principiem:
+\begin{itemize}
+	\item Galvenā prioritāte ir pastāvīgi klientam piegādāt un uzlabot vērtīgu programmatūru
+	\item Pieņemt mainīgas prasības, pat vēlās izstrādes stadijās
+	\item Bieži veikt strādājošas aplikācijas relīzes
+	\item Ieinteresētajām pusēm un izstrādātājiem ir pastāvīgi jāsastrādājas
+	\item Projekti tiek radīti ap motivētiem cilvēkiem un tiem pilnībā uzticas, ka darbs tiks paveikts
+	\item Efektīvākais veids, kā nodot ir informāciju ir sarunās aci pret aci
+	\item Strādājoša produkts ir galvenais progresa mērītājs
+	\item Agile procesiem jānodrošina izstrādātājiem un lietotājiem ilgtspējīgu pastāvīgu ritmu
+	\item Pastāvīga uzmanība tehniskajai izcilībai un projektēšanas kvalitātei
+	\item Vienkāršība ir ļoti būtiska
+	\item Labākā arhitektūra, prasības un projektēšanas risinājumi rodas no pašorganizētām komandām
+	\item Komanda regulāri veic atskatus un izvērtē, kā kļūt efektīvākiem un veic attiecīgās izmaiņas
+\end{itemize}
+Tādejādi Agile ir arī ļoti dabīgs veids, kā izstrādāt programmatūru. Pastāvīgi nodrošinot atgriezenisko cilpu starp ieinteresētajām pusēm un izstrādātājiem ir iespējams nemitīgi uzlabot eksistējošo programmatūru, nodrošinot ar vien lielāku vērtību tās lietotājiem.
+\cite{agile-man}
+
+% \section{DevOps}
+% \cite[p.~28]{humble2010CD}
 
 \subsection{Testu virzīta izstrāde}
 Ir vairāki aplikāciju izsrādes paņēmieni. Viens no paņēmieniem ir testu virzīra izstrāde \nomenclature{TDD}{Testu virzīta izstrāde (angl. \textit{Test-Driven Development})}. TDD sevī ietver testu uzrakstīšanu pirms tiek uzrakstīts aplikācijas kods. Tādejādi TDD pamatprincips ir šāds: Sākumā tiek uzrakstīts tests, kurš neizdodas un pēc tam tiek uzrakstīts tikai tik daudz koda cik nepieciešams, lai tests izpildītos veiksmīgi. Kad tests izpildas, to var novērtēt un secināt, ka tas ir par vienkāršu, lai apmierinātu visus pienākumus, ko tam būs jāpilda. Nākamais solis ir uzrakstīt jaunu testu, kas aprakstītu nākamo koda pienākumu, nevis turpināt programmēt bez testēšanas. TDD nodrošina, ka, turpmāk uzlabojot kodu, netiks ieviestas regresijas. TDD nodrošina, ka kods tiek pastāvīgi pārskatīts un tā konstrukcija nav iepriekšnoteikta un tā laika gaitā mainās, līdz ar koda vienkāršošanu un uzlabošanu.
 Tomēr TDD pamatā tiek veikti vienību testi (angl. \textit{Unit tests}), piemēram, pārbauda vai mainīgais ir masīvs. Tādejādi, tiek pārbaudīta koda konstrukcija, nevis tā uzvedība. Tāpēc, veicot izmaiņas koda konstrukcijā, esošie testi var neizdoties, kaut gan tā uzvedība paliek nemainīga. \cite{chelimsky2010Rspec} Testēt koda konstrukciju galu galā ir neizdevīgi, jo tas aizņem daudz laika un nenodrošina, ka izmaiņas kodā, nemainot tā uzvedību, vienmēr spēs veiksmīgi izpildīt visus testus.
 
 \subsection{Uzvedības virzīta izstrāde}
-Testēt koda konstrukciju, tā struktūru nav tik svarīgi, kā testēt tā uzvedību. Tāpēc, TDD pēctecis ir Uzvedības virzīta izstrāde \nomenclature{BDD}{Uzvedības virzīta izstrāde (angl. \textit{Behaviour-Driven Development})}.
+Testēt koda konstrukciju, tā struktūru nav tik svarīgi, kā testēt tā uzvedību. Tāpēc, TDD pēctecis ir Uzvedības virzīta izstrāde jeb BDD \nomenclature{BDD}{Uzvedības virzīta izstrāde (angl. \textit{Behaviour-Driven Development})}. BDD apraksta aplikācijas uzvedību no ieinteresēto pušu skatu punkta. Tas arī ir viens no iemesliem, kāpēc BDD ir viena no Agile izstrādes paņēmieniem. BDD balstās uz tiem pašiem principiem kā Agile.
+BDD var aprakstīt kā svarīgas programmatūras rakstīšana. Lai to paveiktu, BDD balstās uz šādiem principiem:
+\begin{itemize}
+	\item Tikai tik daudz plānošanas, analīzes un projektēšanas cik nepieciešams.
+	\item Piegādā vērtību klientam
+	\item Viss ir uzvedība - neatkarīgi
+\end{itemize}
+\cite{chelimsky2010Rspec}
 
 \section{RSpec}
 RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
