@@ -31,31 +31,56 @@ Pēc tam konsolē var izpildīt sekojošas komandas:
   \item chef generate cookbook cookbooks/testbook -b
   \item cd cookbooks/test-book
   \item berks vendor ../
-  \item knife bootstrap 192.168.1.12 --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode
+  \item knife bootstrap IP_ADDRESS --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode
 \end{itemize}
-"-b"  karogs norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
-Izmantojot \textit{berkshelf vendor} komandu, berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
+Karogs "-b" pie \textit{chef generate cookbook} komandas norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
+Izmantojot \textit{berks vendor} komandu, Berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
+Komanda \textit{knife bootstrap} veic vairākas darbības. Pirmkārt, tā uzstāda Chef klientu uz norādītās darbstacijas, otrkārt, tā uzstāda norādītās receptes.
+Komandas \textit{knife bootstrap} karogu un mainīgo skaidrojums:
+\begin{itemize}
+	\item IP_ADDRESS - pārvaldāmās darbstacijas IP adrese
+	\item --local-mode - norāda, ka darbs notiks ar Chef-zero
+	\item --ssh-user - SSH lietotāja vārds, ar kuru pieslēgsies
+	\item --ssh-password - SSH lietotāja parole, to nenorādot, tā tiktu pieprasīta komandas izpildes laikā
+	\item --use-sudo-password - Chef veic darbības kā root lietotājs, tāpēc nepieciešams izmantot lietotāju ar sudo tiesībām
+	\item --run-list - norāda kuras receptes tiks piemērotas pārvaldamajam mezglam
+	\item --node-name - mezgla nosaukums
+\end{itemize}
 
-Lietojot Chef-solo.
-Chef-solo spēj piemērot receptes, kuras atrodas uz iekārtas.
-Uz izstrādātāja darbstacijas lejuplādē visas recepšu grāmatas izmantojot berks vendor
-Uzstāda chef-client uz mezgla
-Nokopē uzstādāmās recepšu grāmatas uz /var/chef/cookbooks
-Palaiž chef-solo -o RUNLIST
-'-o' --override-runlist	- nodefinē izpildāmās receptes
+\subsubsection{Lietojot Chef-solo}
+Līdzīgi kā Chef-zero, Chef-solo ir vēl viens veids kā piemērot receptes iekārtām bez Chef servera. Chef-solo spēj piemērot receptes, kuras atrodas uz iekārtas.
+\begin{itemize}
+	\item Uz izstrādātāja darbstacijas lejuplādē visas recepšu grāmatas izmantojot berks vendor
+	\item Uzstāda chef-client uz mezgla
+	\item Nokopē uzstādāmās recepšu grāmatas uz /var/chef/cookbooks
+	\item Izpilda \textit{chef-solo --override-runlist RUNLIST}
+\end{itemize}
+Chef-solo komandas --override-runlist karogs nodefinē izpildāmās receptes.
 
-Tomēr strādāt bez Chef servera nav tik viegli. Ar abiem variantiem ir problēmas, kuras var rasties un var nebūt nemaz tik viegli atrisināmas.
-
+\subsubsection{Hosted Chef}
+Strādāt bez Chef servera nav tik viegli. Ar abiem iepriekšminētajiem variantiem ir problēmas, kuras var rasties un var nebūt nemaz tik viegli atrisināmas.
 Tāpēc darba izstrādes laikā izmantots \textit{Hosted Chef}, kas ir vienkāršākais veids, kā sākt strādāt ar Chef.
 Izveidojot kontu \url{https://manage.chef.io/}, ir iespējams ielogoties grafiskā Chef pārvaldības konsolē.
 Pirmais, ko tajā nepieciešams izdarīt ir izveidot jaunu organizāciju. Tad ir iespējams lejuplādēt sākuma paku (angl. \textit{starter kit}), kas ir sagatavots Chef repozitorijs ar nepieciešamo Chef konfigurāciju. Chef servera organizācijās ir arī vairākas noklusējuma grupas (administratori, klienti, lietotāji), kuras tiek izmantotas, lai pārvaldītu izstrādātāju piekļuvi. Kā arī organizācijas satur uzstādītos Chef mezglus. Chef repozitorijā ir slēptā \textit{.chef} mape, kura satur \textit{knife.rb} datni, kurā ir norādīta Chef servera organizācijas adrese.
 
 \section{Mājaslapas izstrāde}
-Darbā izmantots Ruby on Rails  tīmekļa lietojumprogrammu satvars.
-CSS - Bootstrap satvars
-JavaScript - jQuery
-Testēšana - RSpec, Shoulda matchers, Factory Girl, Faker
+Darba izstrāde tika balstīta uz Agile izstrādes modeli. Sākumā tika noteiktas minimālās "klienta" prasības, veikti mājaslapas un datubāzes struktūres uzmetumi. Notika regulāras tikšanās un prasības tika pastāvīgi papildinātas, gan no "klienta", gan no izstrādātāja puses ieteikumu veidā.
 
+Mājaslapas izstrādē izmantoti šādi rīki:
+\begin{itemize}
+	\item Ruby on Rails tīmekļa lietojumprogrammu satvars.
+	\item CSS - Bootstrap satvars
+	\item JavaScript - jQuery
+	\item Testēšana - RSpec, Shoulda matchers, Factory Girl, Faker
+	\item TravisCI
+\end{itemize}
+
+\subsection{RSpec}
+RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
+\cite{shayRspec}
+RSpec ir BDD testēšanas satvars. RSpec izmanto savu domēnam specifisku valodu \nomenclature{DSL}{Domēnam specifiska valoda (angl. \textit{Domain specific language})}, kas līdzinās dabiskas valodas specifikācijai. Lasot RSpec testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā RSpec cenšas testus padarīt lasāmus un saprotamus.
+
+\subsection{TravisCI}
 
 \subsection{Lietotāji}
 \subsection{Uzbrukumi}
