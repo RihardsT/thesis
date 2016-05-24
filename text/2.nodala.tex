@@ -31,20 +31,20 @@ Pēc tam konsolē var izpildīt sekojošas komandas:
   \item chef generate cookbook cookbooks/testbook -b
   \item cd cookbooks/test-book
   \item berks vendor ../
-  \item knife bootstrap IP_ADDRESS --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode
+  \item \texttt{knife bootstrap IP_ADDRESS --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode}
 \end{itemize}
 Karogs "-b" pie \textit{chef generate cookbook} komandas norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
 Izmantojot \textit{berks vendor} komandu, Berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
 Komanda \textit{knife bootstrap} veic vairākas darbības. Pirmkārt, tā uzstāda Chef klientu uz norādītās darbstacijas, otrkārt, tā uzstāda norādītās receptes.
 Komandas \textit{knife bootstrap} karogu un mainīgo skaidrojums:
 \begin{itemize}
-	\item IP_ADDRESS - pārvaldāmās darbstacijas IP adrese
-	\item --local-mode - norāda, ka darbs notiks ar Chef-zero
-	\item --ssh-user - SSH lietotāja vārds, ar kuru pieslēgsies
-	\item --ssh-password - SSH lietotāja parole, to nenorādot, tā tiktu pieprasīta komandas izpildes laikā
-	\item --use-sudo-password - Chef veic darbības kā root lietotājs, tāpēc nepieciešams izmantot lietotāju ar sudo tiesībām
-	\item --run-list - norāda kuras receptes tiks piemērotas pārvaldamajam mezglam
-	\item --node-name - mezgla nosaukums
+	\item IP_ADDRESS -- pārvaldāmās darbstacijas IP adrese
+	\item \texttt{--local-mode} -- norāda, ka darbs notiks ar Chef-zero
+	\item \texttt{--ssh-user} -- SSH lietotāja vārds, ar kuru pieslēgsies
+	\item \texttt{--ssh-password} -- SSH lietotāja parole, to nenorādot, tā tiktu pieprasīta komandas izpildes laikā
+	\item \texttt{--use-sudo-password} -- Chef veic darbības kā root lietotājs, tāpēc nepieciešams izmantot lietotāju ar sudo tiesībām
+	\item \texttt{--run-list} -- norāda kuras receptes tiks piemērotas pārvaldamajam mezglam
+	\item \texttt{--node-name} -- mezgla nosaukums
 \end{itemize}
 
 \subsubsection{Lietojot Chef-solo}
@@ -53,7 +53,7 @@ Līdzīgi kā Chef-zero, Chef-solo ir vēl viens veids kā piemērot receptes ie
 	\item Uz izstrādātāja darbstacijas lejuplādē visas recepšu grāmatas izmantojot berks vendor
 	\item Uzstāda chef-client uz mezgla
 	\item Nokopē uzstādāmās recepšu grāmatas uz /var/chef/cookbooks
-	\item Izpilda \textit{chef-solo --override-runlist RUNLIST}
+	\item Izpilda \texttt{chef-solo --override-runlist RUNLIST}
 \end{itemize}
 Chef-solo komandas --override-runlist karogs nodefinē izpildāmās receptes.
 
