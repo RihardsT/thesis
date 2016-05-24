@@ -261,12 +261,29 @@ Toties nepārtraukta integrācija jeb CI \nomenclature{CI}{Nepārtraukta integr�
 CI pirmo reizi tika aprakstīta Kenta Beka (angl. \textit{Kent Beck}) grāmatā \textit{Ekstrēmā programmatūra izstrāde} (angl. \textit{Extreme Programming Explained}). Galvenā ideja bija tieši integrācijas veikšana ikreizi, kad izstrādātājs veic izmaiņas. Bez CI radīto programmatūru var uzskatīt par nestrādājošu, līdz kāds pierādā, ka tā strāda, parasti tas notiek testēšanas vai intergrācijas fāzē. Ar CI radītās problēmas atklājas ātri un tāpēc tās ir iespējams uzreiz izlabot. Komandas, kuras lieto CI spēj programmatūru piegādāt daudz ātrāk un ar mazāk kļūdām, jo tās tiek atklātas daudz ātrāk izstrādes procesā un to labošana ir lētāka arī laika ziņā. \cite[3. nodaļa]{humble2010CD}
 \subsubsection{Nepārtrauktās integrācijas ieviešana}
 Lai ieviestu CI projektā, ir nepieciešams izpildīt vairākus priekšnoteikumus:
-\begin{itemize}
+\begin{enumerate}
 	\item Versiju valdība
-	Visam jābūt vienā galvenajā repozitorijā.
+	\begin{description} \item Visam jābūt vienā galvenajā repozitorijā: kodam, testiem, datubāzes skriptiem, būvēšanas un citiem nepieciešamajiem skriptiem. \end{description}
 	\item Automatizēta projekta būvēšana
+	\begin{description} \item Jāspēj veikt būvēšanu no komandrindas. Neatkarīgi no būvēšanas mehānisma, ir jābūt iespējai būvēšanu veikt automatizētā veidā, gan izstrādātājam, gan datoram. Uz būvēšanas skriptiem jāattiecas tāpat kā uz kodu -- skriptiem jābūt versiju vadības sistēmā un laika gaitā tos ir jāvienkāršo, jāuzlabo. \end{description}
 	\item Komandas vienošanās
-\end{itemize}
+	\begin{description} \item CI ir paņēmiens, nevis tikai rīks, tāpēc komandai ir jāapņemas regulāri iesniegt veiktās izmaiņas galvenajā repozitorijā un kā galveno uzdevumu uztvert to kļūdu labošanu, kas pārtrauc aplikācijas darbību. \end{description}
+\end{enumerate}
+Ieviešot CI un izpildot minētos priekšnoteikumus un arī izpildot būtiskus paņēmienus, var panākt nemitīgu programmatūras uzlabošanu.
+Tā kā CI ir paņēmiems nevis rīks, lai CI būtu veiksmīgs, ir jāņem vērā šādi paņēmieni:
+\begin{description}
+	\item [Neiesūti savas izmaiņas pāri sabojātam būvējumam] Tiklīdz kā būvējums neizpildas, atbildīgais izstrādātājs atklāj problēmu un salabo to pēc iespējas ātrāk. Nevajag traucēt izstrādātāja darbu un pievienot savas izmaiņas kamēr būvējums neizpildas, jo tiklīdz kā tiek pievienotas papildus izmaiņas salabot būvējumu kļūst sarežģītāk. Tādejādi var arī nonākt pie situācijas, ka būvējums paliek neizlabots un CI ieguvumi tiek zaudēti.
+	\item [Vienmēr izpildi iesūtījuma testus lokāli] Pirms savu izmaiņu iesūtīšanas uz galveno repozitoriju, jāveic pēdējo izmaiņu lejuplāde, lai pārliecinātos, ka savas izmaiņas ir veiktas uz jaunākās aplikācijas versijas. To neizdarot, var rasties konflikti starp iesūtītājām izmaiņām. Kā arī bieži rodas kļūdas, kad aizmirst pievienot izveidotu artefaktu iesūtīšanai. Tāpēc, pirms savu izmaiņu iesūtīšanas, tās ieteicams arī pārbaudīt lokāli.
+	\item [Pirms turpini, pārliecinies, ka būvējums izdodas] Tiklīdz kā izstrādātājs veic iesūtījumu, tā uzdevums ir pārliecināties, ka būvējums izdodas. Ja būvējums neizdodas, tad izstrādātāja uzdevums ir atrast tā iemeslu un to salabot. Ja būvējums izdodas, izstrādātājs var ķerties klāt nākamajam uzdevumam.
+	\item [Neatstāj sabojātu būvējumu] Sabojātu būvējumu nepieciešams pēc iespējas ātrāk salabot. tā labošanu nedrīkst atstāt uz vēlāku laiku. Viens no iemesliem ir tas, ka ar laiku aizmirsīsies veiktās izmaiņas un attiecīgi arī kā salabot sabojāto būvējumu. Šis noteikums ir it īpaši svarīgs dalītās komandās, kur izstrādātāji atrodas citās laika zonās. Neatkarīgi no tā, sabojāto būvejumu nepieciešams salabot laicīgi, lai neradītu papildus problēmas citiem izstrādātājiem. Sliktākajā gadījumā savas izmaiņas var atmest izmantojot VCS.
+	\item [Vienmēr esi gatavs atgriezties pie iepriekšējās versijas] Neatkarīgi no izstrādātāju pieredzes un neatkarīgi no centības, būs gadījumi, kad tiks ieviestas kļūdas, kas sabojās būvējumu. Bieži tās ir pavisam mazas un ātri izlabojamas kļūdas, bet gadījumā ja kļūda nav uzreiz atrodama, ir jābūt gatavam atgriezties pie iepriekšējās strādājošās programmatūras versijas.
+	\item [Noteikts laiks, pirms versijas atgriešanas] Komandā jāievieš noteikums: ja sabojātu būvējumu nevar salabot noteiktā laika posmā, piemēram, 10 minūšu laikā, tad atgriezīsies pie iepriekšējās versijas.
+	\item [Neaizkomentē testus, kuri neizpildās] Laika gaitā veicot izmaiņas, neizbēgami būs gadījumi, kad kāds no testiem vairs neizpildīsies. Testu nevajadzētu aizkomentēt, bet vajadzētu pārliecināties, vai tests kļuvis nederīgs vai tas atklājis regresiju. Ja tests atklājis regresiju, tad vajadzētu veikt nepieciešamos labojumus kodā, lai to izlabotu. Testu vajadzētu mainīt tikai tad, ja pieņēmumi ir mainījušies, vai to izdzēst, ja funkcionalitāti, ko tests pārbauda, vairs neeksistē.
+	\item [Uzņemies atbildību par savām izmaiņām] Ja tevis veiktās izmaiņas veiksmīgi izpilda tevis uzrakstītos testus, bet citus nē, tava izmaiņa neskaitās pabeigta. Tavas izmaiņas varētu būt ieviesušas regresiju un tev pašam jāuzņemas atbildība to salabot. Šī noteikuma priekšnosacījums ir tāds, ka tev ir pieeja visam nepieciešamajam kodam. Ja nē, tad jāsadarbojas ar izstrādātāju ar nepieciešamajām piekļuves tiesībām.
+	\item [Testu virzīta izstrāde] Lai CI spētu ātri dot atsauksmes ir nepieciešams, lai kods būtu labi testēts vismaz ar vienībtestiem, kuru izpilde notiek ātri. Praktiski to var panākt ar TDD, kur tests tiek uzrakstīts pirms tiek ieviesta jauna funkcionalitāte. Tādu pašu piegājienu var izmantot BDD.
+\end{description}
+Sekojot šiem principiem un galvenokārt nodrošinot to, ka galvenajā repozitorijā vienmēr ir strādājoš aplikācijas kods, ir iespējams panākt daudz kvalitatīvāku kodu, kā arī ātrāk veikt nepieciešamās izmaiņas. Veicot biežus un mazus koda iesūtījumus galvenajā repozitorijā, ir iespējams tos arī vieglāk labot.
+
 
 \chapter{Drošība}
 
