@@ -256,8 +256,17 @@ BDD var aprakstīt kā svarīgas programmatūras rakstīšana. Lai to paveiktu, 
 
 
 \section{Nepārtraukta integrācija}
-Nepārtraukta integrācija (angl. \textit{Continuous Integration})
-
+Savāda, bet bieži sastopama īpatnība daudzos programmatūras izstrādes projektos ir tā, ka ilgi izstrādes procesā radītā programmatūra nav strādājošā stāvoklī. Tas ir saprotami, jo neviens nevēlas palaist visu aplikāciju līdz tā ir pabeigta. Iespējams, ka izstrādātāji bieži atzīmējas un atdod savas izmaiņas galvenajā repozitorijā, iespējams, pat izpildās automatizēti vienībtesti, bet nav neviena, kas mēģinātu palaist visu aplikāciju. Ūdenskrituma modelī šāda parādība ir bieži sastopama. Piemēram, ir trīs mēnešus gara izstrādes stadija, pēc kuras nāk testēšanas stadija un galu galā uzstādīšanas stadija, kurā pirmo reizi cenšas salikt visu aplikāciju kopā jeb integrēt. Šī integrācijas stadija var aizņemt ļoti daudz laika, kurā izstrādātāji cenšas savienot atšķirīgās koda bāzes, kā arī ir grūti noteikt cik ilgi šī stadija varētu ilgt.
+Toties nepārtraukta integrācija jeb CI \nomenclature{CI}{Nepārtraukta integrācija (angl. \textit{Continuous Integration})} nozīmē to, ka ikreizi kad izstrādātājs atdod savas izmaiņas galvenajā repozitorijā, visa aplikācija tiek uzbūvēta no jauna un automātiski notestēta. Svarīgi, ja šajā integrācijas posmā rodas kādas problēmas, tad pirmais komandas uzdevums ir to salabot. Tādejādi CI mērķis ir panākt, ka programmatūra visu laiku ir strādājošā stāvoklī.
+CI pirmo reizi tika aprakstīta Kenta Beka (angl. \textit{Kent Beck}) grāmatā \textit{Ekstrēmā programmatūra izstrāde} (angl. \textit{Extreme Programming Explained}). Galvenā ideja bija tieši integrācijas veikšana ikreizi, kad izstrādātājs veic izmaiņas. Bez CI radīto programmatūru var uzskatīt par nestrādājošu, līdz kāds pierādā, ka tā strāda, parasti tas notiek testēšanas vai intergrācijas fāzē. Ar CI radītās problēmas atklājas ātri un tāpēc tās ir iespējams uzreiz izlabot. Komandas, kuras lieto CI spēj programmatūru piegādāt daudz ātrāk un ar mazāk kļūdām, jo tās tiek atklātas daudz ātrāk izstrādes procesā un to labošana ir lētāka arī laika ziņā. \cite[3. nodaļa]{humble2010CD}
+\subsubsection{Nepārtrauktās integrācijas ieviešana}
+Lai ieviestu CI projektā, ir nepieciešams izpildīt vairākus priekšnoteikumus:
+\begin{itemize}
+	\item Versiju valdība
+	Visam jābūt vienā galvenajā repozitorijā.
+	\item Automatizēta projekta būvēšana
+	\item Komandas vienošanās
+\end{itemize}
 
 \chapter{Drošība}
 
