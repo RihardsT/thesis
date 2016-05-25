@@ -139,6 +139,19 @@ Izmantojot Chef izstrādes rīkkopu, izstrādātājs uz savas darbstacijas var r
 Uzrakstīto kodu ir iespējams arī testēt. Ir iespējams pārbaudīt uzģenerēto datņu, izpildīto komandu atbilstību vēlamajam ar vienību testiem (angl. \textit{unit test}) izmantojot ChefSpec, kā arī testēt ar integrācijas testiem (angl. \textit{integration test}), izmantojot testu virtuvi (angl. \textit{Test Kitchen} \url{http://kitchen.ci/}). Integrācijas testi ļauj pārbaudīt kā viss strādā kopā, jo testu virtuve izveido jaunu sistēmas eksemplāru mākonī vai uz lokālas darbstacijas, izmantojot Vagrant virtuālās mašīnas vai Docker konteinerus. Ir izveidotas arī koda kvalitātes un stila pārbaudes, ko iesaka izmantot vismaz kopienas \textit{cookbooks}, tādejādi cenšoties kopienas \textit{cookbooks} padarīt konsistentākas.
 Izmantojot Chef izstrādes rīkkopas rīku \textit{knife}, izstrādātājs lielāko daļu darba var veikt no lokālās darbstacijas. \textit{Knife} ļauj augšuplādēt recepšu grāmatas uz Chef servera, pārvaldīt uzstādītos mezglus, kā arī pievienot jaunus mezglus Chef serverim.
 
+Chef strādā pēc vedējsekotājsistēmas principa, tas nozīmē, ka vienmēr ir Chef serveris, kas kalpo kā centrmezgls un pārvalda visus uzstādītos mezglus. Atkarībā no uzņēmuma vajadzībām, Chef serveri ir iespējams uzstādīt vairākos veidos. Chef piedāvā Chef serveri kā pakalpojumu (\textit{Hosted Chef}), kuru ir iespējams izmantot par brīvu līdz 5 mezgliem. Šis ir vienkāršākais un ātrākais veids, kā praktiski sākt strādāt ar Chef, tomēr uzņēmumiem tas varētu būt neatbilstošs, jo nav pilnīga kontrole pār serveri. Ir iespējams Chef serveri uzstādīt \textit{mākonī}. Ir pieejami jau gatavi instanču attēli \textit{Amazon Webservices} un \textit{Microsoft Azure} \textit{mākoņos}, kas būtiski paātrina Chef servera uzstādīšanas laiku. Kā arī ir iespējams Chef serveri uzstādīt uz jebkura servera, uz kura uzstādīta \textit{Red Hat Enterprise Linux} vai \textit{CentOS} 5., 6. vai 7. versija, vai Ubuntu 10.04, 12.04 vai 14.04 versija.
+Tā kā darbā uzstādīta tikai viena servera instance izmantojot Chef, darbā izmantots \textit{Hosted Chef} serviss. Tā arī ir paredzēts un ieteicams izmantot Chef. Apskatīts arī, kā izmantot Chef piedāvātās automatizācijas iespējas bez Chef servera instances, tomēr nevar teikt, ka tas ir ieteicams variants.
+
+\subsection{Izstrādātāja darbstacijas sagatavošana darbam ar Chef} \label{ChefDarbstacija}
+Veigsmīgam darbam ar Chef ir ieteicams uz darbstacijas uzstādīt šādu programmatūru:
+\begin{itemize}
+	\item ChefDK (\url{https://downloads.chef.io/chef-dk/})
+	\item VirtualBox (\url{https://www.virtualbox.org/})
+  \item Vagrant (\url{https://www.vagrantup.com/})
+  \item Teksta redaktors
+\end{itemize}
+Lai sāktu lietot Chef ir nepieciešams uzstādīt vismaz chefDK uz darbstacijas. ChefDK sevī ietver Ruby programmēšanas valodas izpildāmos failus, kā arī bibliotēkas darbam ar Chef.
+VirtualBox un Vagrant uzstādīšana nav obligāta, bet ieteicama, lai veiktu integrācijas testus uz darbstacijas izmantojot KitchenCI (\url{http://kitchen.ci/})
 % Ir galvenais Chef serveris uz kura glabājas vairākas komponentes:
 % \begin{itemize}
 % 	\item recepšu grāmatas (angl. \textit{cookbooks}) - kurās atrodas receptes (angl. \textit{recipes}).

@@ -2,37 +2,21 @@
 
 \section{RaspberryPi sagatavošana}
 
-\section{Praktiski ar Chef}
-Chef strādā pēc vedējsekotājsistēmas principa, tas nozīmē, ka vienmēr ir Chef serveris, kas kalpo kā centrmezgls un pārvalda visus uzstādītos mezglus. Atkarībā no uzņēmuma vajadzībām, Chef serveri ir iespējams uzstādīt vairākos veidos. Chef piedāvā Chef serveri kā pakalpojumu (\textit{Hosted Chef}), kuru ir iespējams izmantot par brīvu līdz 5 mezgliem. Šis ir vienkāršākais un ātrākais veids, kā praktiski sākt strādāt ar Chef, tomēr uzņēmumiem tas varētu būt neatbilstošs, jo nav pilnīga kontrole pār serveri. Ir iespējams Chef serveri uzstādīt \textit{mākonī}. Ir pieejami jau gatavi instanču attēli \textit{Amazon Webservices} un \textit{Microsoft Azure} \textit{mākoņos}, kas būtiski paātrina Chef servera uzstādīšanas laiku. Kā arī ir iespējams Chef serveri uzstādīt uz jebkura servera, uz kura uzstādīta \textit{Red Hat Enterprise Linux} vai \textit{CentOS} 5., 6. vai 7. versija, vai Ubuntu 10.04, 12.04 vai 14.04 versija.
-Tā kā darbā uzstādīta tikai viena servera instance izmantojot Chef, darbā izmantots \textit{Hosted Chef} serviss. Tā arī ir paredzēts un ieteicams izmantot Chef.
-Apskatīts arī, kā izmantot Chef piedāvātās automatizācijas iespējas bez Chef servera instances, tomēr nevar teikt, ka tas ir ieteicams variants.
-
-\section{Izstrādātāja darbstacijas sagatavošana}
-Veigsmīgam darbam ar Chef ir ieteicams uz darbstacijas uzstādīt šādu programmatūru:
-\begin{itemize}
-	\item ChefDK (\url{https://downloads.chef.io/chef-dk/})
-	\item VirtualBox (\url{https://www.virtualbox.org/})
-  \item Vagrant (\url{https://www.vagrantup.com/})
-  \item Teksta redaktors
-\end{itemize}
-Lai sāktu lietot Chef ir nepieciešams uzstādīt vismaz chefDK uz darbstacijas. ChefDK sevī ietver Ruby programmēšanas valodas izpildāmos failus, kā arī bibliotēkas darbam ar Chef.
-VirtualBox un Vagrant uzstādīšana nav obligāta, bet ieteicama, lai veiktu integrācijas testus uz darbstacijas izmantojot KitchenCI (\url{http://kitchen.ci/})
-
 \subsection{Darbs ar Chef bez Chef servera}
-Ir vairāki varianti, kā piemērot Chef receptes nekontaktējoties ar Chef serveri. Iespējams izmantot chef-zero vai chef-solo.
+Tā kā darbā paredzēts uzstādīt tikai vienu instanci, tika apskatīts kā izmantot Chef sniegtās iespējas arī bez Chef servera. Ir pieejami divi varianti, kā piemērot Chef receptes nekontaktējoties ar Chef serveri. Iespējams izmantot chef-zero vai chef-solo.
+Kā priekšnosacījums darbam ar Chef ir izstrādātāja darbstacijas sagatavošana, kas apskatīta \ref{ChefDarbstacija} nodaļā.
 \subsubsection{Darbs ar Chef-zero}
 Izmantojot \textit{chef-zero}, ir iespējams simulēt pagaidu Chef serveri datora atmiņā. Šo vēl vairāk atvieglo Knife-zero spraudnis (angl. \textit{plugin} \url{https://knife-zero.github.io/}), ar kura palīdzību var izdarīt tās pašas darbības, kā tad, ja ir uzstādīts Chef serveris.
-Lai sāktu lietot Chef-zero vispirms ir nepieciešams uzstādīt chefDK (\url{https://downloads.chef.io/chef-dk/}).
 Pēc tam konsolē var izpildīt sekojošas komandas:
-\begin{itemize}
-  \item chef gem install knife-zero
-  \item chef generate repo test-repo
-  \item cd test-repo
-  \item chef generate cookbook cookbooks/testbook -b
-  \item cd cookbooks/test-book
-  \item berks vendor ../
-  \item \texttt{knife bootstrap IP_ADDRESS --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode}
-\end{itemize}
+\begin{lstlisting}[frame=single]
+	chef gem install knife-zero
+	chef generate repo test-repo
+	cd test-repo
+	chef generate cookbook cookbooks/testbook -b
+	cd cookbooks/test-book
+	berks vendor ../
+	knife bootstrap IP_ADDRESS --local-mode --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --run-list 'recipe[testbook]' --node-name chefnode
+\end{lstlisting}
 Karogs "-b" pie \textit{chef generate cookbook} komandas norāda, ka tiks uzstādīts Berkshelf integrācija, kas ļauj ērti atrisināt recepšu grāmatu atkarības.
 Izmantojot \textit{berks vendor} komandu, Berkshelf lejuplādēs visas recepšu grāmatas, kuras ir nepieciešamas infrastruktūras uzstādīšanai.
 Komanda \textit{knife bootstrap} veic vairākas darbības. Pirmkārt, tā uzstāda Chef klientu uz norādītās darbstacijas, otrkārt, tā uzstāda norādītās receptes.
