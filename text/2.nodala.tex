@@ -4,7 +4,7 @@
 
 \section{RaspberryPi sagatavošana}
 
-\subsection{Darbs ar Chef bez Chef servera}
+\section{Darbs ar Chef bez Chef servera}
 Tā kā darbā paredzēts uzstādīt tikai vienu instanci, tika apskatīts kā izmantot Chef sniegtās iespējas arī bez Chef servera. Ir pieejami divi varianti, kā piemērot Chef receptes nekontaktējoties ar Chef serveri. Iespējams izmantot chef-zero vai chef-solo.
 Kā priekšnosacījums darbam ar Chef ir izstrādātāja darbstacijas sagatavošana, kas apskatīta \ref{ChefDarbstacija} nodaļā.
 \subsubsection{Darbs ar Chef-zero}
@@ -129,14 +129,52 @@ Veicot jebkādas datubāzes struktūras izmaiņas, ģenerējot jaunus modeļus v
 	rake db:migrate
 \end{lstlisting}
 
+\subsubsection{Bootstrap}
+Darbā izmantots Bootstrap CSS satvars (\url{http://getbootstrap.com/}), kas ļauj ātri izveidot pieņemamas, arī mobilām iekārtām piemērotas mājaslapas.
+Bootstrap ir iespējams pievienot Rails aplikācijai vairākos veidos. Viens no veidiem ir pievienot to \textit{Gemfile}, kā bibliotēku. Tomēr tādu variantu neizvēlējos, jo tādejādi mājaslapas lietotājam būtu jālejuplādē Bootstrap CSS faili no uzstādītā servera, kā arī tas nav nepieciešams, ja negrasās ievērojami konfigurēt Bootstrap CSS klases.
+Tā kā darbā nav paredzēts izmainīt Bootstrap klases, tas pievienots izmantojot satura piegādes tīklu (angl. \textit{content delivery network}) jeb \textit{CDN}, kas nodrošina augstu pieejamību CSS failiem. Kā arī, daudzas populāras mājaslapas izmanto Bootstrap, tādejādi ir iespējams, ka izveidotās mājaslapas lietotājiem, nepieciešamais CSS fails atrastos pārlūka kešatmiņā.
+\begin{lstlisting}[language=HTML]
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+\end{lstlisting}
 
+\subsubsection{jQuery}
+Mājaslapai ir nepieciešams \textit{jQuery} JavaScript satvars, lai nodrošinātu lietotāju žurnālu kārtošanu pēc datubāzes kolonnām. Izmantojot \textit{jQuery} \textit{tablesorter} spraudni (\url{https://mottie.github.io/tablesorter/docs/index.html}), tiek nodrošināta parādīto ierakstu kārtošana, atvieglojot sistēmas administrēšanu.
 
-\subsection{RSpec}
+\subsection{Testēšana}
+
+\subsubsection{Codacy}
+Codacy ir viens no statiskas koda analīzes servisiem, kas pieejams par brīvu atvērtā koda projektiem, kā arī ir viegli integrējams ar GitHub (\url{https://github.com/integrations}). Statiska koda analīze spēj atklāt vairākas lietas neizpildot kodu.
+Piemēram, iespējams atklāt:
+\begin{itemize}
+	\item koda stila kļūdas, kas parasti izveidojas nesekojot vispār pieņemtai konvencijai, tādejādi apgrūtinot koda lasāmību;
+	\item neizmantotu kodu;
+	\item drošības riskus, piemēram, SQL injekcijas iespējas;
+\end{itemize}
+Statiska koda analīze spēj atklāt un izvairīties no zināmu sliktu paņēmienu izmantošanas, nodrošinot augstāku koda kvalitāti. Kvalitatīvs kods ir vieglāk lasāms un tādejādi arī vieglāk uzturams un atbalstāms.
+
+\subsubsection{TravisCI}
+TravisCI arī ir viens no rīkiem, kas ir viegli integrējams ar GitHub.
+\begin{lstlisting}
+	language: ruby
+	rvm:
+	  - 2.2.3
+	bundler_args: --without production
+	env:
+	  - DB=sqlite
+	script:
+	  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+	  - bundle exec rspec
+	notifications:
+	  email: false
+\end{lstlisting}
+
+\subsubsection{RSpec}
 RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
 \cite{shayRspec}
 RSpec ir BDD testēšanas satvars. RSpec izmanto savu DSL, kas līdzinās dabiskas valodas specifikācijai. Lasot RSpec testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā RSpec cenšas testus padarīt lasāmus un saprotamus.
-
-\subsection{TravisCI}
+\subsubsection{Shoulda matchers}
+\subsubsection{Factory Girl}
+\subsubsection{Faker}
 
 \subsection{Lietotāji}
 \subsection{Uzbrukumi}
