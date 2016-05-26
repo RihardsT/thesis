@@ -86,8 +86,50 @@ Nākamais solis bija sagatavot datubāzi. Datubāzes tabulu izveidošanai iespē
 	rails generate model User name:string surname:string person_code:string password_digest:string level:integer
 	rails generate model Log user:references
 \end{lstlisting}
-Šādi tika uzģenerēta lietotāju tabula ar sākumā nepieciešamajām kolonnām, ieskaitot \textit{password_digest} kolonnu, kas nepieciešama šifrētās paroles glabāšanai. Kā arī tika uzģenerēta žurnālu kolonna ar ārējo atslēgu (angl. \textit{foreign key}) norādot uz lietotāju ID. Rails automātiski parūpējas par ID un laika zīmogu (angl. \textit{timestamp}) kolonnu izveidošanu un tās ģeneratoram nav jānorāda.
+Šādi tika uzģenerēta lietotāju tabula ar sākumā nepieciešamajām kolonnām, ieskaitot \textit{password_digest} kolonnu, kas nepieciešama šifrētās paroles glabāšanai. Kā arī tika uzģenerēta žurnālu kolonna ar ārējo atslēgu (angl. \textit{foreign key}) norādot uz lietotāju ID. Rails automātiski parūpējas par ID, kā arī izveidošanas un labošanas laika zīmogu (angl. \textit{timestamp}) kolonnu izveidošanu un tās ģeneratoram nav jānorāda.
 % Uzzīmēt datubāzes struktūru.
+
+Kontrolieros tiek aprakstīta tīmekļa aplikācijas darbības loģika. Darba sākumā tika uzģenerēti četri kontrolieri.
+\begin{lstlisting}
+	rails generate controller Home index
+	rails generate controller Users index new show edit
+	rails generate controller Sessions new
+	rails generate controller Reader
+\end{lstlisting}
+Ģeneratoram nepieciešams norādīt tikai kontroliera nosaukumu, bet iespējams norādīt vēl papildus argumentus - kontroliera rīcības (angl. \textit{action}). Tās ir metodes, kurās veikt funkcionalitātes programmēšanu. Norādot tās ģeneratoram tiks uzģenerētas arī skatu sagataves, kurās veikt mājaslapas izstrādi. Kontrolieri tiek rakstīti izmantojot Ruby programmēšanas valodu, bet skati tiek veidoti izmantojot HTML un arī iegultu Ruby kodu (angl. \textit{embedded Ruby}), attiecīgi tāpēc to failu paplašinājums ir .html.erb. Attiecīgi, uzģenerētais lietotāju kontrolieris sagatavo četrus skatus un četras metodes. \textit{Index} metode un skats izmantota, lai attēlotu visus sistēmā esošos lietotājus, \textit{new} - lai pievienotu jaunu lietotāju, \textit{show} - lai attēlotu visu pieejamo informāciju par vienu lietotāju, \textit{edit} - lai labotu esošu lietotāju.
+
+Norādot kontrolieru ģeneratoram vairākas rīcības, tas ne tikai sagatavos kontrolieri ar metodēm, skatus, bet arī parūpēsies par maršrutu izveidošanu. Rails maršrutēšana tiek veikta attiecinot URL uz kodu. Attiecīgi maršruts \textit{/users/new} izmanto tāda paša nosaukuma skatu un to apstrādā izmantojot \textit{users} kontroliera \textit{new} metodi. Rails arī piedāvā saīsinātu veidu, kā aprakstīt REST ceļus.
+\begin{lstlisting}
+	resources :users
+\end{lstlisting}
+% Ievietojot šādu rindu projekta \textit{config/routes.rb} failā, būs pieejami septiņi ceļi, kas norādīs uz septiņām kontroliera metodēm un izmantos kādu no HTTP darbības vārdiem (GET, POST, PUT, DELETE).
+% \begin{lstlisting}
+% 			users GET    /users(.:format)          users#index
+% 						POST   /users(.:format)          users#create
+% 	 new_user GET    /users/new(.:format)      users#new
+% 	edit_user GET    /users/:id/edit(.:format) users#edit
+% 			 user GET    /users/:id(.:format)      users#show
+% 						PUT    /users/:id(.:format)      users#update
+% 						DELETE /users/:id(.:format)      users#destroy
+% \end{lstlisting}
+
+Rails ir ļoti parocīgs Agile tipa izstrādei, jo viegli ļauj aplikāciju papildināt ar jaunu funkcionalitāti. Darba gaitā radās papildus prasības un bija nepieciešams papildināt esošās datubāzes tabulas ar papildus kolonnām, kā arī bija jāizveido jauna tabula un kontrolieris. Jaunu tabulu izveidošana notiek tieši tā pat kā iepriekš - uzģenerējot modeli. Esošu tabulu mainīšanai iespējams izmantot migrāciju ģeneratoru.
+\begin{lstlisting}
+	rails generate migration add_email_phone_card_id_to_user email:string phone:string card_id:string
+	rails generate migration add_timeopen_timeclose_action_reason_to_log timeopen:datetime timeclose:datetime action:integer reason:string
+	rails generate model Box category:integer email:string content:text
+	rails generate controller Box index new show edit
+	rails generate migration add_title_to_box title:string
+\end{lstlisting}
+Ģenerējot migrācijas ir būtiski ievērot to nosaukumu. Migrācijas nosaukuma sākumā jānorāda veicamā darbība - pievienošana (\textit{add}) vai atņemšana (\textit{remove}), beigās norādot eksistējošu modeli kā redzams komandās, kuram tiks piemērota norādītā darbība. Piemēram, \textit{add_title_to_box} pievienos virsraksta kolonnu \textit{box} modelim.
+
+
+Veicot jebkādas datubāzes struktūras izmaiņas, ģenerējot jaunus modeļus vai migrācijas, jāatceras tās piemērot izmantojot komandu:
+\begin{lstlisting}
+	rake db:migrate
+\end{lstlisting}
+
+
 
 \subsection{RSpec}
 RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
