@@ -70,9 +70,24 @@ Darba sākumā tika veikta mājaslapas projekta ģenerēšana un repozitorija in
 	rails new access_page
 	git init
 \end{lstlisting}
+
 Turpmāk tika veiktas izmaiņas \textit{Gemfile} un \textit{.gitignore} failos. \textit{Gemfile} satur nepieciešamo bibliotēku sarakstu, \textit{.gitignore} satur ignorējamo failu sarakstu, kurus nav nepieciešams saglabāt VCS.
 Darbā izveidoto \textit{Gemfile} failu iespējams apskatīt \ref{appcode:gemfile} pielikumā. Izveidoto \textit{.gitignore} failu iespējams apskatīt \ref{appcode:gitignore} pielikumā.
+Viena no svarīgākājām bibliotēkām, kas atrodama \textit{Gemfile}, ir \textit{bcrypt} bibliotēka, kas nodrošina paroļu drošu glabāšanu datubāzē šifrētā veidā.
 
+Turpinot, tika veikta bibliotēku instalēšana un RSpec uzstādīšana, izpildot šādas komandas uzģenerētajā projekta direktorijā:
+\begin{lstlisting}
+	bundle install
+	rails generate rspec:install
+\end{lstlisting}
+
+Nākamais solis bija sagatavot datubāzi. Datubāzes tabulu izveidošanai iespējams izmantot Rails modeļu ģeneratoru. Sākumā tika uzģenerētas divas datubāzes tabulas, viena lietotājiem, viena žurnāliem, izpildot šādas komandas:
+\begin{lstlisting}
+	rails generate model User name:string surname:string person_code:string password_digest:string level:integer
+	rails generate model Log user:references
+\end{lstlisting}
+Šādi tika uzģenerēta lietotāju tabula ar sākumā nepieciešamajām kolonnām, ieskaitot \textit{password_digest} kolonnu, kas nepieciešama šifrētās paroles glabāšanai. Kā arī tika uzģenerēta žurnālu kolonna ar ārējo atslēgu (angl. \textit{foreign key}) norādot uz lietotāju ID. Rails automātiski parūpējas par ID un laika zīmogu (angl. \textit{timestamp}) kolonnu izveidošanu un tās ģeneratoram nav jānorāda.
+% Uzzīmēt datubāzes struktūru.
 
 \subsection{RSpec}
 RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
