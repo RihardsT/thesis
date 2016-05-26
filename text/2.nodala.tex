@@ -10,7 +10,7 @@ Kā priekšnosacījums darbam ar Chef ir izstrādātāja darbstacijas sagatavoš
 \subsubsection{Darbs ar Chef-zero}
 Izmantojot \textit{chef-zero}, ir iespējams simulēt pagaidu Chef serveri datora atmiņā. Šo vēl vairāk atvieglo Knife-zero spraudnis (angl. \textit{plugin} \url{https://knife-zero.github.io/}), ar kura palīdzību var izdarīt tās pašas darbības, kā tad, ja ir uzstādīts Chef serveris.
 Pēc tam konsolē var izpildīt sekojošas komandas:
-\begin{lstlisting}[frame=single]
+\begin{lstlisting}[language=bash]
 	chef gem install knife-zero
 	chef generate repo test-repo
 	cd test-repo
@@ -65,6 +65,13 @@ Mājaslapas izstrādē izmantoti šādi rīki:
 \subsection{Ruby on Rails}
 Mājaslapas izstrādē izmantots Ruby on Rails tīmekļa lietojumprogrammu satvars, kas būtiski atvieglo spējīgu mājaslapu izstrādi.
 Izmantojot Rails ir iespējams loti ātri izveidot funkcionējošu tīmekļa aplikāciju. Ir iespējams iegūt ļoti daudz funkcionalitātes izmantojot ģeneratorus.
+Darba sākumā tika veikta mājaslapas projekta ģenerēšana un repozitorija inicializācija veicot šādas komandas:
+\begin{lstlisting}
+	rails new access_page
+	git init
+\end{lstlisting}
+Turpmāk tika veiktas izmaiņas \textit{Gemfile} un \textit{.gitignore} failos. \textit{Gemfile} satur nepieciešamo bibliotēku sarakstu, \textit{.gitignore} satur ignorējamo failu sarakstu, kurus nav nepieciešams saglabāt VCS.
+Darbā izveidoto \textit{Gemfile} failu iespējams apskatīt \ref{appcode:gemfile} pielikumā. Izveidoto \textit{.gitignore} failu iespējams apskatīt \ref{appcode:gitignore} pielikumā.
 
 
 \subsection{RSpec}
