@@ -216,8 +216,12 @@ Kontrolieris apstrādā ienākošos HTTP pieprasījumus un dod atbilstošu atbil
 \cite{rails-api}
 Rails parūpējas par daudz lietām, kas mēdz radīt kļūdas, piemēram Rails veic SQL vaicājumu ģenerēšanu. Izstrādātājam nav jāuztraucas par piekļuvi datubāzei, datu ierakstīšanu un iegūšanu no datubāzes.
 
+\subsection{Izstrādātāja darbstacijas sagatavošana darbam ar Ruby on Rails} \label{RubyDarbstacija}
+Lai veiksmīgi sāktu mājaslapas izstrādi, ir nepieciešams sagatavot izstrādes darbstaciju un uzstādīt nepieciešamās pakotnes. Sagatavojot darbstaciju darbam ar Chef, kas apskatīta \ref{ChefDarbstacija} nodaļā, ChefDK uzstāda tajā iegultu Ruby programmēšanas valodas izpildfailus, kurus iespējams arī izmantot Rails izstrādei. Tomēr, ieteicams izmantot atsevišķu Ruby instalāciju. Vienkāršākais veids, kā sagatavot darbstaciju ir sekot GoRails pamācībai: \url{https://gorails.com/setup/ubuntu/14.04}. Darba izstrāde tika veikta uz Ubuntu 14.04 operētājsistēmas.
+
+
 \chapter{Programmatūras izstrādes modeļi}
-Ir daudzi modeļi, pēc kā var vadīties izstrādājot programmatūru. Tradicionāls ir Ūdenskrituma modelis (angl. \textit{Waterfall model}) un V-modelis.
+Ir daudzi modeļi, pēc kā var vadīties izstrādājot programmatūru. Turpmāk tiks apskatīts tradicionālais Ūdenskrituma modelis (angl. \textit{Waterfall model}) un Spējās programmatūras izstrādes modelis (turpmāk Agile) \nomenclature{Agile}{Spējā programmatūras izstrāde (angl. \textit{Agile software development})} un novērtēta to atbilstība programmatūras izstrādei.
 \section{Ūdenskrituma modelis}
 Senākais izmantotais modelis, kas aizņemts no ražošanas un būvniecības nozarēm, ir Ūdenskrituma modelis. Šajā modelī ir stingri noteiktas fāzes, kurām sekot izstrādes procesā.
 Ūdenskrituma modeļa fāzes ir sekojošas:
@@ -234,7 +238,7 @@ Senākais izmantotais modelis, kas aizņemts no ražošanas un būvniecības noz
 
 
 \section{Spējā programmatūras izstrāde}
-Agile programmatūra izstrāde jeb Agile \nomenclature{Agile}{Agile programmatūras izstrāde (angl. \textit{Agile software development})} praktiski izpilda tos pašus Ūdenskrituma modeļa soļus krasi atšķirīgā veidā. Ūdenskrituma modelī praktiski nav pieļaujama darba sākšana pie nākamās fāzes, kamēr iepriekšējā nav pilnībā pabeigta. Agile spēj ātri adaptēties un veikt pat vairākas iterācijas dienā. Tas nozīmē, ka Agile modelis pieļauj pat vairākas strādājošas programmatūras relīzes dienā.
+Agile praktiski izpilda tos pašus Ūdenskrituma modeļa soļus krasi atšķirīgā veidā. Ūdenskrituma modelī praktiski nav pieļaujama darba sākšana pie nākamās fāzes, kamēr iepriekšējā nav pilnībā pabeigta. Agile spēj ātri adaptēties un veikt pat vairākas iterācijas dienā. Tas nozīmē, ka Agile modelis pieļauj pat vairākas strādājošas programmatūras relīzes dienā.
 Agile manifestā ir noteiktas četras vienkāršas vērtības, pēc kurām vadoties var labāk izstrādāt programmatūru:
 \begin{itemize}
 	\item cilvēki un mijiedarbība pāri procesiem un rīkiem;
@@ -310,6 +314,9 @@ Tā kā CI ir paņēmiems nevis rīks, lai CI būtu veiksmīgs, ir jāņem vēr�
 \end{description}
 Sekojot šiem principiem un galvenokārt nodrošinot to, ka galvenajā repozitorijā vienmēr ir strādājoš aplikācijas kods, ir iespējams panākt daudz kvalitatīvāku kodu, kā arī ātrāk veikt nepieciešamās izmaiņas. Veicot biežus un mazus koda iesūtījumus galvenajā repozitorijā, ir iespējams tos arī vieglāk labot.
 
+
+\chapter{RaspberryPi}
+\section{RaspberryPi arhitektūra}
 
 \chapter{Drošība}
 
