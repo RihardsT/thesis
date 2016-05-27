@@ -3,6 +3,42 @@
 \section{Git}
 
 \section{RaspberryPi sagatavošana}
+Lai sāktu lietot RaspberryPi, jāuzstāda kāds no pieejamo operētājsistēmu attēliem uz SD kartes. Uz RaspberryPi iespējams uzstādīt vairākas operētājsistēmas. Oficiāli atbalstīto Raspbian, kas ir uz Debian bāzēta Linux distribūcija, kas pielāgota RaspberryPi, pieejama arī Ubuntu Mate, Snappy Ubuntu Core, Windows 10 IOT Core un citas operētājsistēmas. Visas pieejamās un atbalstītās operētājsistēmas ir iespējams apskatīt \url{https://www.raspberrypi.org/downloads/}.
+Darbā uzstādīta oficiāli atbalstītā Raspbian operētājsistēma. Tā ir pieejama ar vai bez grafiskās saskarnes un tika izvēlēts uzstādīt Lite versiju, kas ir bez grafiskās saskarnes, jo tā nav nepieciešama.
+
+\subsubsection{Raspbian Jessie Lite uzstādīšana}
+Pirms uzstādīšanas jāsarūpē SD karte, kurā ir pietiekami daudz brīvas vietas izvēlētajam operētājsistēmas attēlam un vēlāk uzstādītajām programmām. Kā arī jāņem vērā, ka pēc iespējas augstākas klases (jo ātrāka) SD karte, jo labāk. Rasbian operētājsistēma tika uzstādīta uz 8GB Class10 SD kartes, kas nodrošina secīgu datu ierakstīšanu ar, kā minimums, 10MB/s ātrumu.
+
+Operētājsistēmas uzstādīšana uz SD kartes tika veikta izmantojot grafisko \textit{gnome-disks} programmu. Programmā izvēloties ievietoto SD karti, iespējams izmantot \textit{Restore Disk Image} funkciju, lai uzstādītu izvēlēto operētājsistēmas attēlu.
+Ja grafiskā vide attēla uzstādīšanai nav pieejama, iespējams izmantot komandrindas rīkus, kas aprakstīta \url{https://www.raspberrypi.org/documentation/installation/installing-images/linux.md} saitē.
+
+\subsubsection{Operētājsistēmas konfigurēšana}
+Uzstādīto operētājsistēmu ir iespējams konfigurēt iepriekš pieslēdzot HDMI kabeli pieslēdzot monitoru pie RaspberryPi, kā arī pievienojot tastatūru un tad ieslēdzot iekārtu. Tas ir variants, kā veikt konfigurāciju, ja nav iespējams RaspberryPi pievienot tīklam. Toties, tā kā uz tā tiks uzstādīts serveris, RaspberryPi tika pievienots tīklam un tad tik veikta konfigurēšana izmantojot SSH (angl. \textit{Secure Shell}).
+Pievienojot RaspberryPi lokālajā tīklā, pie tā ir iespējams pieslēgties ar noklusējuma pierakstīšānās informāciju.
+\begin{lstlisting}
+	ssh pi@raspberrypi.local
+\end{lstlisting}
+Kā redzams, pēc noklusējuma ir izveidots \textit{pi} lietotājs uz \textit{raspberrpi}, kas ir resursdatora nosaukums (angl. \textit{hostname}). Ievadot noklusējuma paroli kas ir \textit{raspberry} ir iespējams pieslēgties RaspberryPi caur SSH.
+Tālāk nepieciešamo konfigurāciju ir viegli veikt ar šādu komandu:
+\begin{lstlisting}
+	sudo raspi-config
+\end{lstlisting}
+Izvēloties \textit{Expand Filesystem}, iespējams nodrošināt, ka operētājsistēmai tiks dota piekļuve visai brīvajai SD kartes atmiņai. Tika nomainīta noklusētā lietotāja parole, kā arī zem \textit{Advanced Options} tika nomainīts pēc noklusējuma uzstādītais \textit{hostname}.
+% Ieteicams arī atvērt \textit{Internationalisation Options}, izvēlēties \textit{Change Locale} un apstiprināt noklusējuma uzstādījumus. Tādejādi tik uzstādīta noklusējuma lokalizācija, ka palīdzēs atbrīvoties no brīdinājumiem izpildot dažādas komandas.
+Lai pielāgotu šīs izmaiņas, sistēma tika pārstartēta.
+
+\subsubsection{Sagatavošana darbam ar Chef}
+Atkārtoti pieslēdzoties serverim tika veikta Ruby programmēšanas valodas uzstādīšana un Chef klienta uzstādīšana izmantojot RubyGems.
+\begin{lstlisting}
+	sudo apt-get update
+	sudo apt-get install -y ruby ruby-dev
+	sudo gem install rack chef --no-document
+\end{lstlisting}
+Parasti Chef pats uzstādītu jaunāko atbalstīto Chef klientu kad tiktu veikta \textit{knife bootstrap} komanda, izmantojot pieejamos izpildfailus no \url{https://downloads.chef.io/chef-client/}, bet tie nav atbalstīti ARM arhitektūrai. Tāpēc Chef klientu nepieciešams uzstādīt iepriekš. Chef spēj strādāt uz jebkādas arhitektūras, uz kuras atrodas atbilstoša Ruby versija. Tāpēc nepiešamos Chef izpildfailus ir iespējams uzstādīt izmantojot RubyGems. Šī konfigurācija nodrošina, ka RaspberryPi ir sagatavots, lai tā konfigurāciju turpmāk varētu veikt izmantojot Chef.
+
+Protams, visa šī konfigurācija varēja tikt aprakstīta ar Chef. Ir iespējams \textit{knife bootstrap} komandu paplašināt, norādot tai skriptu, kas jāizpilda pirms tiek pielāgota nepieciešamā konfigurācija. Skriptā varētu norādīt nepieciešamās komandas Chef klienta uzstādīšanai, tādejādi ļaujot automatizēt visu veicamo konfigurāciju, kas veicama pēc RaspberryPi ieslēgšanas.
+
+% \textit{Gems} ir Ruby bibliotēkas kurām
 
 \section{Darbs ar Chef bez Chef servera}
 Tā kā darbā paredzēts uzstādīt tikai vienu instanci, tika apskatīts kā izmantot Chef sniegtās iespējas arī bez Chef servera. Ir pieejami divi varianti, kā piemērot Chef receptes nekontaktējoties ar Chef serveri. Iespējams izmantot chef-zero vai chef-solo.
