@@ -13,7 +13,7 @@ Operētājsistēmas uzstādīšana uz SD kartes tika veikta izmantojot grafisko 
 Ja grafiskā vide attēla uzstādīšanai nav pieejama, iespējams izmantot komandrindas rīkus, kas aprakstīta \url{https://www.raspberrypi.org/documentation/installation/installing-images/linux.md} saitē.
 
 \subsubsection{Operētājsistēmas konfigurēšana}
-Uzstādīto operētājsistēmu ir iespējams konfigurēt iepriekš pieslēdzot HDMI kabeli pieslēdzot monitoru pie RaspberryPi, kā arī pievienojot tastatūru un tad ieslēdzot iekārtu. Tas ir variants, kā veikt konfigurāciju, ja nav iespējams RaspberryPi pievienot tīklam. Toties, tā kā uz tā tiks uzstādīts serveris, RaspberryPi tika pievienots tīklam un tad tik veikta konfigurēšana izmantojot SSH (angl. \textit{Secure Shell}).
+Uzstādīto operētājsistēmu ir iespējams konfigurēt iepriekš pieslēdzot HDMI kabeli pieslēdzot monitoru pie RaspberryPi, kā arī pievienojot tastatūru un tad ieslēdzot iekārtu. Tas ir variants, kā veikt konfigurāciju, ja nav iespējams RaspberryPi pievienot tīklam. Toties, tā kā uz tā tiks uzstādīts serveris, RaspberryPi tika pievienots tīklam un tad tik veikta konfigurēšana izmantojot SSH.
 Pievienojot RaspberryPi lokālajā tīklā, pie tā ir iespējams pieslēgties ar noklusējuma pierakstīšānās informāciju.
 \begin{lstlisting}
 	ssh pi@raspberrypi.local
@@ -176,7 +176,7 @@ Tā kā darbā nav paredzēts izmainīt Bootstrap klases, tas pievienots izmanto
 \subsubsection{jQuery}
 Mājaslapai ir nepieciešams \textit{jQuery} JavaScript satvars, lai nodrošinātu lietotāju žurnālu kārtošanu pēc datubāzes kolonnām. Izmantojot \textit{jQuery} \textit{tablesorter} spraudni (\url{https://mottie.github.io/tablesorter/docs/index.html}), tiek nodrošināta parādīto ierakstu kārtošana, atvieglojot sistēmas administrēšanu.
 
-\subsection{Testēšana}
+\subsection{Testēšana} \label{Testing}
 
 \subsubsection{Codacy}
 Codacy ir viens no statiskas koda analīzes servisiem, kas pieejams par brīvu atvērtā koda projektiem, kā arī ir viegli integrējams ar GitHub (\url{https://github.com/integrations}). Statiska koda analīze spēj atklāt vairākas lietas neizpildot kodu.

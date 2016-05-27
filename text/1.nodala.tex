@@ -321,8 +321,19 @@ Sekojot šiem principiem un galvenokārt nodrošinot to, ka galvenajā repozitor
 \chapter{Drošība}
 
 \section{Tipiskākie uzbrukumi un to novēršana}
-\subsection{SQL injekcija}
-\subsection{Cross Site scripting}
+\subsubsection{Uzbrukumi serverim}
+Darba izstrādes gaitā tika uzstādīts RaspberryPi un tas tika pievienots pie interneta. Tā kā izstrādes gaitā serveris nebija aiz ugunsmūra, tika novērots uzbrukuma mēģinājums atvērtajam SSH (angl. \textit{Secure Shell}) portam, pēc noklusējuma 22. Regulāri tika novēroti neizdevušies pieslēgšanās mēģinājumi \textit{root} kontam no nezināmas IP adreses, kas visticamāk bija pārlases uzbrukums (angl. \textit{brute-force attack}) parolei. Pateicoties darba vadītāja ieteikumam, uz servera bija jau uzstādīta \textit{Fail2Ban} pretielaušanās sistēma, kas palīdz aizsargāties pret pārlases uzbrukumiem. Kā arī uz servera ir liegta iespēja pieslēgties ar \textit{root} kontu izmantojot SSH. Tādejādi tika novērsts uzbrukuma mēģinājums serverim.
 
+Tomēr, jāpatur prātā, ka tiks veikti uzbrukumi atvērtajiem portiem, it īpaši noklusējuma SSH, kā arī arī datubāzes portiem. Tāpēc ieteicams izmantot pretielaušanās programmatūru, kā arī nelielu papildus drošību iespējams iegūt nomainot noklusējuma portus uz kādu neierastu portu.
+
+\subsubsection{SQL injekcija}
+SQL injekcija ir ļoti ierasts uzbrukums tīmekļa lietojumprogrammām. Bieži SQL injekcijas mērķis ir apiet autorizācijas sistēmu, lasīt vai manipulēt datubāzes datus. To veic manipulējot tīmekļa aplikācijai nosūtītos parametrus. Pieļaujot SQL injekciju ir iespējams zaudēt visus datubāzē saglabātos datus, tāpēc jānodrošina, ka tā nav iespējama.
+
+Rails aplikācijās SQL injekcija lielākoties nav problēma. Sekojot Rails konvencijai ir grūti radīt SQL injekcijas iespējas, tomēr ieteicams sekot sekot Rails pamācībā \cite[security]{rails-guides} izteiktajiem padomiem. Tā kā SQL injekcija ir ierasts un ļoti bīstams uzbrukums, tā iespējas meklē arī statiskās koda analīzes rīki. Izstrādes laikā vienā no iesūtījumiem VCS tika atklāta un izlabota iespējama SQL injekcijas vieta, izmantojot \ref{Testing} nodaļā aprakstīto Codacy servisu.
+\subsubsection{Starpvietņu skriptēšana}
+Starpvietņu skriptēšana (angl. \textit{Cross Site scripting}) arī ir nopietns drošības risks. Praktiski visur, kur lietotājs var ko ievadīt, kā arī URL parametrus uzbrucējam ir iespējams izmantot, lai izveidotu uzbrukumu. Izmantojot starpvietņu skriptēšanu, uzbrucējam var būt iespējams iegūt lietotāja sesijas datus.
+
+Lai izvairītos no starpvietņu skriptēšanas ir svarīgi filtrēt lietotāju ievadi, kā arī nodrošināt, ka attēlojot ievadīto informāciju, tiek pieļauti tikai atbilstoši dati. Piemēram, nepieļaut HTML \textit{<script>} tagus.
+Rails piedāvā vairākas palīgmetodes, kuras lietojot var izvairīties no starpvietņu skriptēšanas. Viena no tām ir \textit{sanitize()} metode, kuru var piemērot lietotāja ievades filtrēšanai. Rails iesaka izmantot \textit{SafeErb} bibliotēku, kas atgādina par ievades filtrēšanu.
 \section{Lietotāja autentiskums}
 \section{RFID sistēmas}
