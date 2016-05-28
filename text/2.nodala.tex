@@ -1,6 +1,31 @@
-\chapter{Praktiskais}
+\chapter{Darba praktiskā daļa}
 
 \section{Git}
+Darba izstrādē versiju vadība bija ļoti svarīga. Izstrādes gaitā izdevās atklāt un izlabot vairākas kļūdas, izmantojot Git VCS un GitHub sniegtās iespējas. Noderīgas ir trešo pušu rīku integrācijas ar GitHub. Darbā izmantotas divas, kas nedaudz apskatītas \ref{Testing} nodaļā. Galu galā tika izveidoti trīs repozitoriji, kuri atrodas uz GitHub:
+\begin{describe}
+	\item Mājaslapas izstrādei -- https://github.com/RihardsT/access_page
+	\item Servera konfigurēšanai -- https://github.com/RihardsT/access_page_cookbook
+	\item Teorētiskajam aprakstam -- https://github.com/RihardsT/thesis
+\end{describe}
+
+Git repozitorija uzstādīšana ir ļoti vienkārša. Jebkurā eksistējošā direktorijā ir iespējams uzstādīt versiju vadību. Lai uzstādītu GitHub, kā attālinātu repozitorija serveri, to nepieciešams arī norādīt Git. Servera konfigurācijas repozitorijs tik izveidots no jau eksistējošā direktorijā, tāpēc bija jāveic šādas komandas:
+\begin{lstlisting}
+	git init
+	git remote add origin  https://github.com/RihardsT/access_page_cookbook
+	git push -u origin master
+	git checkout -b develop
+\end{lstlisting}
+Komandas \textit{git push} karogs "\texttt{-u}" jeb "\texttt{--set-upstream}" uzstāda attālināto repozitorija adresi, kas turpmāk tiks lietota pēc noklusējuma veicot \textit{git push} komandu. Izveidojot repozitoriju, Git pēc noklusējuma izveido tikai pamatzaru - \textit{master}. Pieņemts, ka uz pamatzara aktīva izstrāde netiek veikta, tajā izmaiņas tiek tikai iepludinātas. Tāpēc tika izveidots izstrādes zars - \textit{develop}, veicot \textit{checkout} komandu, kuru izmanto, lai nomainītu zaru uz kura atrodas. Komandas "-b" karogs norāda, ka jāizveido jauns zars uz to jāpārslēdzas.
+
+Mājaslapas repozitorijam tika pielāgota Gitflow darbplūsma, kas aprakstīta \ref{Branching} nodaļā. Praktiski Gitflow darbplūsma nosaka tikai izmantojamos zaru nosaukumus un nosaka kā jāveic zarošanās konkrētos gadījumos, piemēram, pievienojot jaunu funkcionalitāti vai veicot kļūdu labojumus. Tādejādi Gitflow darbplūsmai ir iespējams sekot ievērojot tās noteiktajām konvencijām. Lai atvieglotu darbu ar Gitflow tika uzstādīts Git paplašinājums darbam ar Gitflow \url{https://github.com/petervanderdoes/gitflow-avh}. Uzstādot šo paplašinājumu, jaunu vai eksistējošu repozitoriju ir iespējams inicializēt kā Gitflow repozitoriju:
+\begin{lstlisting}
+	git flow init --defaults
+\end{lstlisting}
+Karogs "\texttt{--defaults}" norāda, ka tiks izmantoti noklusējuma zaru nosaukumi: \textit{feature release hotfix support}. Izmantojot šo Git paplašinājumu, tiek nodrošināta atbilstība Gitflow darbplūsmai. Piemēram, sākot ieviest jaunu funkcionalitāti, jaunais zars tiks izveidots no izstrādes zara un to beidzot, tas tajā tiks iepludināts. Veicot kļūdu labojumus, paplašinājums parūpēsies, ka labojums tiek veikts uz pamatzara bāzēta koda un kad tas pabeigts, iepludinās to gan pamatazarā, gan izstrādes zarā, kā arī labojuma zaru izdzēsīs, jo tas vairs nav nepieciešams. Jauna uzdevuma sākšana un beigšana ir vienkārša, izmantojot šādas komandas:
+\begin{lstlisting}
+	git flow feature start add_suggestion_box
+	git flow feature finish add_suggestion_box
+\end{lstlisting}
 
 \section{RaspberryPi sagatavošana}
 Lai sāktu lietot RaspberryPi, jāuzstāda kāds no pieejamo operētājsistēmu attēliem uz SD kartes. Uz RaspberryPi iespējams uzstādīt vairākas operētājsistēmas. Oficiāli atbalstīto Raspbian, kas ir uz Debian bāzēta Linux distribūcija, kas pielāgota RaspberryPi, pieejama arī Ubuntu Mate, Snappy Ubuntu Core, Windows 10 IOT Core un citas operētājsistēmas. Visas pieejamās un atbalstītās operētājsistēmas ir iespējams apskatīt \url{https://www.raspberrypi.org/downloads/}.
