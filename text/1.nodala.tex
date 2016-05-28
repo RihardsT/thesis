@@ -330,10 +330,28 @@ Tomēr, jāpatur prātā, ka tiks veikti uzbrukumi atvērtajiem portiem, it īpa
 SQL injekcija ir ļoti ierasts uzbrukums tīmekļa lietojumprogrammām. Bieži SQL injekcijas mērķis ir apiet autorizācijas sistēmu, lasīt vai manipulēt datubāzes datus. To veic manipulējot tīmekļa aplikācijai nosūtītos parametrus. Pieļaujot SQL injekciju ir iespējams zaudēt visus datubāzē saglabātos datus, tāpēc jānodrošina, ka tā nav iespējama.
 
 Rails aplikācijās SQL injekcija lielākoties nav problēma. Sekojot Rails konvencijai ir grūti radīt SQL injekcijas iespējas, tomēr ieteicams sekot sekot Rails pamācībā \cite[security]{rails-guides} izteiktajiem padomiem. Tā kā SQL injekcija ir ierasts un ļoti bīstams uzbrukums, tā iespējas meklē arī statiskās koda analīzes rīki. Izstrādes laikā vienā no iesūtījumiem VCS tika atklāta un izlabota iespējama SQL injekcijas vieta, izmantojot \ref{Testing} nodaļā aprakstīto Codacy servisu.
+
 \subsubsection{Starpvietņu skriptēšana}
 Starpvietņu skriptēšana (angl. \textit{Cross Site scripting}) arī ir nopietns drošības risks. Praktiski visur, kur lietotājs var ko ievadīt, kā arī URL parametrus uzbrucējam ir iespējams izmantot, lai izveidotu uzbrukumu. Izmantojot starpvietņu skriptēšanu, uzbrucējam var būt iespējams iegūt lietotāja sesijas datus.
 
 Lai izvairītos no starpvietņu skriptēšanas ir svarīgi filtrēt lietotāju ievadi, kā arī nodrošināt, ka attēlojot ievadīto informāciju, tiek pieļauti tikai atbilstoši dati. Piemēram, nepieļaut HTML \textit{<script>} tagus.
 Rails piedāvā vairākas palīgmetodes, kuras lietojot var izvairīties no starpvietņu skriptēšanas. Viena no tām ir \textit{sanitize()} metode, kuru var piemērot lietotāja ievades filtrēšanai. Rails iesaka izmantot \textit{SafeErb} bibliotēku, kas atgādina par ievades filtrēšanu.
-\section{Lietotāja autentiskums}
+
+\section{Lietotāju autentiskums}
+Sistēmai kopumā jāpārliecinās par trīs lietu autentiskumu:
+\begin{itemize}
+	\item mājaslapas lietotāju;
+	\item karšu lasītāju;
+	\item RFID karte.
+\end{itemize}
+Lietotāji mājaslapā varēs ielogoties izmantojot augstskolas piešķirto e-pasta adresi un pašu izvēlētu paroli. Lai nodrošinātu lietotāja autentiskumu, jānodrošina ka lietotāja sesija netiek nolaupīta. Sesijas nolaupīšanu iespējams apgrūtināt izmantojot HTTPS savienojumu. HTTPS nodrošina šifrētu savienojumu ar serveri, tādejādi būtiski palielinot drošību un apgrūtinot datu izgūšanu no pārtvertām tīkla paketēm izmantojot kādu no pakešu analīzes rīkiem, piemēram, \textit{Wireshark} (\url{https://www.wireshark.org/}).
+
+Tāpēc HTTPS nodrošināšana ir viens no galvenajiem uzdevumiem. Tā uzstādīšanai nepieciešams iegūt uzticamu drošligzdu slāņa jeb SSL (angl. \textit{Secure Sockets Layer}) sertifikātu. Pastāv iespēja izveidot pašparakstītu sertifikātu, bet ikviens mūsdienīgs tīkla pārlūks par to brīdinās lietotāju, jo pastāv iespēja, ka sertifikāts nav autentisks. ir daudzas SSL sertifikātu autoritātes, bet lielākā daļa no tām, kā IdenTrust (\url{https://www.identrustssl.com/}), DigiCert (\url{https://www.digicert.com/}) ir komerciālas un par sertifikātiem ir jāmaksā. Tomēr ir jauna SSL sertifikātu autoritāte Let's Encrypt (\url{https://www.digicert.com/}), kas piedāvā sertifikātus automatizētā veidā un par brīvu. Tāpēc tiks uzstādīts SSL sertifikāts izmantojot Let's Encrypt servisu.
+
+Karšu lasītājs strādās līdzīgā veidā, kā mājaslapas lietotāji. Karšu lasītājs būs pieslēdzies serverim, sūtīs un saņems no aplikācijas nepieciešamos datus. Karšu lasītāju ir nolemts ar serveri savienot izmantojot bezvadu tīklu, tādejādi radot risku, ka tīkla paketes varētu tikt pārtvertas. Tomēr risks ir daudz mazāks salīdzinot ar lietotājiem, jo serveris un karšu lasītājs atradīsies vienā telpā, tādejādi uzbrucējam jāatrodas sistēmas tuvumā, lai spētu pārtvert tīkla paketes no karšu lasītāja. Tomēr, lai novērstu pat tādu iespēju, līdzīgi kā ar lietotājiem, jānodrošina HTTPS savienojums iepriekšapskatītajā veidā.
+% Tā kā karšu lasītājs būs pievienots ar bezvadu tīklu, pastāv iespēja, ka kāds varētu karšu lasītāju imitēt. Lai apgrūtinātu uzbrukumu, ir iespējams karšu lasītāju saprogrammēt tā, lai tas veic vienkārsu datu šifrēšanu, pirms to izstūtīšanas.
+RFID kartes autentiskumu noteikt ir vissarežģītāk. Ņemot vērā, ka ir pieejami daudzi karšu lasītāji un arī rakstītāji, uzbrucējs varētu nolasīt autorizētu karti, ierakstīt tās datus jaunā kartē un to izmantot piekļūšanai telpā.
+
+Tāpēc izstrādātā sistēma ļaus lietotājiem atcelt savas RFID kartes piekļuvi telpai, tādejādi parūpējoties, ka karte nevar tikt izmantota piekļuvei, piemēram, tās nozaudēšanas gadījumā. Kā arī izstrādātā sistēma veiks momentuzņēmumus, kamēr telpas durvis būs atvērtas, ļaujot atklāt neautorizētas piekļuves gadījumus.
+
 \section{RFID sistēmas}
