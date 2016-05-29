@@ -110,8 +110,41 @@ Tāpēc darba izstrādes laikā izmantots \textit{Hosted Chef}, kas ir vienkār�
 Izveidojot kontu \url{https://manage.chef.io/}, ir iespējams ielogoties grafiskā Chef pārvaldības konsolē.
 Pirmais, ko tajā nepieciešams izdarīt ir izveidot jaunu organizāciju. Tad ir iespējams lejuplādēt sākuma paku (angl. \textit{starter kit}), kas ir sagatavots Chef repozitorijs ar nepieciešamo Chef konfigurāciju. Chef servera organizācijās ir arī vairākas noklusējuma grupas (administratori, klienti, lietotāji), kuras tiek izmantotas, lai pārvaldītu izstrādātāju piekļuvi. Kā arī organizācijas satur uzstādītos Chef mezglus. Chef repozitorijā ir slēptā \textit{.chef} mape, kura satur \textit{knife.rb} datni, kurā ir norādīta Chef servera organizācijas adrese.
 
+\section{Servera konfigurēšana ar Chef}
+Nepieciešamās konfigurācijas vienkāršošanai, darbā izmantotas vairākas Chef kopienas recepšu grāmatas, kas pieejamas \url{https://supermarket.chef.io/}:
+\begin{itemize}
+	\item apt;
+	\item fail2ban;
+	\item application_ruby.
+\end{itemize}
+\textit{Apt} recepšu grāmata nodrošina, ka regulāri tiks veikta operētājsistēmas paku menedžera atjaunināšana ar jaunākajām pieejamajām aplikāciju versijām. Šī recepte nepieciešama, lai nodrošinātu jaunāko aplikāciju instalēšanu, izmantojot Chef \textit{package} komandu.
+\textit{Fail2Ban} ir \ref{Attacks} nodaļā minētā pretielaušanās sistēma. Šī recepte ļauj to pavisam viegli uzstādīt un konfigurēt.
+\textit{Application_ruby} vienkāršo izveidotās Rails aplikācijas uzstādīšanu un konfigurēšanu.
+
+Nepieciešamo pakotņu uzstādīšana un konfigurēšana tika veikta ar šādu recepti:
+\lstinputlisting{code/default.rb}
+Kā redzams, sākumā tiek pielāgota \textit{apt} un \textit{fail2ban} receptes. Nepieciešamās programmatūras pakotnes ir uzstādītas izmantojot Chef \textit{package} komandu. \textit{Ruby_gem} uzstādīs nepieciešamās Ruby bibliotēkas un to izpildfailus. \textit{Bundler} nodrošina citu RubyGems uzstādīšanu no \textit{Gemfile} saraksta.
+Beigās iekļauta iekļauta \textit{raspberry::access_page} recepte, kas uzstāda izveidoto aplikāciju. \textit{Fail2Ban} konfigurēšana tiek veikta ar Chef pavārgrāmatas atribūtiem. Atribūtu failā norādīts:
+\begin{lstlisting}
+default['fail2ban']['services'] = {
+  'ssh' => {
+        "enabled" => "true",
+        "port" => "ssh",
+        "filter" => "sshd",
+        "logpath" => node['fail2ban']['auth_log'],
+        "maxretry" => "6" }}
+\end{lstlisting}
+Šādi tiek noteikta \textit{Fail2Ban} konfigurācija. Šeit noteikts atļauto mēģinājumu skaits, pirms IP adresei tiktu liegta piekļuve SSH portam. Kā aprakstīts \ref{Attacks} nodaļā, \textit{Fail2Ban} palīdzēja novērst uzbrukumu izstrādes laikā.
+
+Izstrādātā tīmekļa aplikācija tiek uzstādīta izmantojot šādu recepti:
+\lstinputlisting{code/accesspage.rb}
+Sākumā uz servera tiek izveidots \texttt{/srv/} direktorijs, kurā glabāsies aplikācijas kods. Git bloks lejuplādē vai atjauno aplikācijas repozitoriju no pamatzara. \textit{Application} bloks veic nepieciešamo aplikācijas konfigurāciju. Sākumā ieinstalējot nepieciešamās Ruby bibliotēkas ar \textit{bundler}, \textit{rails} bloks veic datubāzes uzstādīšanu un migrēšanu. Šeit redzama izstrādes laikā veiktā konfigurācija. Tiek izmantota \textit{SQLite3} datubāze, bet kad sistēma tiks ieviesta, tiks izmantota \textit{PostgreSQL} datubāze. \textit{Unicorn} ir viens no Rails aplikāciju serveriem un šeit tas tiek konfigurēts izmantot portu 80, kā arī pēc tam tas tiek palaists.
+
+Pēc šo darbību veikšanas serveris ir gatavs darbam un mājaslapai ir iespējams piekļūt. Lai sistēmu veiksmīgi ieviestu, būs jāiegūst domēna vārds un arī \textit{SSL} sertifikāts no \ref{Attacks} nodaļā apskatītās \textit{Let's Encrypt} sertifikātu autoritātes. Ņemot vērā, ka \textit{Let's Encrypt} piedāvā komandrindas rīku, sertifikātu iegūšanu arī varētu veikt ar Chef. Jāaplūko arī domēna vārda iegūšanas varianti, ideālā gadījumā iegūstot domēna vārdu zem \textit{.venta.lv} domēna.
+% Iespējams izmantot \url{https://www.nic.lv/} sniegto iespēju un reģistrēt vienu otrā līmeņa domēna vārdu (\textit{.id.lv}) par brīvu.
+
 \section{Mājaslapas izstrāde}
-Darba izstrāde tika balstīta uz Agile izstrādes modeli. Sākumā tika noteiktas minimālās "klienta" prasības, veikti mājaslapas un datubāzes struktūres uzmetumi. Notika regulāras tikšanās un prasības tika pastāvīgi papildinātas, gan no "klienta", gan no izstrādātāja puses ieteikumu veidā.
+Darba izstrāde tika balstīta uz Agile izstrādes modeli. Sākumā tika noteiktas minimālās prasības, kuras izteica darba vadītājs, veikti mājaslapas un datubāzes struktūres uzmetumi. Notika regulāras tikšanās un prasības tika pastāvīgi papildinātas, gan no darba vadītāja, gan no izstrādātāja puses ieteikumu veidā.
 
 Mājaslapas izstrādē izmantoti šādi rīki:
 \begin{itemize}
