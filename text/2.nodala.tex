@@ -148,12 +148,12 @@ Darba izstrāde tika balstīta uz Agile izstrādes modeli. Sākumā tika noteikt
 
 Mājaslapas izstrādē izmantoti šādi rīki:
 \begin{itemize}
-	\item Ruby on Rails tīmekļa lietojumprogrammu satvars.
-	\item CSS -- Bootstrap satvars
-	\item JavaScript -- jQuery
-	\item Testēšana -- RSpec, Shoulda matchers, Factory Girl, Faker
-	\item TravisCI -- CI serviss
-	\item Codacy -- statiskas koda analīzes serviss
+	\item \textit{Ruby on Rails} tīmekļa lietojumprogrammu satvars.
+	\item \textit{CSS} -- Bootstrap satvars
+	\item \textit{JavaScript} -- \textit{jQuery}
+	\item Testēšana -- \textit{RSpec}, \textit{Shoulda matchers}, \textit{Faker}
+	\item \textit{TravisCI}-- CI serviss
+	\item \textit{Codacy} -- statiskas koda analīzes serviss
 \end{itemize}
 
 \subsection{Ruby on Rails}
@@ -247,7 +247,7 @@ Piemēram, iespējams atklāt:
 Statiska koda analīze spēj atklāt un izvairīties no zināmu sliktu paņēmienu izmantošanas, nodrošinot augstāku koda kvalitāti. Kvalitatīvs kods ir vieglāk lasāms un tādejādi arī vieglāk uzturams un atbalstāms.
 
 \subsubsection{TravisCI}
-TravisCI arī ir viens no rīkiem, kas ir viegli integrējams ar GitHub.
+\textit{TravisCI}arī ir viens no CI rīkiem, kas ir viegli integrējams ar GitHub.
 \begin{lstlisting}
 	language: ruby
 	rvm:
@@ -261,14 +261,47 @@ TravisCI arī ir viens no rīkiem, kas ir viegli integrējams ar GitHub.
 	notifications:
 	  email: false
 \end{lstlisting}
+Izstrādes \textit{.travis.yml} fails \textit{TravisCI} konfigurēšanai. Šeit tiek norādīta uz kuras Ruby valodas versijas ir jāveic testi un kura ir izvēlētā datubāze. Izstrādes laikā tika izmantota vienkāršā \textit{SQLite} datubāze. \textit{Script} blokā iespējams norādīt izpildāmās komandas. Ikreizi, kad tiks veiks iesūtījums uz \textit{GitHub}, \textit{TravisCI} veiks nepieciešamo Ruby bibliotēku iegūšanu ar \textit{Bundler}, datubāzes migrēšanu, kā arī \textit{RSpec} testu izpildi.
 
 \subsubsection{RSpec}
-RSpec jeb RubySpec ir populārākā Ruby testēšanas bibliotēka. RSpec tika izdots 2005. gadā.
-\cite{shayRspec}
-RSpec ir BDD testēšanas satvars. RSpec izmanto savu DSL, kas līdzinās dabiskas valodas specifikācijai. Lasot RSpec testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā RSpec cenšas testus padarīt lasāmus un saprotamus.
-\subsubsection{Shoulda matchers}
-\subsubsection{Factory Girl}
-\subsubsection{Faker}
+RSpec ir populārākā Ruby testēšanas bibliotēka. RSpec ir BDD testēšanas satvars. RSpec izmanto savu DSL, kas līdzinās dabiskas valodas specifikācijai. Lasot RSpec testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā RSpec cenšas testus padarīt lasāmus un saprotamus. \cite{shayRspec}
+\begin{lstlisting}
+	describe "GET #index" do
+    it "returns http success" do
+      get :index
+      expect(response).to have_http_status(:success)
+    end
+  end
+\end{lstlisting}
+Tipisks kontroliera tests.
 
-\subsection{Lietotāji}
-\subsection{Uzbrukumi}
+\subsubsection{Shoulda matchers}
+\textit{Shoulda matchers} ir \textit{RSpec} paplašinājums ar kuru iespējams vienkāršot daudzus testus un uzrakstīt tos vienā rindā.
+\begin{lstlisting}
+RSpec.describe User, type: :model do
+	it { should have_many(:logs) }
+	it { should have_secure_password }
+	it { should validate_presence_of(:name) }
+\end{lstlisting}
+Šādi tiek pārbaudīts, vai lietotāja modelim ir pareizās asociācijas datubāzē, droši tiek saglabāta parole, izmantojot \textit{bcrypt} bibliotēku. Kā arī tiek apskatīts, vai \textit{Rails} pārliecinās, ka, pievienojot jaunu lietotāju, tiek ievadīts tā vārds.
+
+\subsubsection{Faker}
+\textit{Faker} ļauj uzģenerēt neīstus datus. Tas tika izmantots, lai piepildītu datubāzi ar vairākiem lietotājiem un piekļuves laikiem, lai veiktu aplikācijas demonstrācijas.
+\begin{lstlisting}
+	5.times do
+	  User.create!(
+	    name: Faker::Name.first_name,
+	    surname: Faker::Name.last_name,
+	    email: Faker::Internet.email,
+	    card_id: Faker::Number.number(10),
+	    level: 1,
+	    password: 'password',
+	    password_confirmation: 'password',
+	    person_code: '123456-12340',
+	    phone: Faker::PhoneNumber.cell_phone
+	  )
+	end
+\end{lstlisting}
+Izmantojot \textit{Ruby} \textit{.times} ciklu, šādi tika uzģenerēti neīsti sistēmas lietotāji.
+
+\chapter{Secinājumi un ieteikumi}
