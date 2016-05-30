@@ -53,17 +53,17 @@ Izvēloties \textit{Expand Filesystem}, iespējams nodrošināt, ka operētājsi
 Lai pielāgotu šīs izmaiņas, sistēma tika pārstartēta.
 
 \subsubsection{Sagatavošana darbam ar Chef}
-Atkārtoti pieslēdzoties serverim tika veikta Ruby programmēšanas valodas uzstādīšana un \textit{Chef} klienta uzstādīšana izmantojot RubyGems.
+Atkārtoti pieslēdzoties serverim tika veikta \textit{Ruby} programmēšanas valodas uzstādīšana un \textit{Chef} klienta uzstādīšana izmantojot RubyGems.
 \begin{lstlisting}
 	sudo apt-get update
 	sudo apt-get install -y ruby ruby-dev
 	sudo gem install rack chef --no-document
 \end{lstlisting}
-Parasti \textit{Chef} pats uzstādītu jaunāko atbalstīto \textit{Chef} klientu kad tiktu veikta \textit{knife bootstrap} komanda, izmantojot pieejamos izpildfailus no \url{https://downloads.chef.io/chef-client/}, bet tie nav atbalstīti ARM arhitektūrai. Tāpēc \textit{Chef} klientu nepieciešams uzstādīt iepriekš. \textit{Chef} spēj strādāt uz jebkādas arhitektūras, uz kuras atrodas atbilstoša Ruby versija. Tāpēc nepiešamos \textit{Chef} izpildfailus ir iespējams uzstādīt izmantojot RubyGems. Šī konfigurācija nodrošina, ka \textit{RaspberryPi} ir sagatavots, lai tā konfigurāciju turpmāk varētu veikt izmantojot Chef.
+Parasti \textit{Chef} pats uzstādītu jaunāko atbalstīto \textit{Chef} klientu kad tiktu veikta \textit{knife bootstrap} komanda, izmantojot pieejamos izpildfailus no \url{https://downloads.chef.io/chef-client/}, bet tie nav atbalstīti ARM arhitektūrai. Tāpēc \textit{Chef} klientu nepieciešams uzstādīt iepriekš. \textit{Chef} spēj strādāt uz jebkādas arhitektūras, uz kuras atrodas atbilstoša \textit{Ruby} versija. Tāpēc nepiešamos \textit{Chef} izpildfailus ir iespējams uzstādīt izmantojot RubyGems. Šī konfigurācija nodrošina, ka \textit{RaspberryPi} ir sagatavots, lai tā konfigurāciju turpmāk varētu veikt izmantojot Chef.
 
 Protams, visa šī konfigurācija varēja tikt aprakstīta ar Chef. Ir iespējams \textit{knife bootstrap} komandu paplašināt, norādot tai skriptu, kas jāizpilda pirms tiek pielāgota nepieciešamā konfigurācija. Skriptā varētu norādīt nepieciešamās komandas \textit{Chef} klienta uzstādīšanai, tādejādi ļaujot automatizēt visu veicamo konfigurāciju, kas veicama pēc \textit{RaspberryPi} ieslēgšanas.
 
-% \textit{Gems} ir Ruby bibliotēkas kurām
+% \textit{Gems} ir \textit{Ruby} bibliotēkas kurām
 
 \section{Darbs ar \textit{Chef} bez \textit{Chef} servera}
 Tā kā darbā paredzēts uzstādīt tikai vienu instanci, tika apskatīts kā izmantot \textit{Chef} sniegtās iespējas arī bez \textit{Chef} servera. Ir pieejami divi varianti, kā piemērot \textit{Chef} receptes nekontaktējoties ar \textit{Chef} serveri. Iespējams izmantot chef-zero vai chef-solo.
@@ -123,7 +123,7 @@ Nepieciešamās konfigurācijas vienkāršošanai, darbā izmantotas vairākas \
 
 Nepieciešamo pakotņu uzstādīšana un konfigurēšana tika veikta ar šādu recepti:
 \lstinputlisting{code/default.rb}
-Kā redzams, sākumā tiek pielāgota \textit{apt} un \textit{fail2ban} receptes. Nepieciešamās programmatūras pakotnes ir uzstādītas izmantojot \textit{Chef} \textit{package} komandu. \textit{Ruby_gem} uzstādīs nepieciešamās Ruby bibliotēkas un to izpildfailus. \textit{Bundler} nodrošina citu RubyGems uzstādīšanu no \textit{Gemfile} saraksta.
+Kā redzams, sākumā tiek pielāgota \textit{apt} un \textit{fail2ban} receptes. Nepieciešamās programmatūras pakotnes ir uzstādītas izmantojot \textit{Chef} \textit{package} komandu. \textit{Ruby_gem} uzstādīs nepieciešamās \textit{Ruby} bibliotēkas un to izpildfailus. \textit{Bundler} nodrošina citu RubyGems uzstādīšanu no \textit{Gemfile} saraksta.
 Beigās iekļauta iekļauta \textit{raspberry::access_page} recepte, kas uzstāda izveidoto aplikāciju. \textit{Fail2Ban} konfigurēšana tiek veikta ar \textit{Chef} pavārgrāmatas atribūtiem. Atribūtu failā norādīts:
 \begin{lstlisting}
 default['fail2ban']['services'] = {
@@ -138,7 +138,7 @@ default['fail2ban']['services'] = {
 
 Izstrādātā tīmekļa aplikācija tiek uzstādīta izmantojot šādu recepti:
 \lstinputlisting{code/accesspage.rb}
-Sākumā uz servera tiek izveidots \texttt{/srv/} direktorijs, kurā glabāsies aplikācijas kods. \textit{Git} bloks lejuplādē vai atjauno aplikācijas repozitoriju no pamatzara. \textit{Application} bloks veic nepieciešamo aplikācijas konfigurāciju. Sākumā ieinstalējot nepieciešamās Ruby bibliotēkas ar \textit{bundler}, \textit{rails} bloks veic datubāzes uzstādīšanu un migrēšanu. Šeit redzama izstrādes laikā veiktā konfigurācija. Tiek izmantota \textit{SQLite3} datubāze, bet kad sistēma tiks ieviesta, tiks izmantota \textit{PostgreSQL} datubāze. \textit{Unicorn} ir viens no \textit{Rails} aplikāciju serveriem un šeit tas tiek konfigurēts izmantot portu 80, kā arī pēc tam tas tiek palaists.
+Sākumā uz servera tiek izveidots \texttt{/srv/} direktorijs, kurā glabāsies aplikācijas kods. \textit{Git} bloks lejuplādē vai atjauno aplikācijas repozitoriju no pamatzara. \textit{Application} bloks veic nepieciešamo aplikācijas konfigurāciju. Sākumā ieinstalējot nepieciešamās \textit{Ruby} bibliotēkas ar \textit{bundler}, \textit{rails} bloks veic datubāzes uzstādīšanu un migrēšanu. Šeit redzama izstrādes laikā veiktā konfigurācija. Tiek izmantota \textit{SQLite3} datubāze, bet kad sistēma tiks ieviesta, tiks izmantota \textit{PostgreSQL} datubāze. \textit{Unicorn} ir viens no \textit{Rails} aplikāciju serveriem un šeit tas tiek konfigurēts izmantot portu 80, kā arī pēc tam tas tiek palaists.
 
 Pēc šo darbību veikšanas serveris ir gatavs darbam un mājaslapai ir iespējams piekļūt. Lai sistēmu veiksmīgi ieviestu, būs jāiegūst domēna vārds un arī \textit{SSL} sertifikāts no \ref{Attacks} nodaļā apskatītās \textit{Let's Encrypt} sertifikātu autoritātes. Ņemot vērā, ka \textit{Let's Encrypt} piedāvā komandrindas rīku, sertifikātu iegūšanu arī varētu veikt ar Chef. Jāaplūko arī domēna vārda iegūšanas varianti, ideālā gadījumā iegūstot domēna vārdu zem \textit{.venta.lv} domēna.
 % Iespējams izmantot \url{https://www.nic.lv/} sniegto iespēju un reģistrēt vienu otrā līmeņa domēna vārdu (\textit{.id.lv}) par brīvu.
@@ -190,7 +190,7 @@ Kontrolieros tiek aprakstīta tīmekļa aplikācijas darbības loģika. Darba s�
 	rails generate controller Sessions new
 	rails generate controller Reader
 \end{lstlisting}
-Ģeneratoram nepieciešams norādīt tikai kontroliera nosaukumu, bet iespējams norādīt vēl papildus argumentus - kontroliera rīcības (angl. \textit{action}). Tās ir metodes, kurās veikt funkcionalitātes programmēšanu. Norādot tās ģeneratoram tiks uzģenerētas arī skatu sagataves, kurās veikt mājaslapas izstrādi. Kontrolieri tiek rakstīti izmantojot Ruby programmēšanas valodu, bet skati tiek veidoti izmantojot HTML un arī iegultu Ruby kodu (angl. \textit{embedded Ruby}), attiecīgi tāpēc to failu paplašinājums ir .html.erb. Attiecīgi, uzģenerētais lietotāju kontrolieris sagatavo četrus skatus un četras metodes. \textit{Index} metode un skats izmantota, lai attēlotu visus sistēmā esošos lietotājus, \textit{new} - lai pievienotu jaunu lietotāju, \textit{show} - lai attēlotu visu pieejamo informāciju par vienu lietotāju, \textit{edit} - lai labotu esošu lietotāju.
+Ģeneratoram nepieciešams norādīt tikai kontroliera nosaukumu, bet iespējams norādīt vēl papildus argumentus - kontroliera rīcības (angl. \textit{action}). Tās ir metodes, kurās veikt funkcionalitātes programmēšanu. Norādot tās ģeneratoram tiks uzģenerētas arī skatu sagataves, kurās veikt mājaslapas izstrādi. Kontrolieri tiek rakstīti izmantojot \textit{Ruby} programmēšanas valodu, bet skati tiek veidoti izmantojot HTML un arī iegultu \textit{Ruby} kodu (angl. \textit{embedded Ruby}), attiecīgi tāpēc to failu paplašinājums ir .html.erb. Attiecīgi, uzģenerētais lietotāju kontrolieris sagatavo četrus skatus un četras metodes. \textit{Index} metode un skats izmantota, lai attēlotu visus sistēmā esošos lietotājus, \textit{new} - lai pievienotu jaunu lietotāju, \textit{show} - lai attēlotu visu pieejamo informāciju par vienu lietotāju, \textit{edit} - lai labotu esošu lietotāju.
 
 Norādot kontrolieru ģeneratoram vairākas rīcības, tas ne tikai sagatavos kontrolieri ar metodēm, skatus, bet arī parūpēsies par maršrutu izveidošanu. \textit{Rails} maršrutēšana tiek veikta attiecinot URL uz kodu. Attiecīgi maršruts \textit{/users/new} izmanto tāda paša nosaukuma skatu un to apstrādā izmantojot \textit{users} kontroliera \textit{new} metodi. \textit{Rails} arī piedāvā saīsinātu veidu, kā aprakstīt REST ceļus.
 \begin{lstlisting}
@@ -242,7 +242,7 @@ Piemēram, iespējams atklāt:
 \begin{itemize}
 	\item koda stila kļūdas, kas parasti izveidojas nesekojot vispār pieņemtai konvencijai, tādejādi apgrūtinot koda lasāmību;
 	\item neizmantotu kodu;
-	\item drošības riskus, piemēram, SQL injekcijas iespējas;
+	\item drošības riskus, piemēram, \textit{SQL} injekcijas iespējas;
 \end{itemize}
 Statiska koda analīze spēj atklāt un izvairīties no zināmu sliktu paņēmienu izmantošanas, nodrošinot augstāku koda kvalitāti. Kvalitatīvs kods ir vieglāk lasāms un tādejādi arī vieglāk uzturams un atbalstāms.
 
@@ -261,10 +261,10 @@ Statiska koda analīze spēj atklāt un izvairīties no zināmu sliktu paņēmie
 	notifications:
 	  email: false
 \end{lstlisting}
-Izstrādes \textit{.travis.yml} fails \textit{TravisCI} konfigurēšanai. Šeit tiek norādīta uz kuras Ruby valodas versijas ir jāveic testi un kura ir izvēlētā datubāze. Izstrādes laikā tika izmantota vienkāršā \textit{SQLite} datubāze. \textit{Script} blokā iespējams norādīt izpildāmās komandas. Ikreizi, kad tiks veiks iesūtījums uz \textit{GitHub}, \textit{TravisCI} veiks nepieciešamo Ruby bibliotēku iegūšanu ar \textit{Bundler}, datubāzes migrēšanu, kā arī \textit{RSpec} testu izpildi.
+Izstrādes \textit{.travis.yml} fails \textit{TravisCI} konfigurēšanai. Šeit tiek norādīta uz kuras \textit{Ruby} valodas versijas ir jāveic testi un kura ir izvēlētā datubāze. Izstrādes laikā tika izmantota vienkāršā \textit{SQLite} datubāze. \textit{Script} blokā iespējams norādīt izpildāmās komandas. Ikreizi, kad tiks veiks iesūtījums uz \textit{GitHub}, \textit{TravisCI} veiks nepieciešamo \textit{Ruby} bibliotēku iegūšanu ar \textit{Bundler}, datubāzes migrēšanu, kā arī \textit{RSpec} testu izpildi.
 
 \subsubsection{RSpec}
-\textit{RSpec} ir populārākā Ruby testēšanas bibliotēka. \textit{RSpec} ir BDD testēšanas satvars. \textit{RSpec} izmanto savu DSL, kas līdzinās dabiskas valodas specifikācijai. Lasot \textit{RSpec} testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā \textit{RSpec} cenšas testus padarīt lasāmus un saprotamus. \cite{shayRspec}
+\textit{RSpec} ir populārākā \textit{Ruby} testēšanas bibliotēka. \textit{RSpec} ir BDD testēšanas satvars. \textit{RSpec} izmanto savu DSL, kas līdzinās dabiskas valodas specifikācijai. Lasot \textit{RSpec} testus tiem būtu jāizklausās pēc normāliem teikumiem. Tā \textit{RSpec} cenšas testus padarīt lasāmus un saprotamus. \cite{shayRspec}
 \begin{lstlisting}
 	describe "GET #index" do
     it "returns http success" do
