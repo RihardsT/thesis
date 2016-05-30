@@ -59,9 +59,9 @@ Atkārtoti pieslēdzoties serverim tika veikta \textit{Ruby} programmēšanas va
 	sudo apt-get install -y ruby ruby-dev
 	sudo gem install rack chef --no-document
 \end{lstlisting}
-Parasti \textit{Chef} pats uzstādītu jaunāko atbalstīto \textit{Chef} klientu kad tiktu veikta \textit{knife bootstrap} komanda, izmantojot pieejamos izpildfailus no \url{https://downloads.chef.io/chef-client/}, bet tie nav atbalstīti ARM arhitektūrai. Tāpēc \textit{Chef} klientu nepieciešams uzstādīt iepriekš. \textit{Chef} spēj strādāt uz jebkādas arhitektūras, uz kuras atrodas atbilstoša \textit{Ruby} versija. Tāpēc nepiešamos \textit{Chef} izpildfailus ir iespējams uzstādīt izmantojot RubyGems. Šī konfigurācija nodrošina, ka \textit{RaspberryPi} ir sagatavots, lai tā konfigurāciju turpmāk varētu veikt izmantojot Chef.
+Parasti \textit{Chef} pats uzstādītu jaunāko atbalstīto \textit{Chef} klientu kad tiktu veikta \textit{knife bootstrap} komanda, izmantojot pieejamos izpildfailus no \url{https://downloads.chef.io/chef-client/}, bet tie nav atbalstīti ARM arhitektūrai. Tāpēc \textit{Chef} klientu nepieciešams uzstādīt iepriekš. \textit{Chef} spēj strādāt uz jebkādas arhitektūras, uz kuras atrodas atbilstoša \textit{Ruby} versija. Tāpēc nepiešamos \textit{Chef} izpildfailus ir iespējams uzstādīt izmantojot RubyGems. Šī konfigurācija nodrošina, ka \textit{RaspberryPi} ir sagatavots, lai tā konfigurāciju turpmāk varētu veikt izmantojot \textit{Chef}.
 
-Protams, visa šī konfigurācija varēja tikt aprakstīta ar Chef. Ir iespējams \textit{knife bootstrap} komandu paplašināt, norādot tai skriptu, kas jāizpilda pirms tiek pielāgota nepieciešamā konfigurācija. Skriptā varētu norādīt nepieciešamās komandas \textit{Chef} klienta uzstādīšanai, tādejādi ļaujot automatizēt visu veicamo konfigurāciju, kas veicama pēc \textit{RaspberryPi} ieslēgšanas.
+Protams, visa šī konfigurācija varēja tikt aprakstīta ar \textit{Chef}. Ir iespējams \textit{knife bootstrap} komandu paplašināt, norādot tai skriptu, kas jāizpilda pirms tiek pielāgota nepieciešamā konfigurācija. Skriptā varētu norādīt nepieciešamās komandas \textit{Chef} klienta uzstādīšanai, tādejādi ļaujot automatizēt visu veicamo konfigurāciju, kas veicama pēc \textit{RaspberryPi} ieslēgšanas.
 
 % \textit{Gems} ir \textit{Ruby} bibliotēkas kurām
 
@@ -106,11 +106,11 @@ Chef-solo komandas --override-runlist karogs nodefinē izpildāmās receptes.
 
 \subsubsection{\textit{Hosted Chef}}
 Strādāt bez \textit{Chef} servera nav tik viegli. Ar abiem iepriekšminētajiem variantiem ir problēmas, kuras var rasties un var nebūt nemaz tik viegli atrisināmas.
-Tāpēc darba izstrādes laikā izmantots \textit{Hosted Chef}, kas ir vienkāršākais veids, kā sākt strādāt ar Chef.
+Tāpēc darba izstrādes laikā izmantots \textit{Hosted Chef}, kas ir vienkāršākais veids, kā sākt strādāt ar \textit{Chef}.
 Izveidojot kontu \url{https://manage.chef.io/}, ir iespējams ielogoties grafiskā \textit{Chef} pārvaldības konsolē.
 Pirmais, ko tajā nepieciešams izdarīt ir izveidot jaunu organizāciju. Tad ir iespējams lejuplādēt sākuma paku (angl. \textit{starter kit}), kas ir sagatavots \textit{Chef} repozitorijs ar nepieciešamo \textit{Chef} konfigurāciju. \textit{Chef} servera organizācijās ir arī vairākas noklusējuma grupas (administratori, klienti, lietotāji), kuras tiek izmantotas, lai pārvaldītu izstrādātāju piekļuvi. Kā arī organizācijas satur uzstādītos \textit{Chef} mezglus. \textit{Chef} repozitorijā ir slēptā \textit{.chef} mape, kura satur \textit{knife.rb} datni, kurā ir norādīta \textit{Chef} servera organizācijas adrese.
 
-\section{Servera konfigurēšana ar Chef}
+\section{Servera konfigurēšana ar \textit{Chef}}
 Nepieciešamās konfigurācijas vienkāršošanai, darbā izmantotas vairākas \textit{Chef} kopienas recepšu grāmatas, kas pieejamas \url{https://supermarket.chef.io/}:
 \begin{itemize}
 	\item apt;
@@ -140,7 +140,7 @@ Izstrādātā tīmekļa aplikācija tiek uzstādīta izmantojot šādu recepti:
 \lstinputlisting{code/accesspage.rb}
 Sākumā uz servera tiek izveidots \texttt{/srv/} direktorijs, kurā glabāsies aplikācijas kods. \textit{Git} bloks lejuplādē vai atjauno aplikācijas repozitoriju no pamatzara. \textit{Application} bloks veic nepieciešamo aplikācijas konfigurāciju. Sākumā ieinstalējot nepieciešamās \textit{Ruby} bibliotēkas ar \textit{bundler}, \textit{rails} bloks veic datubāzes uzstādīšanu un migrēšanu. Šeit redzama izstrādes laikā veiktā konfigurācija. Tiek izmantota \textit{SQLite3} datubāze, bet kad sistēma tiks ieviesta, tiks izmantota \textit{PostgreSQL} datubāze. \textit{Unicorn} ir viens no \textit{Rails} aplikāciju serveriem un šeit tas tiek konfigurēts izmantot portu 80, kā arī pēc tam tas tiek palaists.
 
-Pēc šo darbību veikšanas serveris ir gatavs darbam un mājaslapai ir iespējams piekļūt. Lai sistēmu veiksmīgi ieviestu, būs jāiegūst domēna vārds un arī \textit{SSL} sertifikāts no \ref{Attacks} nodaļā apskatītās \textit{Let's Encrypt} sertifikātu autoritātes. Ņemot vērā, ka \textit{Let's Encrypt} piedāvā komandrindas rīku, sertifikātu iegūšanu arī varētu veikt ar Chef. Jāaplūko arī domēna vārda iegūšanas varianti, ideālā gadījumā iegūstot domēna vārdu zem \textit{.venta.lv} domēna.
+Pēc šo darbību veikšanas serveris ir gatavs darbam un mājaslapai ir iespējams piekļūt. Lai sistēmu veiksmīgi ieviestu, būs jāiegūst domēna vārds un arī \textit{SSL} sertifikāts no \ref{Attacks} nodaļā apskatītās \textit{Let's Encrypt} sertifikātu autoritātes. Ņemot vērā, ka \textit{Let's Encrypt} piedāvā komandrindas rīku, sertifikātu iegūšanu arī varētu veikt ar \textit{Chef}. Jāaplūko arī domēna vārda iegūšanas varianti, ideālā gadījumā iegūstot domēna vārdu zem \textit{.venta.lv} domēna.
 % Iespējams izmantot \url{https://www.nic.lv/} sniegto iespēju un reģistrēt vienu otrā līmeņa domēna vārdu (\textit{.id.lv}) par brīvu.
 
 \section{Mājaslapas izstrāde}
@@ -222,6 +222,25 @@ Veicot jebkādas datubāzes struktūras izmaiņas, ģenerējot jaunus modeļus v
 \begin{lstlisting}
 	rake db:migrate
 \end{lstlisting}
+
+\begin{figure}[H]%!ht
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width=1\textwidth]{PageLog.png}
+	\caption{Mājaslapas žurnāla ekrānšāviņš izstrādes laikā}
+	\label{fig:PageLog}
+\end{figure}
+Tā izskatās mājaslapas galvenā funkcija - žurnalēšana, šeit no administratora skata. Iespējams ierobežot redzamo žurnāla ierakstu skaitu. Parādīti lietotāju vārdi, uzvārdi, veiktā darbība (vai durvis tika atvērtas, vai nē), darbības iemesls, durvju atvēršanās un aizvēršanās laiki, \textit{diff} norāda atšķirību starp tiem. Sistēma izveidota tā, lai administrators redzētu visu lietotāju pieejas laikus, bet lietotāji spētu redzēt tikai savu pieejas vēsturi. Redzams, ka izmantotas \textit{Bootstrap} satvara \textit{CSS} klases pogām un tabulai. Bultiņas tabulas augšā norāda, ka ir iespējams kārtot tabulu, kas panākts ar \textit{tablesorter} spraudni.
+
+\begin{figure}[H]%!ht
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width=1\textwidth]{PageUser.png}
+	\caption{Mājaslapas lietotāja sākumlapas ekrānšāviņš izstrādes laikā}
+	\label{fig:PageUser}
+\end{figure}
+Apmēram šādi izskatās mājaslapas sākumlapa no lietotāja skata punkta. Kā redzams, lietotājam ir dotas mazāk saites, nekā lapas administratoram, kā arī parādītais žurnāls attēlo tikai lietotāja pēdējo aktivitāti.
+Kā viena no mazāk svarīgajām prasībām, kas padara mājaslapu jaukāku, ir dienas bildes iespēja (nav attēlota ekrānšāviņā), kura parādās sākumlapā.
 
 \subsubsection{Bootstrap}
 Darbā izmantots Bootstrap \textit{CSS}  satvars (\url{http://getbootstrap.com/}), kas ļauj ātri izveidot pieņemamas, arī mobilām iekārtām piemērotas mājaslapas.
