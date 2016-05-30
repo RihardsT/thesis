@@ -312,22 +312,20 @@ un sistēmas veikto darbību - durvu atvēršanu vai piekļuves liegšanu. Sist�
 Šajā darbā izveidoto pārvaldības mājaslapu ir paredzēts uzstādīt uz
 \textit{RaspberryPi} vienplates datora un pie tā pievienot \textit{RFID}
 karšu lasītāju un kameru. Visu izveidoto sistēmu paredzēts novietot studentu darba telpā.
-Tomēr, servera uzstādīšana ir veikta izmantojot infrastruktūra kā kods rīku \textit{Chef}, kas ļauj mājaslapu ātri un vienkārši uzstādīt uz jebkura servera vai virtuālās mašīnas. Šādā gadījumā jāparūpējas, ka karšu lasītājs sūta datus uz uzstādīto serveri.
-
-Kaut gan izstrādātā pārvaldības mājaslapa spēj apmierināt minimālās tai izteiktās prasības, to vēl būtiski ir iespējams uzlabot. Jāveic ievērojams darbs, lai padarītu to draudzīgāku tās lietotājiem, veicot \textit{CSS} uzlabojumus. Lai nodrošinātu, ka netiekt ieviestas regresijas jāuzraksta visaptverošāki un pilnīgāki testi, gan mājaslapai, gan infrastruktūras kodam.
+Tomēr, servera uzstādīšana ir veikta izmantojot infrastruktūra kā koda rīku \textit{Chef}, kas ļauj mājaslapu ātri un vienkārši uzstādīt uz jebkura servera vai virtuālās mašīnas. Šādā gadījumā jāparūpējas, ka karšu lasītājs sūta datus uz uzstādīto serveri.
 
 Ieviešot šādu sistēmu, tiks būtiski palielināta drošība salīdzinot ar esošo sistēmu, jo jaunā sistēma nodrošina katra elektronikas studentu darba telpas piekļuves mēģinājuma žurnalēšanu. Sistēmai būtu arī jāpalielina elektronikas studentu apmierinātība ar darba telpu, jo piekļuve tai tiktu praktiski nodrošināta jebkurā diennakts laikā. Tiktu uzlabota telpas uzraudzība, kā arī jaunā sistēma ļautu izvairīties no sociālās inženierijas mēģinājumiem.
 
-Veicot izmaiņas piekļuves iegūšanas procesā, to novirzot no iesnieguma iesniegšnas Augstskolas administrācijā uz tā iesniegšanu zinošam elektronikas studentam, kuram ir dotas sistēmas administrēšanas iespēja, varētu būtiski paātrināt piekļūšanu darba telpai. Noteiktajam darba telpas administratoram dodot iespēju izsniegt piekļuves \textit{RFID} kartes, piekļuves gaidīšanas periods varētu samazināties no vienas nedēļas, kā notiek pašreizējā sistēmā, uz piekļuves iegūšanu tajā pašā dienā. Kā arī darba telpas administratoram būtu iespēja liegt nekārtīga studenta piekļuvi telpai, ko pašreizējā sistēma īsti nepieļauj.
+Veicot izmaiņas piekļuves iegūšanas procesā, to novirzot no iesnieguma iesniegšnas Augstskolas administrācijā uz tā iesniegšanu zinošam elektronikas darba telpas administratoram, kuram ir dotas sistēmas administrēšanas iespēja, varētu būtiski paātrināt piekļūšanu darba telpai. Noteiktajam darba telpas administratoram dodot iespēju izsniegt piekļuves \textit{RFID} kartes, piekļuves gaidīšanas periods varētu samazināties no vienas nedēļas, kā notiek pašreizējā sistēmā, uz piekļuves iegūšanu tajā pašā dienā. Kā arī darba telpas administratoram būtu iespēja liegt nekārtīga studenta piekļuvi telpai, ko pašreizējā sistēma īsti nepieļauj.
 
-Darbs ir iesākts izmantojot labus paņēmienus. Pirmkārt, viss kods ir pieejams \textit{GitHub} servisā, otrkārt izmantotās integrācijas nodrošina pastāvīgu koda testēšanu.
+Darbs ir iesākts izmantojot labus paņēmienus. Pirmkārt, viss kods ir pieejams \textit{GitHub} servisā, otrkārt izmantotās integrācijas nodrošina pastāvīgu koda testēšanu:
 \begin{describe}
 	\item Mājaslapas izstrāde -- https://github.com/RihardsT/access_page
 	\item Servera konfigurēšana -- https://github.com/RihardsT/access_page_cookbook
 	\item Teorētiskais apraksts -- https://github.com/RihardsT/thesis
 \end{describe}
 
-Turpmāk varētu uzstādīt arī automātisku mājaslapas un servera atjaunināšanu, kad kods tiktu atjaunināts repozitorija pamatzarā, izmantojot \textit{TravisCI}.
+Kaut gan izstrādātā pārvaldības mājaslapa spēj apmierināt minimālās tai izteiktās prasības, to vēl būtiski ir iespējams uzlabot. Jāveic ievērojams darbs, lai padarītu to draudzīgāku tās lietotājiem, veicot \textit{CSS} uzlabojumus. Lai nodrošinātu, ka netiekt ieviestas regresijas jāuzraksta visaptverošāki un pilnīgāki testi, gan mājaslapai, gan infrastruktūras kodam. Nākotnē varētu uzstādīt arī automātisku mājaslapas un servera atjaunināšanu, kad kods tiktu atjaunināts repozitorija pamatzarā, izmantojot \textit{TravisCI}.
 
 Darbā izvirzītie mērķi un uzdevumi ir sasniegti. Administrēšanas mājaslapa ir izveidota un tā ir viegli uzstādāma uz servera. Sistēmu ieviešot jāparūpējas par \textit{SSL} sertifikātu iegūšanu un uzstādīšanu, \textit{RFID} karšu lasītāja savienošanu ar serveri, kā arī kameras uzstādīšana, lai varētu veikt momentuzņēmumus, durvju atvēršanās laikā.
 Kopumā, darba autors uzskata, ka izstrādātā sistēma būtu pielietojama arī citu telpu piekļuves pārvaldībai, kā lēts un spējīgs risinājums.
