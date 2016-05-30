@@ -3,30 +3,35 @@
 
 % Cilvēki izsenis ir centušies pasargāt savas telpas no svešu cilvēku piekļuves.
 
-Ventspils Augstskolā atrodas studentu telpa, kurā elektronikas studenti var iet un izstrādāt savus projektus un kurā atrodas dažāda, koplietojama elektronikas aparatūra (elektrobarošanas avoti, lodāmuri, u.t.t.). Lai iegūtu piekļuvi studentu telpai, studentam ir jāiziet sarežģīts birokrātisks process - jāiesniedz iesniegums Augstskolas vadībā, kur to apstiprina. Šis process ir lēns un var aizņemt pat nedēļu, kā arī parakstītais iesniegums ir jānodod Augstskolas dežurantēm, kuras studentam tad var izsniegt studentu telpas atslēgu.
-Kad students vēlas iet strādāt studentu telpā, viņam ir jādodas pie dežurantes, jālūdz atslēgas un tad dežurante pieraksta studenta datus kladē. Tā kā atslēga, ko izsniedz studentiem, ir tikai viena, rodas gadījumi, ka uz studentu telpu aiziet vairāki studenti vienlaikus un pēc darba to nodod kāds cits, nevis atslēgas saņēmējs. Tiklīdz viens students ir studentu telpā, citi elektroniķi tajā var uzturēties patvaļīgi, kas būtiski apgrūtina saukšanu pie atbildības, ja viņu radošajā procesā izdodas sabojāt kādu no telpas koplietojamajām ierīcēm. Atbildību nes tas, kas saņēmis telpas atslēgu, bet atslēgas saņēmējs ne vienmēr atrodas telpā, kas apgrūtina saukšanu pie atbildības īsto vaininieku.
-Pašreizējā sistēma ir neatbilstoša studentu vajadzībām, jo studentiem nepieciešama piekļuve telpai jebkurā laikā, ko pašreizējā sistēma formāli pieļauj, bet ko praktiski ir sarežģīti izpildīt. Kā arī šāda arhaiska sistēma pēc būtības ir nedroša, jo cilvēki ir viegli manipulējami un bieži arī neuzmanīgi. Kāds to varētu izmantot, lai nesankcionēti piekļūtu telpai. Dežurantu neuzmanības dēļ, atslēga varētu tikt iedota arī studentam, kuram piekļuve telpai nav dota vai būtu jāatņem.
+Ventspils Augstskolā ir izveidota elektronikas studentu darba telpa, kurā elektronikas studenti var iet un izstrādāt savus projektus. Šajā telpā atrodas koplietojama elektronikas aparatūra (elektrobarošanas avoti, lodāmuri, u.t.t.), darba instrumenti un darba vietas. Lai iegūtu piekļuvi studentu telpai, studentam ir jāiziet laikietilpīgs birokrātisks process -- jāiesniedz iesniegums augstskolas vadībā, kur to apstiprina. Šis process ir lēns un var aizņemt pat nedēļu, pēc kā parakstītais iesniegums ir jānodod augstskolas dežurantēm, kuras studentam tad var izsniegt studentu telpas atslēgu.
 
-Šajā darbā tiks radīta jauna automatizēta sistēma, kas veiks telpā esošo personu identificēšanu un žurnalēšanu, kā arī atrisinātu vairākus drošības caurumus un neērtības. Izstrādātā sistēma ļaus arī daudz labāk menedžēt piekļuvi telpai un būs iespējams arī ierobežot piekļuves laikus individuāliem studentiem.
+Kad students vēlas iet strādāt studentu telpā, viņam ir jādodas pie dežurantes palūgt atslēgas, un dežurante pieraksta studenta datus kladē. Tā kā atslēga, ko izsniedz studentiem, ir tikai vienā eksemplārā, rodas gadījumi, ka studentu telpā uzturas vairāki studenti vienlaikus, bet pēc darba atslēgu nodod kāds cits, nevis atslēgas saņēmējs. Tiklīdz viens elektronikas students ir studentu telpā, citi studenti tajā var uzturēties patvaļīgi, kas būtiski apgrūtina telpas uzraudzību. Ja radošā procesa laikā tiek sabojāta kāda no telpas koplietojamajām ierīcēm, studentam vienmēr būtu jāuzņemas atbildība, tomēr praksē tas dažkārt nenotiek. Atbildību nes tas students, kas saņēmis telpas atslēgu, bet gadās, ka atslēgas saņēmējs esošās sistēmas dēļ ne vienmēr atrodas telpā, kas sarežģī telpas uzraudzību.
+
+Pašreizējā sistēma ir neatbilstoša studentu vajadzībām, arī tāpēc, ka studentiem ir nepieciešama piekļuve telpai jebkurā laikā, ko pašreizējā sistēma formāli pieļauj, bet praktiski ir sarežģīti izpildīt. Turklāt esošā sistēma pēc būtības ir nedroša, jo cilvēki ir viegli manipulējami un bieži arī neuzmanīgi. Kāds to varētu izmantot, lai nesankcionēti piekļūtu telpai, bojātu un/vai iznestu no telpas tajā esošās ierīces. Dežurantu neuzmanības dēļ atslēga varētu tikt iedota arī studentam, kuram piekļuve telpai nav dota vai būtu jāatņem.
+
+Darba mērķis ir paaugstinātas drošības telpu piekļuves sistēmas administratīvās mājaslapas izveide, kā arī tās uzstādīšana automatizētā veidā.
+
+Šī darba ietvaros ir radīta jauna sistēma, kas veiks telpā esošo personu identificēšanu un žurnalēšanu, izmantojot RFID kartes, kā ir atrisinātas vairākas drošības problēmas un neērtības. Izstrādātā sistēma ļautu arī daudz labāk pārvaldīt piekļuvi telpai, kā arī sniegtu iespēju ierobežot piekļuves laikus individuāliem studentiem.
 % Ko vēl automatizēt...
 % Drošība!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Galvenie darba uzdevumi:
 \begin{itemize}
-  \item Izveidot mājaslapu telpas piekļuves administrēšanai, kas ļautu administratoram autorizēt un pārvaldīt studentu piekļuvi telpai. Studenti varētu sekot līdzi savai piekļuves vēsturei un kartes nozaudēšanas gadījumā atsaukt savu piekļuvi telpai.
-  \item Uzstādīt mājaslapu uz RaspberryPi, kas ir ērts un galvenokārt lēts risinājums serverim.
-  \item Uzstādīt RFID karšu lasītāju un savienot to ar serveri, kurš nolasītu studentiem izdalītās RFID kartes un atļautu vai liegtu studentiem piekļuvi telpai.
+  \item Izveidot mājaslapu telpas piekļuves administrēšanai, kas ļautu administratoram autorizēt un pārvaldīt studentu piekļuvi telpai. Studenti varētu sekot līdzi savai piekļuves vēsturei un atsaukt savu piekļuvi telpai, ja gadījies savu \textit{RFID} kartes nozaudēt.
+  \item Uzstādīt mājaslapu uz \textit{RaspberryPi}, kas ir ērts un lēts risinājums serverim, kurš veic vienkāršu uzdevumu.
+  \item Imitēt \textit{RFID} karšu lasītāju un savienot to ar serveri, kurš nolasītu studentiem izdalītās \textit{RFID} kartes un atļautu vai liegtu studentiem piekļuvi telpai.
   % Kartes izdalīs studentiem, karšu tiesības
 \end{itemize}
 
+Darbs strukturēts sešās teorētiskajās daļās un praktiskajā daļā.
 Darbā tiks izmantoti un aprakstīti populāri izstrādes rīki un paņēmieni, kas būtiski atvieglo izstrādi un uzlabo koda kvalitāti.
-Versiju kontrole, testēšana, infrastruktūra kā kods, koda kvalitāte.
-% Rīki kas ļauj abstrahēt ...
+% Versiju kontrole, testēšana, infrastruktūra kā kods, koda kvalitāte.
+% Rīki, kas ļauj abstrahēt ...
 Darba praktiskā daļa sadalīta divos programmēšanas uzdevumos:
-\begin{env}
+\begin{itemize}
   \item Administrēšanas mājaslapas izveide
   \item Infrastruktūras aprakstīšana kodā
-\end{env}
+\end{itemize}
 
 % Kaut gan eksistē daudzi komerciāli risinājumi, ne visi no tiem ir droši.
 
