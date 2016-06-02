@@ -8,12 +8,11 @@ Lai uzinstalētu Docker uz Linux OS:
 Lai uzkompilētu darbu šīs komandas var izpildīt vienā rāvienā, iepriekš nomainot `ABSOLUTE_PATH_TO_TARGET_FOLDER` mainīgo uz absolūto ceļu līdz kompilējamajam darbam:
 ```
 ABSOLUTE_PATH_TO_TARGET_FOLDER='/my/work/is/here'
-sudo docker run --rm -ti -v $ABSOLUTE_PATH_TO_TARGET_FOLDER:/tmp --name tianon-latex tianon/latex
-cd /tmp
-latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make main.tex
-makeindex main.nlo -s nomencl.ist -o main.nls
-rm main.pdf
-latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make main.tex
-exit
-echo $?
+sudo docker run --rm --name tianonlatex -ti -v $ABSOLUTE_PATH_TO_TARGET_FOLDER:/tmp tianon/latex /bin/bash -c 'cd /tmp &&
+latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make main.tex &&
+makeindex main.nlo -s nomencl.ist -o main.nls &&
+rm main.pdf &&
+latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make main.tex &&
+exit &&
+echo $?'
 ```
